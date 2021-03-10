@@ -3,7 +3,7 @@
     <!-- Navigation -->
     <nav class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top">
       <div class="container">
-        <a class="navbar-brand float-left" href="https://www.positronx.io" target="_blank">
+        <a class="navbar-brand float-left" href="/" >
            ESI_PLANNING
         </a>
        
@@ -22,8 +22,8 @@
   </div>
 </template>
 <script>
-import Login from './Login.vue'
-import Signup from './Signup.vue'
+import Login from './components/Login.vue'
+import Signup from './components/Signup.vue'
 export default{
   components: { Login, Signup },
   data(){
