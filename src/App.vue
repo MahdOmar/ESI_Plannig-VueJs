@@ -1,36 +1,31 @@
 <template>
   <div class="vue-tempalte">
-    <!-- Navigation -->
-    <nav class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top">
-      <div class="container">
-        <a class="navbar-brand float-left" href="/" >
-           ESI_PLANNING
-        </a>
-       
-        </ul>
-      </div>
-    </nav>
+   
 
     <!-- Main -->
     <div class="App">
-      <div class="vertical-center">
-        <div class="inner-block">
-         <router-view></router-view>
-        </div>
-      </div>
+     
+         <router-view :user="user"></router-view>
+       
     </div>
   </div>
 </template>
 <script>
 import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
+import Admin_Dashboard from './components/admin_dashboard.vue'
+import axios from './axios'
 export default{
-  components: { Login, Signup },
+  components: { Login, Signup,Admin_Dashboard },
   data(){
     return{
-        msg : 'Omar'
+        user : null
     }
-  }
+  },
+   async created(){
+            const reponse = await axios.get('user');
+        }
+        
 }
 </script>
 

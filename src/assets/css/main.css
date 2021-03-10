@@ -3,7 +3,7 @@
   }
   
   body {
-    background: #2554FF !important;
+   
     min-height: 100vh;
     display: flex;
     font-weight: 400;
@@ -13,10 +13,15 @@
   html,
   .App,
   .vue-tempalte,
+  .vue-tempalte2,
   .vertical-center {
     width: 100%;
     
   }
+  .vue-tempalte2{
+    background: #2554FF !important;
+  }
+
   
   .navbar-light {
     background-color: #ffffff;
@@ -28,6 +33,7 @@
     text-align: left;
     justify-content: center;
     flex-direction: column;    
+    padding-bottom: 100px;
  
   }
   

@@ -1,5 +1,25 @@
 <template>
+
     <div class="vue-tempalte">
+        <div class="vue-tempalte2">
+             <!-- Navigation -->
+    <nav class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top">
+      <div class="container">
+        <a class="navbar-brand float-left" href="/" >
+           ESI_PLANNING
+        </a>
+       
+         <ul class="nav navbar-nav flex-row float-right">
+         
+          <li class="nav-item">
+            <router-link class="btn btn-outline-primary" to="/">Sign in</router-link>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+         <div class="vertical-center">
+        <div class="inner-block">
         <form @submit.prevent="register">
             <h3>Sign Up</h3>
 
@@ -52,6 +72,10 @@
          
 
         </form>
+        </div>
+         </div>
+        </div>
+         
     </div>
 </template>
 
