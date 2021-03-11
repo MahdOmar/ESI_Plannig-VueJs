@@ -73,6 +73,7 @@
                const response = await axios.post('login',data);
 
                localStorage.setItem('token',response.data.token);
+               this.$router.push("/dashboard/welcome");
 
 
             }
