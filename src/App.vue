@@ -21,6 +21,8 @@ import Manual from './components/manual_generation.vue'
 import Plannings from './components/plannings.vue'
 import G_Planning from './components/general_planning.vue'
 import Profile from './components/profile.vue'
+import All_Plannings from './components/all_plannings.vue'
+import WishForm from './components/wish_form.vue'
 
 
 
@@ -28,7 +30,7 @@ import Profile from './components/profile.vue'
 import axios from './axios'
 export default{
   components: { Login, Signup,Admin_Dashboard,Welcome,Users,Entities,Manual,Plannings,G_Planning
-  ,Profile },
+  ,Profile,All_Plannings,WishForm },
   data(){
     return{
         user : null

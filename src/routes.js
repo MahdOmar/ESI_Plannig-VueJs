@@ -8,6 +8,8 @@ import Manual from './components/manual_generation.vue'
 import Plannings from './components/plannings.vue'
 import G_Planning from './components/general_planning.vue'
 import Profile from './components/profile.vue'
+import All_Plannings from './components/all_plannings.vue'
+import WishForm from './components/wish_form.vue'
 
 export default [
     {path:'/'  , component:Login },
@@ -19,7 +21,9 @@ export default [
         {path:'manual'  , component:Manual },
         {path:'plannings'  , component:Plannings },
         {path:'g_planning'  , component:G_Planning },
-        {path:'profile'  , component:Profile }
+        {path:'all_planning'  , component:All_Plannings },
+        {path:'profile'  , component:Profile },
+        {path:'wish_form'  , component:WishForm }
 
 
 

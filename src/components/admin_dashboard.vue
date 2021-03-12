@@ -32,7 +32,9 @@
               <li><router-link to="/dashboard/manual"> Manual Genenration</router-link></li>
               <li><router-link to="/dashboard/plannings"> Plannings</router-link></li>
               <li><router-link to="/dashboard/g_planning">General Planning</router-link></li>
+              <li><router-link to="/dashboard/all_planning">All Planning</router-link></li>
               <li><router-link to="/dashboard/profile">Profile</router-link></li>
+               <li><router-link to="/dashboard/wish_form">Wish form</router-link></li>
 
 
              

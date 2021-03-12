@@ -53,5 +53,62 @@
 
             </tbody>
         </table>
+        <div class="modal fade" id="add">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Create new account</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="firstNameInput">First Name</label>
+                        <input name="firstName" type="text" class="form-control" id="firstName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastNameInput">Last Name</label>
+                        <input name="lastName" type="text" class="form-control" id="lastName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailInput">Email address</label>
+                        <input name="email" type="email" class="form-control" id="email" placeholder="Enter email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="passwordInput">Password</label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPasswordInput">Confirm Password</label>
+                        <input name="confirmPassword" type="password" class="form-control" id="confirmPassword"
+                               placeholder="Re-enter your password here">
+                    </div>
+
+
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onclick="create()" >Create</button>
+            </div>
+
+        </div>
     </div>
+</div>
+
+
+
+
+    </div>
+    
 </template>

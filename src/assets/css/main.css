@@ -686,3 +686,7 @@ li.activeclass {
 .home_header_title ._title {
     padding: 0 0 13px;
 }
+
+.router-link-exact-active {
+    background-color: #0266ed;
+}
