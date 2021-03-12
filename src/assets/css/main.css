@@ -485,6 +485,21 @@ textarea {
     top: 0px;
     left: 0px;
 }
+
+.slider{
+    padding-left: 0px;
+}
+
+.main{
+      position: absolute;
+    width: 100%;
+    z-index: 1;
+    padding-left: 260px;
+    top: 120px;
+    
+}
+
+
 ._2menu {
     display: flex;
     align-items: center;

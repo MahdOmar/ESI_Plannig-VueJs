@@ -26,11 +26,11 @@
              
 
 
-               <li><router-link to="/dashboard/welcome"><Icon type="ios-speedometer" /> Dashboard</router-link></li>
-              <li><router-link to="category"><Icon type="ios-speedometer" /> Category</router-link></li>
-              <li><router-link to="adminusers"><Icon type="ios-speedometer" /> Admin users</router-link></li>
-              <li><router-link to="role"><Icon type="ios-speedometer" /> Role Management</router-link></li>
-              <li><router-link to="assignRole"><Icon type="ios-speedometer" /> Assign role</router-link></li>
+               <li><router-link to="/dashboard/welcome"> Dashboard</router-link></li>
+              <li><router-link to="/dashboard/users"> Users</router-link></li>
+              <li><router-link to="/dashboard/entities"> Entities</router-link></li>
+              <li><router-link to="role"> Role Management</router-link></li>
+              <li><router-link to="assignRole"> Assign role</router-link></li>
 
 
              
@@ -47,7 +47,7 @@
           <div class="_2menu_logo ">
             <ul class="open_button">
              
-               <li><i class="fas fa-bars pl-3"></i></li>
+               <li><i class="fas fa-bars pl-1"></i></li>
      
              
             </ul>
@@ -69,7 +69,9 @@
       </div>
       <!--========= HEADER ==========-->
     </div>
+    <div class="main">
     	<router-view/>
+      </div>
     </div>
 </template>
  <script>

@@ -1,6 +1,19 @@
 $(function(){
     $(".fa-bars").on("click",function(){
-        $("._1side_menu").toggle();
+        if($("._1side_menu").hasClass('hidden')){
+            $(".hidden").toggle();
+            $(".hidden").removeClass("hidden");
+            $(".header").removeClass("slider");
+        }
+        else{
+            $("._1side_menu").toggle();
+            $("._1side_menu").addClass("hidden");
+            $(".header").addClass("slider");
+        }
+       
+       
+
+
 
     })
 

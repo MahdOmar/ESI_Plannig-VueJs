@@ -6,6 +6,8 @@ import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
 import Admin_Dashboard from './components/admin_dashboard.vue'
 import Welcome from './components/welcome.vue'
+import Users from './components/users.vue'
+import Entities from './components/entities.vue'
 import './assets/css/main.css'
 
 import VueRouter from 'vue-router'
@@ -18,6 +20,8 @@ import './axios'
 Vue.component('login',Login);
 Vue.component('signup',Signup);
 Vue.component('welcome',Welcome);
+Vue.component('users',Users);
+Vue.component('entities',Entities);
 Vue.component('admin_dashboard',Admin_Dashboard);
 
 Vue.use(VueRouter);

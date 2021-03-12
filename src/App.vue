@@ -15,9 +15,11 @@ import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
 import Admin_Dashboard from './components/admin_dashboard.vue'
 import Welcome from './components/welcome.vue'
+import Users from './components/users.vue'
+import Entities from './components/entities.vue'
 import axios from './axios'
 export default{
-  components: { Login, Signup,Admin_Dashboard,Welcome },
+  components: { Login, Signup,Admin_Dashboard,Welcome,Users,Entities },
   data(){
     return{
         user : null
