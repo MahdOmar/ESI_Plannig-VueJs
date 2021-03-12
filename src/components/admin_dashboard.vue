@@ -9,7 +9,7 @@
       <!--========== ADMIN SIDE MENU one ========-->
       <div class="_1side_menu" >
         <div class="_1side_menu_logo">
-          <h3 style="text-align:center;">ESI_Planning</h3>
+          <h3 style="text-align:center; color:white">ESI_Planning</h3>
           <!--<img src="/img/logo.jpg" style="width: 108px;margin-left: 68px;"/>-->
         </div>
 
@@ -49,9 +49,10 @@
       <div class="header d-flex  ">
         <div class="_2menu _box_shadow ">
           <div class="_2menu_logo ">
-            <ul class="open_button">
+            <ul class="open_button d-flex">
              
-               <li><i class="fas fa-bars pl-1"></i></li>
+               <li><i class="fas fa-bars pl-1 " style="color:white"></i></li>
+              
      
              
             </ul>
@@ -61,7 +62,7 @@
         </div>
 
         <div class="right-settings">
-           <ul class=" bg-white">
+           <ul >
                  <li><a href="/logout"> Logout</a></li>
             
             </ul>

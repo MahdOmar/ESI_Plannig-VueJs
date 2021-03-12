@@ -388,16 +388,17 @@ textarea {
 ._1side_menu_content::-webkit-scrollbar-thumb {
   background-color:  #2d8cf0;
   outline: 1px solid #fff; 
+  color: #fff;
 }
 ._1side_menu {
     width: 248px;
     position: fixed;
     left: 0;
     top: 0;
-    background: #fff;
+    background: #001a33;
     height: 100vh;
     overflow: hidden;
-    color: #000;
+    color: #fff;
     display: flex;
     flex-direction: column;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -408,6 +409,7 @@ textarea {
     border-bottom: 1px solid #f4f4f5;
     height: 56px;
     padding-top: 18px;
+    color: #fff;
 }
 ._1side_menu_content {
     /*height: -moz-calc(100% - (20px + 30px));*/
@@ -431,7 +433,7 @@ textarea {
     text-align: center;
     font-size: 19px;
     margin: 15px 0 2px;
-    color: #111113;
+    color: #fff;
 }
 ._1side_menu_list {
     margin-top: 22px;
@@ -446,7 +448,7 @@ textarea {
     color: #dcdcdc;
 }
 ._1side_menu_list_ul li a {
-    color: #000000 !important;
+    color: #fff !important;
     display: flex;
     font-size: 14px;
     cursor: pointer;
@@ -484,6 +486,7 @@ textarea {
     padding-left: 248px;
     top: 0px;
     left: 0px;
+   
 }
 
 
@@ -509,7 +512,7 @@ textarea {
     z-index: 11111;
     top: 0px;
     left: 0px;
-    background: #fff;
+    background: #001a33;
     padding: 0 15px 0 2px;
 }
 ._2menu_logo {
@@ -521,7 +524,7 @@ textarea {
 .right-settings{
     padding: 0 15px 0 2px;
     height: 55px;
-    background: #ffffff;
+    background: #001a33;
     z-index: 11111;
    
 }
@@ -530,6 +533,7 @@ textarea {
     padding-top: 15px;
     padding-right: 20px;
     list-style: none;
+    background: #001a33;
 }
 
 
@@ -689,4 +693,5 @@ li.activeclass {
 
 .router-link-exact-active {
     background-color: #0266ed;
+    
 }
