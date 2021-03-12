@@ -8,6 +8,10 @@ import Admin_Dashboard from './components/admin_dashboard.vue'
 import Welcome from './components/welcome.vue'
 import Users from './components/users.vue'
 import Entities from './components/entities.vue'
+import Manual from './components/manual_generation.vue'
+import Plannings from './components/plannings.vue'
+import G_Planning from './components/general_planning.vue'
+import Profile from './components/profile.vue'
 import './assets/css/main.css'
 
 import VueRouter from 'vue-router'
@@ -22,6 +26,11 @@ Vue.component('signup',Signup);
 Vue.component('welcome',Welcome);
 Vue.component('users',Users);
 Vue.component('entities',Entities);
+Vue.component('manual',Manual);
+Vue.component('plannings',Plannings);
+Vue.component('g_planning',G_Planning);
+Vue.component('profile',Profile);
+
 Vue.component('admin_dashboard',Admin_Dashboard);
 
 Vue.use(VueRouter);

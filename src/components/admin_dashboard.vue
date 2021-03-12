@@ -29,8 +29,10 @@
                <li><router-link to="/dashboard/welcome"> Dashboard</router-link></li>
               <li><router-link to="/dashboard/users"> Users</router-link></li>
               <li><router-link to="/dashboard/entities"> Entities</router-link></li>
-              <li><router-link to="role"> Role Management</router-link></li>
-              <li><router-link to="assignRole"> Assign role</router-link></li>
+              <li><router-link to="/dashboard/manual"> Manual Genenration</router-link></li>
+              <li><router-link to="/dashboard/plannings"> Plannings</router-link></li>
+              <li><router-link to="/dashboard/g_planning">General Planning</router-link></li>
+              <li><router-link to="/dashboard/profile">Profile</router-link></li>
 
 
              

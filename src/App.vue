@@ -17,9 +17,18 @@ import Admin_Dashboard from './components/admin_dashboard.vue'
 import Welcome from './components/welcome.vue'
 import Users from './components/users.vue'
 import Entities from './components/entities.vue'
+import Manual from './components/manual_generation.vue'
+import Plannings from './components/plannings.vue'
+import G_Planning from './components/general_planning.vue'
+import Profile from './components/profile.vue'
+
+
+
+
 import axios from './axios'
 export default{
-  components: { Login, Signup,Admin_Dashboard,Welcome,Users,Entities },
+  components: { Login, Signup,Admin_Dashboard,Welcome,Users,Entities,Manual,Plannings,G_Planning
+  ,Profile },
   data(){
     return{
         user : null
