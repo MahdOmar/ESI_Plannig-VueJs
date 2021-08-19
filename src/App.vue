@@ -5,11 +5,12 @@
     <!-- Main -->
     <div class="App">
      
-         <router-view :user="user"></router-view>
+         <router-view ></router-view>
        
     </div>
   </div>
 </template>
+
 <script>
 import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
@@ -27,19 +28,21 @@ import WishForm from './components/wish_form.vue'
 
 
 
+
 import axios from './axios'
 export default{
   components: { Login, Signup,Admin_Dashboard,Welcome,Users,Entities,Manual,Plannings,G_Planning
   ,Profile,All_Plannings,WishForm },
-  data(){
+ /* data(){
     return{
         user : null
     }
   },
    async created(){
             const reponse = await axios.get('user');
+            this.user = reponse.data;
         }
-        
+        */
 }
 </script>
 

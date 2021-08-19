@@ -3,40 +3,48 @@
     <div class="vue-tempalte">
         <div class="vue-tempalte2">
              <!-- Navigation -->
-    <nav class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top">
+    <nav class="navbar shadow  rounded justify-content-between flex-nowrap flex-row fixed-top">
       <div class="container">
-        <a class="navbar-brand float-left" href="/" >
+        <a class="navbar-brand  float-left" href="/" >
            ESI_PLANNING
         </a>
        <ul class="nav navbar-nav flex-row float-right">
-         
+        <img class="rounded-circle" src="../assets/img/logo.png" style="height=30px; align-self: center;">
           <li class="nav-item">
-            <router-link class="btn btn-outline-primary" to="/dashboard/signup">Sign up</router-link>
+          
           </li>
         </ul>
       </div>
     </nav>
      <div class="vertical-center">
         <div class="inner-block">
-        <form @submit.prevent="login">
+        <form @submit.prevent="handleLogin">
             <h3>Sign In</h3>
 
             <div class="form-group">
-                <label>Email </label>
-                <input type="email" v-model="email" class="form-control form-control-lg" />
-            </div>
+                <label>Username </label>
+                <input type="text" v-model="user.username"  v-validate="'required'" class="form-control form-control-lg" />
+              
+        </div>
+            
 
             <div class="form-group">
                 <label>Mot de pass</label>
-                <input type="password" v-model="password" class="form-control form-control-lg" />
+                <input type="password" v-model="user.password"  v-validate="'required'" class="form-control form-control-lg" />
+               
             </div>
            
 
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
+            <button type="submit" class="btn btn-dark btn-lg btn-block" :disabled="loading">
+                 <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+            <span>Sign In</span></button>
 
             <p class="forgot-password text-right mt-2 mb-4">
                 <a href="/forgot-password">Forgot password ?</a>
             </p>
+            <div class="form-group">
+          <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
+        </div>
 
          
 
@@ -49,22 +57,101 @@
 
 <script>
 
-    import axios from 'axios'
+import User from '../models/user';
+
+export default {
+  name: 'Login',
+  data() {
+    return {
+      user: new User('', ''),
+      loading: false,
+      message: ''
+    };
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push('/admin_dashboard');
+    }
+  },
+  methods: {
+    handleLogin() {
+      this.loading = true;
+      this.$validator.validateAll().then(isValid => {
+        if (!isValid) {
+          this.loading = false;
+          return;
+        }
+
+        if (this.user.username && this.user.password) {
+          this.$store.dispatch('auth/login', this.user).then(
+            () => {
+              this.$router.push('/dashboard/users');
+            },
+            error => {
+              this.loading = false;
+              this.message =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+            }
+          );
+        }
+      });
+    }
+  }
+};
 
 
-    export default {
-        data() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   // import axios from 'axios'
+   
+  // import reactive from 'vue'
+
+   // export default {
+     
+       
+     /*   data() {
             return {
-                email :'',
+                username :'',
                 password:''
             }
         },
 
         methods:{
-           async login(){
+          async login(){
                const data = {
                    
-                    email:this.email,
+                    username:this.username,
 
                     password:this.password,
 
@@ -73,10 +160,12 @@
                const response = await axios.post('login',data);
 
                localStorage.setItem('token',response.data.token);
-               this.$router.push("/dashboard/welcome");
+               console.log(response.data.user);
+               this.$router.push("/dashboard/users");
 
 
             }
-        }
-    }
+        }*/
+  //  }
+
 </script>

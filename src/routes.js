@@ -10,6 +10,7 @@ import G_Planning from './components/general_planning.vue'
 import Profile from './components/profile.vue'
 import All_Plannings from './components/all_plannings.vue'
 import WishForm from './components/wish_form.vue'
+import Planning_view from './components/Planning_view.vue'
 
 export default [
     {path:'/'  , component:Login },
@@ -28,5 +29,6 @@ export default [
 
 
     ] },
+    {path:'/planning_view'  , component:Planning_view }
     
 ]

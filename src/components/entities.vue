@@ -2,71 +2,41 @@
     
 <div class="container-fluid bg-custom" style="padding-left: 40px; ">
   <div class="jumbotron p-2 bg-custom">
-    <h1>Entities Manager</h1>
-    <p>Here you can add,edit and delete planning components</p>
+    <h1>Gestion des Modules</h1>
+    <p>Ici, vous pouvez ajouter, modifier et supprimer les modules</p>
   </div>
   <div class="row">
     <div class="col-md-3 p-2 shadow text-center">
-     <table class="table text-center">
+     <table class="table table-bordered table-hover text-center">
          <thead>
-         <tr><th class="bg-primary text-white font-weight-bold">Groups</th></tr>
+         <tr><th class="bg-primary text-white font-weight-bold">Années</th></tr>
          </thead>
          <tbody id="groups">
       
              <tr>
-                 <td class="text-center"> <button class="btn btn-sm btn-light text-primary bg-white" onclick="show_group(<%= groups[i].id %>)">
-                 
-                     </button>  </td>
-             </tr>
+                 <td class="text-center" data-toggle="modal" data-target="#add_entity" >   1er année </td> </tr>
+                 <tr> <td class="text-center" >   2eme année </td> </tr>
+                   <tr> <td class="text-center" >   3eme année </td></tr>
+                   <tr>  <td class="text-center" >   4eme année </td></tr>
+                
+            
          
 
 
          </tbody>
      </table>
-        <button class="btn btn-primary btn-sm text-center text-white" data-toggle="modal" data-target="#add_group" >Add group</button>
+     
 
     </div>
       <div id="view" class="col-md-8 shadow p-1 m-4">
           <div class="container-fluid text-center " style="height: 400px ;display: flex;justify-content: center;align-items: center;">
-              <h3 class="text-primary">Select a group to see entities</h3>
+              <h3 class="text-primary">Selectionner une anée pour voir les modules</h3>
           </div>
       </div>
   </div>
 
 
-  <div class="modal fade" id="add_group">
-  <div class="modal-dialog modal-md">
-      <div class="modal-content">
 
-          <!-- Modal Header -->
-          <div class="modal-header">
-              <h5 class="modal-title">Create new group</h5>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-              <form method="POST" action="">
-                
-                  <div class="form-group">
-                      <label for="group_name">Group Name</label>
-                      <input name="group_name" type="text" class="form-control" id="group_name" required>
-                  </div>
-            <h6 id="group_error" class="text-danger d-none">you need to feel out all fields</h6>
-             
-              <!-- Modal footer -->
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary"  onclick="create_group()">Create</button>
-          </div>
-           </form> 
-          </div>
-
-         
-
-      </div>
-  </div>
-</div>
 <div class="modal fade" id="add_entity">
   <div class="modal-dialog modal-md">
       <div class="modal-content">

@@ -1,13 +1,13 @@
 <template>
     <div>
-        <button type="button" title="Edit account" data-toggle="modal" data-target="#add" style="float: right" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i>Add new </button>
+        <button type="button" title="Edit account" data-toggle="modal" data-target="#add" style="float: right" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i>Ajouter Enseignant </button>
 
-          <table class="table table-striped">
+          <table class="table bg-white">
             <thead class="">
             <tr>
-                <th scope="col" class="text-primary">Picture</th>
-                <th scope="col" class="text-primary">First name</th>
-                <th scope="col" class="text-primary">Last name</th>
+                <th scope="col" class="text-primary">Photo</th>
+                <th scope="col" class="text-primary">Nom</th>
+                <th scope="col" class="text-primary">Prénom</th>
                 <th scope="col" class="text-primary">Email</th>
                 <th scope="col" class="text-primary">Actions</th>
             </tr>
@@ -22,12 +22,12 @@
   height: 50px;
   border-radius: 50%;' alt="image">
                     </td>
-                    <td>  </td>
-                    <td></td>
-                    <td> </td>
+                    <td>  Mahdaoui</td>
+                    <td>Omar</td>
+                    <td>o.mahdaoui@esi-sba.dz </td>
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</button>
-                        <button type="button" title="Delete account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-trash"></i>Delete</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
                     </td>
                 </tr>
                  <tr>
@@ -36,12 +36,12 @@
   height: 50px;
   border-radius: 50%;' alt="image">
                     </td>
-                    <td>  </td>
-                    <td></td>
-                    <td> </td>
+                    <td> Riyadh</td>
+                    <td>Herizi</td>
+                    <td>r.herizi@esi-sba.dz </td>
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</button>
-                        <button type="button" title="Delete account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-trash"></i>Delete</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
                     </td>
                 </tr>
 
@@ -59,7 +59,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title">Create new account</h5>
+                <h5 class="modal-title">Créer un nouveau compte</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -67,29 +67,39 @@
             <div class="modal-body">
                 <form method="POST" action="">
                     <div class="form-group">
-                        <label for="firstNameInput">First Name</label>
+                        <label for="firstNameInput">Nom</label>
                         <input name="firstName" type="text" class="form-control" id="firstName" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="lastNameInput">Last Name</label>
+                        <label for="lastNameInput">Prénom</label>
                         <input name="lastName" type="text" class="form-control" id="lastName" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="emailInput">Email address</label>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="Enter email" required>
+                        <label for="emailInput">Email </label>
+                        <input name="email" type="email" class="form-control" id="email" placeholder="" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="passwordInput">Password</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                        <label for="type">Selectioner Type</label>
+                       <select class="form-control" id="sel1">
+                          <option>Maitre de conférence A</option>
+                          <option>Maitre de conférence B</option>
+                          <option>Professeur</option>
+                        
+                      </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="confirmPasswordInput">Confirm Password</label>
+                        <label for="passwordInput">Mot de Pass</label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPasswordInput">Confirmer Mot de Pass</label>
                         <input name="confirmPassword" type="password" class="form-control" id="confirmPassword"
-                               placeholder="Re-enter your password here">
+                               placeholder="">
                     </div>
 
 
@@ -98,8 +108,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" onclick="create()" >Create</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary" onclick="create()" >Créer</button>
             </div>
 
         </div>

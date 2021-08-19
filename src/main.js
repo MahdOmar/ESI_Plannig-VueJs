@@ -14,7 +14,11 @@ import G_Planning from './components/general_planning.vue'
 import Profile from './components/profile.vue'
 import WishForm from './components/wish_form.vue'
 import All_Plannings from './components/all_plannings.vue'
+import babelPolyfill from 'babel-polyfill'
+import store from './store';
+import VeeValidate from 'vee-validate';
 import './assets/css/main.css'
+
 
 import VueRouter from 'vue-router'
 import Routes from './routes.js'
@@ -34,9 +38,11 @@ Vue.component('g_planning',G_Planning);
 Vue.component('profile',Profile);
 Vue.component('wish_form',WishForm);
 Vue.component('all_plannings',All_Plannings);
+
 Vue.component('admin_dashboard',Admin_Dashboard);
 
 Vue.use(VueRouter);
+Vue.use(VeeValidate);
 const router = new VueRouter({
 
   routes: Routes,
@@ -49,7 +55,8 @@ new Vue({
   
   el: '#app',
   render: h => h(App),
-  router: router
+  router: router,
+  store
 })
 
 
