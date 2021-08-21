@@ -36,7 +36,7 @@ const mutations = {
 
     [types.FETCH_USER_SUCCESS](state ,{user}){
         state.user = user,
-        Cookies.set("data",state.user.username);
+     
         state.isLogged = true
 
     },
@@ -95,6 +95,10 @@ const actions ={
            commit(types.FETCH_USER_FAILURE)
 
         }
+    },
+    
+    logout({commit}){
+        commit (types.LOGOUT)
     }
 
 }

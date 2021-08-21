@@ -4,6 +4,8 @@
   <div class="jumbotron p-2 bg-custom">
     <h1>Gestion des Modules</h1>
     <p>Ici, vous pouvez ajouter, modifier et supprimer les modules</p>
+    	
+    
   </div>
   <div class="row">
     <div class="col-md-3 p-2 shadow text-center">
@@ -14,7 +16,7 @@
          <tbody id="groups">
       
              <tr v-for="year in years" :key="year.id"> 
-                 <td class="text-center"  >  {{ year.name }} </td> </tr>
+                 <td @click="getYearId(year);getsemesters()"> <a  class="text-center" data-target="#semesters" data-toggle="modal"> {{ year.name }}</a>   </td> </tr>
                  
                  
                 
@@ -28,8 +30,10 @@
 
     </div>
       <div id="view" class="col-md-8 shadow p-1 m-4">
-          <div class="container-fluid text-center " style="height: 400px ;display: flex;justify-content: center;align-items: center;">
-              <h3 class="text-primary">Selectionner une anée pour voir les modules</h3>
+          <div class="container-fluid text-center " style="height: 400px  ">
+
+             
+              <router-view/>
           </div>
       </div>
   </div>
@@ -48,20 +52,33 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-              <form method="POST" action="">
+              <form @submit.prevent="addModule">
+
                   <div class="form-group">
-                      <label for="group_name">Entity Name</label>
-                      <input name="entity_name" type="text" class="form-control" id="entity_name" required>
+                      <label for="name">Nom du Module</label>
+                      <input name="name" type="text" class="form-control" id="name" required>
                   </div>
                   <div class="form-group">
-                      <label for="group_name">Complexity</label>
-                      <input name="complexity" type="number" class="form-control" id="complexity" required>
+                      <label for="coef">Coeffition</label>
+                      <input name="coef" type="number" class="form-control" id="coef" required>
                   </div>
+                  <div class="form-group">
+                      <label for="group_name">Examen Heure</label>
+                      <input name="complexity" type="number" class="form-control" id="complexity" max="4" required>
+                  </div>
+
+                   <div class="form-group">
+                      <label for="group_name">Examen Minute</label>
+                      <input name="complexity" type="number" class="form-control" id="complexity" max="59" required>
+                  </div>
+
+
+
                   <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onclick="create_entity(current_group)" >Create</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary"  >Créer</button>
           </div>
-                      <h6 id="entity_error" class="text-danger d-none">you need to feel out all fields</h6>
+                     
 
               </form>
           </div>
@@ -191,6 +208,56 @@
     </div>
 </div>
 
+<!--         Semester modal              -->
+
+
+<div class="modal fade" id="semesters">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Semester</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="model_body"></div>
+              
+
+
+
+               <br> <div >
+                    <form @submit.prevent="getModules">
+                        <div class="form-group">
+                            <label for="select">Selectioner Semester </label>
+                            <select class="custom-select" name="semester" id="select_emp">
+                                <option v-for="semester in semesters" :key="semester.id" :value="semester.id" > {{ semester.name }}</option>
+                            
+                              
+                            </select>
+                        </div>
+                         <button class="btn btn-primary btn-sm text-center text-white m-2" type="submit">Confirmer</button>
+                         <button class="btn btn-primary btn-sm text-center text-white m-2" data-dismiss="modal" >Anuller</button>
+                    </form>
+                   
+                </div>
+
+            </div>
+
+            <!-- Modal footer -->
+         
+
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
 
 
 
@@ -210,7 +277,10 @@ export default  {
     data(){
 
         return{
-            years : []
+            years : [],
+            semesters:[],
+            yearId:null
+
         };
     },
     methods: {
@@ -239,14 +309,94 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
     });
      
 
+        },
+
+        getsemesters(){
+
+            const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+axios.post(API_URL + 'admin/getsemesters', { yearid:this.yearId} ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      this.semesters = res.data;
+      console.log(this.semesters)
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+     
 
 
 
-        }
+
+        },
+
+
+        getmodules(){
+
+            const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+axios.post(API_URL + 'admin/getsemesters', { yearid:this.yearId} ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      this.semesters = res.data;
+      console.log(this.semesters)
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+     
+
+
+
+
+        },
+
+
+
+
+
+
+
+
+
+        getYearId(year){
+        this.yearId = year.id
+       
+
+    },
 
 
 
     },
+
+    
+
+
+
+
     created() {
       this.getyears();
     },

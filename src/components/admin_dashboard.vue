@@ -97,8 +97,9 @@
                  <a href="#drop2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-white"> {{ user.username }} </a>
                    <ul class="collapse list-unstyled" id="drop2">
                   
+                  
                     
-                         <li><router-link to="/lougout">Logout</router-link></li>
+                         <li ><a @click="logout">Logout</a></li>
                     
                    
                 </ul>
@@ -132,7 +133,21 @@ import {mapGetters} from 'vuex'
         
         computed: mapGetters({
           user:'auth/user'
-        })
+        }),
+
+        methods :{
+          logout(){
+
+            this.$store.dispatch('auth/logout');
+             this.$router.push( '/' ) 
+
+
+
+          }
+
+
+
+        }
       
 
 

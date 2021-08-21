@@ -14,6 +14,7 @@ import G_Planning from './components/general_planning.vue'
 import Profile from './components/profile.vue'
 import WishForm from './components/wish_form.vue'
 import All_Plannings from './components/all_plannings.vue'
+import Modules from './components/modules.vue'
 import babelPolyfill from 'babel-polyfill'
 import store from './store/index.js'
 import VeeValidate from 'vee-validate';
@@ -40,6 +41,7 @@ Vue.component('g_planning',G_Planning);
 Vue.component('profile',Profile);
 Vue.component('wish_form',WishForm);
 Vue.component('all_plannings',All_Plannings);
+Vue.component('modules', Modules);
 
 Vue.component('admin_dashboard',Admin_Dashboard);
 Vue.config.productionTip = false;
