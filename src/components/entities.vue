@@ -13,11 +13,10 @@
          </thead>
          <tbody id="groups">
       
-             <tr>
-                 <td class="text-center" data-toggle="modal" data-target="#add_entity" >   1er année </td> </tr>
-                 <tr> <td class="text-center" >   2eme année </td> </tr>
-                   <tr> <td class="text-center" >   3eme année </td></tr>
-                   <tr>  <td class="text-center" >   4eme année </td></tr>
+             <tr v-for="year in years" :key="year.id"> 
+                 <td class="text-center"  >  {{ year.name }} </td> </tr>
+                 
+                 
                 
             
          
@@ -199,3 +198,61 @@
 
 
 </template>
+
+<script>
+import axios from 'axios'
+import {mapGetters} from 'vuex'
+export default  {
+    computed: mapGetters({
+         token:'auth/token'
+        }),
+
+    data(){
+
+        return{
+            years : []
+        };
+    },
+    methods: {
+        getyears(){
+
+            const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      this.years = res.data;
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+     
+
+
+
+
+        }
+
+
+
+    },
+    created() {
+      this.getyears();
+    },
+}
+
+
+
+
+</script>

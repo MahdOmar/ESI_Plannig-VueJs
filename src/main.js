@@ -15,13 +15,15 @@ import Profile from './components/profile.vue'
 import WishForm from './components/wish_form.vue'
 import All_Plannings from './components/all_plannings.vue'
 import babelPolyfill from 'babel-polyfill'
-import store from './store';
+import store from './store/index.js'
 import VeeValidate from 'vee-validate';
 import './assets/css/main.css'
-
-
 import VueRouter from 'vue-router'
-import Routes from './routes.js'
+import router from './routes.js'
+
+
+
+import Routes from './router/index.js';
 
 import './axios'
 
@@ -40,23 +42,29 @@ Vue.component('wish_form',WishForm);
 Vue.component('all_plannings',All_Plannings);
 
 Vue.component('admin_dashboard',Admin_Dashboard);
-
+Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(VeeValidate);
-const router = new VueRouter({
+
+
+/*export const router = new VueRouter({
 
   routes: Routes,
   mode: 'history'
 
-});
+});*/
 
 
 new Vue({
   
   el: '#app',
+  router,
+
+  store,
   render: h => h(App),
-  router: router,
-  store
+  
+ 
+  
 })
 
 

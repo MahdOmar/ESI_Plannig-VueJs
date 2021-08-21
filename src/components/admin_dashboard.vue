@@ -14,26 +14,28 @@
         </div>
 
         <!--~~~~~~~~ MENU CONTENT ~~~~~~~~-->
-        <div class="_1side_menu_content">
+        <div  class="_1side_menu_content">
           <div class="_1side_menu_img_name">
             <!-- <img class="_1side_menu_img" src="/pic.png" alt="" title=""> -->
-            <p class="_1side_menu_name">Admin</p>
+            <p v-if="user.role === 0" class="_1side_menu_name">Admin</p>
+             <p v-if='user.role ===1' class="_1side_menu_name">Enseignant</p> 
+
           </div>
 
           <!--~~~ MENU LIST ~~~~~~-->
-          <div class="_1side_menu_list">
+          <div   class="_1side_menu_list">
             <ul class="_1side_menu_list_ul">
              
 
 
                
-               <li class="item">Enseignants </li>
-              <li><router-link to="/dashboard/users"><i class="fas fa-users"></i> Gestion des Enseignants</router-link></li>
+               <li v-if="user.role === 0" class="item">Enseignants </li>
+              <li v-if="user.role === 0" ><router-link to="/dashboard/users"><i class="fas fa-users"></i> Gestion des Enseignants</router-link></li>
 
-                 <li class="item"> Emploi du temps</li>
-              <li><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i>Tous les Emplois </router-link></li>
-              <li class="line"></li>
-                <li>
+                 <li v-if="user.role === 0" class="item"> Emploi du temps</li>
+              <li v-if="user.role === 0" ><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i>Tous les Emplois </router-link></li>
+              <li  v-if="user.role === 0" class="line"></li>
+                <li v-if="user.role === 0" >
                 <a href="#drop" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle "><i class="fas fa-calendar-plus"></i> Nouveau Emploi du Temps</a>
                 <ul class="collapse list-unstyled" id="drop">
                   
@@ -48,15 +50,18 @@
             </li>
 
 
-         <li class="item"> Gestion des Modules</li>
-              <li><router-link to="/dashboard/entities"><i class="fas fa-calendar-plus"></i> Definir les Modules</router-link></li>
+         <li v-if="user.role === 0" class="item"> Gestion des Modules</li>
+              <li v-if="user.role === 0" ><router-link to="/dashboard/entities"><i class="fas fa-calendar-plus"></i> Definir les Modules</router-link></li>
               
           
-              <li><router-link to="/dashboard/plannings"> <i class="fas fa-table"></i>Tous les Emplois</router-link></li>
-              <li><router-link to="/dashboard/g_planning"><i class="fas fa-table"></i>Emploi du temps Générale </router-link></li>
+
+
+
+              <li v-if="user.role === 1" ><router-link to="/dashboard/plannings"> <i class="fas fa-table"></i>Tous les Emplois</router-link></li>
+              <li v-if="user.role === 1" ><router-link to="/dashboard/g_planning"><i class="fas fa-table"></i>Emploi du temps Générale </router-link></li>
               
           
-              <li><router-link to="/dashboard/profile"><i class="fas fa-user"></i>Profile</router-link></li>
+              <li v-if="user.role === 1"><router-link to="/dashboard/profile"><i class="fas fa-user"></i>Profile</router-link></li>
               
 
 
@@ -89,7 +94,7 @@
                  <li class=" user-img"> <img class="rounded-circle" src="../assets/img/images.png" style="height: 35px; width: 35px;align-self: center;"></li>
 
                   <li class="username">
-                 <a href="#drop2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-white"> {{currentUser.firstname}} </a>
+                 <a href="#drop2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-white"> {{ user.username }} </a>
                    <ul class="collapse list-unstyled" id="drop2">
                   
                     
@@ -121,19 +126,22 @@
 </template>
  <script>
 
+import {mapGetters} from 'vuex'
+
    export default {
-  name: 'Profile',
-  computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    }
-  },
-  mounted() {
-    if (!this.currentUser) {
-      this.$router.push('/login');
-    }
-  }
+        
+        computed: mapGetters({
+          user:'auth/user'
+        })
+      
+
+
+
+
+
+
 };
+
 
 
 

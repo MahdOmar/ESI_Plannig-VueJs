@@ -16,34 +16,21 @@
             <tbody>
           
 
-                <tr>
+                <tr v-for="user in users" :key="user.id">
                     <td class="user_row">
                         <img src="../assets/img/images.png" class="rounded-circle" style='width: 50px;
   height: 50px;
   border-radius: 50%;' alt="image">
                     </td>
-                    <td>  Mahdaoui</td>
-                    <td>Omar</td>
-                    <td>o.mahdaoui@esi-sba.dz </td>
+                    <td>  {{ user.firstname }}</td>
+                    <td> {{ user.lastname }}</td>
+                    <td> {{ user.email }} </td>
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
                     </td>
                 </tr>
-                 <tr>
-                    <td class="user_row">
-                        <img src="../assets/img/images.png" class="rounded-circle" style='width: 50px;
-  height: 50px;
-  border-radius: 50%;' alt="image">
-                    </td>
-                    <td> Riyadh</td>
-                    <td>Herizi</td>
-                    <td>r.herizi@esi-sba.dz </td>
-                    <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
-                    </td>
-                </tr>
+               
 
 
 
@@ -65,25 +52,31 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST" action="">
+                <form @submit.prevent="handleRegister">
+                     <div class="form-group">
+                        <label for="username">Username</label>
+                        <input name="username"  v-model="user.username"  type="text" class="form-control" id="username">
+                    </div>
+
+
                     <div class="form-group">
-                        <label for="firstNameInput">Nom</label>
-                        <input name="firstName" type="text" class="form-control" id="firstName" required>
+                        <label for="firstName">Nom</label>
+                        <input name="firstname"  v-model="user.firstname"   type="text" class="form-control" id="firstName" >
                     </div>
 
                     <div class="form-group">
                         <label for="lastNameInput">Prénom</label>
-                        <input name="lastName" type="text" class="form-control" id="lastName" required>
+                        <input name="lastname"  v-model="user.lastname"  type="text" class="form-control" id="lastName" >
                     </div>
 
                     <div class="form-group">
                         <label for="emailInput">Email </label>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="" required>
+                        <input name="email" type="email"  v-model="user.email"  class="form-control" id="email" placeholder="" >
                     </div>
 
                     <div class="form-group">
                         <label for="type">Selectioner Type</label>
-                       <select class="form-control" id="sel1">
+                       <select v-model="user.type" class="form-control" id="type">
                           <option>Maitre de conférence A</option>
                           <option>Maitre de conférence B</option>
                           <option>Professeur</option>
@@ -93,23 +86,37 @@
 
                     <div class="form-group">
                         <label for="passwordInput">Mot de Pass</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="" required>
+                        <input name="password"  v-model="user.password" type="password" class="form-control" id="password" placeholder="" >
+                         
+                         
+
+
+
                     </div>
 
                     <div class="form-group">
                         <label for="confirmPasswordInput">Confirmer Mot de Pass</label>
-                        <input name="confirmPassword" type="password" class="form-control" id="confirmPassword"
+                        <input name="confirmPassword"  type="password" class="form-control" id="confirmPassword"
                                placeholder="">
                     </div>
 
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary"  >Créer</button>
 
                 </form>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                <button type="submit" class="btn btn-primary" onclick="create()" >Créer</button>
+              
+
+                
+    </div>
+
+
+
+
+
             </div>
 
         </div>
@@ -119,6 +126,94 @@
 
 
 
-    </div>
+ 
     
 </template>
+
+
+<script>
+
+import User from '../models/user'; 
+import axios from  "axios"
+import {mapGetters} from 'vuex'
+
+export default {
+
+computed: mapGetters({
+         token:'auth/token'
+        }),
+
+
+  name: 'Register',
+  data() {
+    return {
+      user: new User('','','','','',''),
+      users:[]
+
+
+     
+    };
+  },
+  
+  
+  methods: {
+    handleRegister() {
+        const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+       
+   
+      axios.post(API_URL + 'admin/addprof', {
+
+ user: this.user  } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+        this.getUsers();
+        
+        
+
+    }).catch((err)=>{
+     
+      
+    });
+  },
+
+    getUsers() {
+       const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+axios.post(API_URL + 'admin/getprofs', { } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      this.users = res.data;
+      
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+     
+
+  }
+     
+    
+  },
+   created() {
+      this.getUsers();
+    },
+};
+
+
+
+</script>

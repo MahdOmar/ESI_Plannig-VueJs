@@ -23,28 +23,29 @@
 
             <div class="form-group">
                 <label>Username </label>
-                <input type="text" v-model="user.username"  v-validate="'required'" class="form-control form-control-lg" />
+                <input type="text" v-model="form.username" name="username"  class="form-control form-control-lg" />
               
         </div>
             
 
             <div class="form-group">
                 <label>Mot de pass</label>
-                <input type="password" v-model="user.password"  v-validate="'required'" class="form-control form-control-lg" />
+                <input type="password" v-model="form.password" name="password"   class="form-control form-control-lg
+                " />
+             
                
             </div>
            
 
-            <button type="submit" class="btn btn-dark btn-lg btn-block" :disabled="loading">
-                 <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+            <button type="submit" class="btn btn-dark btn-lg btn-block" >
+                
             <span>Sign In</span></button>
 
             <p class="forgot-password text-right mt-2 mb-4">
                 <a href="/forgot-password">Forgot password ?</a>
             </p>
-            <div class="form-group">
-          <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
-        </div>
+            
+           
 
          
 
@@ -57,8 +58,75 @@
 
 <script>
 
-import User from '../models/user';
+import {Form} from 'vform'
+import axios from 'axios';
+import VueRouter from 'vue-router'
 
+export default { 
+
+  
+
+
+
+
+      data() {
+               return{
+                 form: new Form({
+                   username:'',
+                   password:''
+                 })
+
+
+               }
+
+
+
+      },
+
+      methods: {
+
+       async handleLogin(){
+   
+         const {data} = await this.form.post('http://localhost:4000/login');
+      
+         console.log(data.accessToken)
+         this.$store.dispatch('auth/saveToken',{
+           token:data.accessToken,
+           reftoken:data.refreshToken
+         })
+
+         await this.$store.dispatch('auth/fetchUser');
+
+     
+
+         this.$router.push( 'dashboard/users' ) 
+        
+
+
+         
+       
+      
+
+       }
+
+      }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+import User from '../models/user';
 export default {
   name: 'Login',
   data() {
@@ -75,7 +143,7 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      this.$router.push('/admin_dashboard');
+      this.$router.push('/dashboard/users');
     }
   },
   methods: {
@@ -95,9 +163,8 @@ export default {
             error => {
               this.loading = false;
               this.message =
-                (error.response && error.response.data) ||
-                error.message ||
-                error.toString();
+               
+                error.response.data.error.toString();
             }
           );
         }
@@ -105,7 +172,7 @@ export default {
     }
   }
 };
-
+*/
 
 
 

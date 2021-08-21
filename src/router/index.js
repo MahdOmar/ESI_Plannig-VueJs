@@ -1,23 +1,18 @@
-import Login from './components/Login.vue'
-import Signup from './components/Signup.vue'
-import Admin_Dashboard from './components/admin_dashboard.vue'
-import Welcome from './components/welcome.vue'
-import Users from './components/users.vue'
-import Entities from './components/entities.vue'
-import Manual from './components/manual_generation.vue'
-import Plannings from './components/plannings.vue'
-import G_Planning from './components/general_planning.vue'
-import Profile from './components/profile.vue'
-import All_Plannings from './components/all_plannings.vue'
-import WishForm from './components/wish_form.vue'
-import Planning_view from './components/Planning_view.vue'
+import Login from '../components/Login.vue'
+import Signup from '../components/Signup.vue'
+import Admin_Dashboard from '../components/admin_dashboard.vue'
+import Welcome from '../components/welcome.vue'
+import Users from '../components/users.vue'
+import Entities from '../components/entities.vue'
+import Manual from '../components/manual_generation.vue'
+import Plannings from '../components/plannings.vue'
+import G_Planning from '../components/general_planning.vue'
+import Profile from '../components/profile.vue'
+import All_Plannings from '../components/all_plannings.vue'
+import WishForm from '../components/wish_form.vue'
+import Planning_view from '../components/Planning_view.vue'
 import VueRouter from 'vue-router';
 import VeeValidate from 'vee-validate'
-import guest from './middlewares/guest'
-import store from './store/index.js'
-import checkAuth from './middlewares/auth-check'
-import auth from './middlewares/auth'
-import middlewarePipeline from './router/middlewarePipeline'
 
 
 /*
@@ -49,11 +44,11 @@ const router = new VueRouter({
    
     routes :[
 
-        {path:'/'  , component:Login,meta : { middleware:[guest]}  },
+        {path:'/'  , component:Login },
         {path:'/dashboard/signup'  , component:Signup },
-        {path:'/dashboard'  , component:Admin_Dashboard ,children:[
+        {path:'/dashboard'  , component:Admin_Dashboard, children:[
             {path:'welcome'  , component:Welcome },
-            {path:'users'  , component:Users ,name:'users' ,meta :{ middleware : [auth , checkAuth]}},
+            {path:'users'  , component:Users },
             {path:'entities'  , component:Entities },
             {path:'manual'  , component:Manual },
             {path:'plannings'  , component:Plannings },
@@ -68,34 +63,20 @@ const router = new VueRouter({
         {path:'/planning_view'  , component:Planning_view } 
 
     ]
-
-    
   });
-
-  router.beforeEach((to , from, next) => {
-   if(!to.meta.middleware) {
-     console.log(to);
-     return next()}
-   
-   const middleware = to.meta.middleware
-   const context = {
-     to,
-     from,
-     next,
-     store
-   
-
-
-
-   }
-   return middleware[0]({
-     ...context ,
-     next:middlewarePipeline(context,middleware,1)
-   })
-    
-  })
+  router.beforeEach((to, from, next) => {
+    const publicPages = ['/'];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = localStorage.getItem('user');
   
-  
+    // trying to access a restricted page + not logged in
+    // redirect to login page
+    if (authRequired && !loggedIn) {
+      next('/');
+    } else {
+      next();
+    }
+  });
 
 
   export default router
