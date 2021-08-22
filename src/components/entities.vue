@@ -4,6 +4,8 @@
   <div class="jumbotron p-2 bg-custom">
     <h1>Gestion des Modules</h1>
     <p>Ici, vous pouvez ajouter, modifier et supprimer les modules</p>
+    <p>semesterid is{{ semesterid }}</p>
+
     	
     
   </div>
@@ -46,7 +48,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-              <h5 class="modal-title">Create new entity</h5>
+              <h5 class="modal-title">Créer Nouveau Module</h5>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
@@ -229,16 +231,17 @@
 
 
                <br> <div >
-                    <form @submit.prevent="getModules">
+                    <form @submit.prevent="saveId" >
                         <div class="form-group">
                             <label for="select">Selectioner Semester </label>
-                            <select class="custom-select" name="semester" id="select_emp">
-                                <option v-for="semester in semesters" :key="semester.id" :value="semester.id" > {{ semester.name }}</option>
+                            <select v-model ="selected" class="custom-select" name="semester" id="select_emp">
+                                <option  v-for="semester in semesters" :key="semester.id" :value="semester.id" > {{ semester.name }}</option>
                             
                               
                             </select>
+                            
                         </div>
-                         <button class="btn btn-primary btn-sm text-center text-white m-2" type="submit">Confirmer</button>
+                         <button class="btn btn-primary btn-sm text-center text-white m-2" type="submit"> ok </button>
                          <button class="btn btn-primary btn-sm text-center text-white m-2" data-dismiss="modal" >Anuller</button>
                     </form>
                    
@@ -271,7 +274,8 @@ import axios from 'axios'
 import {mapGetters} from 'vuex'
 export default  {
     computed: mapGetters({
-         token:'auth/token'
+         token:'auth/token',
+         semesterid:'auth/semesterId'
         }),
 
     data(){
@@ -279,7 +283,10 @@ export default  {
         return{
             years : [],
             semesters:[],
-            yearId:null
+            yearId:null,
+            selected:'',
+           
+
 
         };
     },
@@ -341,39 +348,18 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.yearId} ,{ headers : he
 
 
         },
+        saveId(){
+            console.log(this.selected)
+            const selectedId = this.selected
+            console.log(selectedId)
 
-
-        getmodules(){
-
-            const API_URL = 'http://127.0.0.1:4000/';
-      
-        
-         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-
-axios.post(API_URL + 'admin/getsemesters', { yearid:this.yearId} ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-      this.semesters = res.data;
-      console.log(this.semesters)
-      
-        
-
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-     
-
-
-
-
+            this.$store.dispatch('auth/saveId',{
+                semesterId: selectedId
+            });
         },
 
+
+      
 
 
 
