@@ -89,7 +89,7 @@ export default {
    
          const {data} = await this.form.post('http://localhost:4000/login');
       
-         console.log(data.accessToken)
+         
          this.$store.dispatch('auth/saveToken',{
            token:data.accessToken,
            reftoken:data.refreshToken

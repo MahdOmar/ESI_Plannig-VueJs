@@ -11,7 +11,8 @@ const state = {
     token: Cookies.get("token"),
     reftoken: Cookies.get("reftoken"),
     isLogged : false,
-    semesterId:''
+    semesterId:'',
+    moduleId:''
 }
 
 //gettters 
@@ -19,7 +20,8 @@ const getters ={
     user : state => state.user,
     token : state => state.token,
     check : state => state.isLogged,
-    semesterId: state => state.semesterId
+    semesterId: state => state.semesterId,
+    moduleId: state => state.moduleId
     
 }
 
@@ -63,7 +65,14 @@ const mutations = {
     [types.SAVE_SEMESTER_ID](state ,{semesterId}){
         state.semesterId = semesterId
 
+    },
+
+    [types.SAVE_MODULE_ID](state ,{moduleId}){
+        state.moduleId = moduleId
+
     }
+
+
 
    
 
@@ -111,7 +120,14 @@ const actions ={
     saveId({commit}, payload){
 
         commit(types.SAVE_SEMESTER_ID , payload)
-    }
+    },
+
+    saveModuleId({commit}, payload){
+
+        commit(types.SAVE_MODULE_ID , payload)
+    },
+
+
 
 }
 

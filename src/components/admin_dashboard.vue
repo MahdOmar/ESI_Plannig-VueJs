@@ -52,6 +52,7 @@
 
          <li v-if="user.role === 0" class="item"> Gestion des Modules</li>
               <li v-if="user.role === 0" ><router-link to="/dashboard/entities"><i class="fas fa-calendar-plus"></i> Definir les Modules</router-link></li>
+                <li v-if="user.role === 0" ><router-link to="/dashboard/requirements"><i class="fas fa-calendar-plus"></i> Definir les exigences</router-link></li>
               
           
 

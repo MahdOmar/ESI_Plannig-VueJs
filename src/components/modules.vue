@@ -8,7 +8,9 @@
             <tr>
                 <th scope="col" class="text-primary">Nom</th>
                 <th scope="col" class="text-primary">Coeffition</th>
-                <th scope="col" class="text-primary">Durée D'Examen</th>
+                <th scope="col" class="text-primary">ExamenH</th>
+                <th scope="col" class="text-primary">ExamenMin</th>
+
                
                 <th scope="col" class="text-primary">Actions</th>
             </tr>
@@ -16,23 +18,21 @@
 
             <tbody>
           
-<!--
-                <tr v-for="user in users" :key="user.id">
-                    <td class="user_row">
-                        <img src="../assets/img/images.png" class="rounded-circle" style='width: 50px;
-  height: 50px;
-  border-radius: 50%;' alt="image">
-                    </td>
-                    <td>  {{ user.firstname }}</td>
-                    <td> {{ user.lastname }}</td>
-                    <td> {{ user.email }} </td>
+
+                <tr v-for="module in modules" :key="module.id">
+                    
+                    <td>  {{module.name }}</td>
+                    <td> {{ module.coefficient }}</td>
+                    <td> {{ module.examenH }} </td>
+                     <td> {{ module.examenMin }} </td>
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
+                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveModuleId(module)"><i class="fa fa-fw fa-plus"></i>Ajouter Cours/TD/TP</button>
                     </td>
                 </tr>
                
--->
+
 
 
 
@@ -49,7 +49,7 @@
           <!-- Modal Header -->
           <div class="modal-header">
               <h5 class="modal-title">Créer Nouveau Module</h5>
-              <h5 class="modal-title">SemesterId is {{ semesterid }}</h5>
+             
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
@@ -94,6 +94,15 @@
 </div>
 
 
+<!-- ADD COURS TD TP-->
+
+
+
+
+
+
+
+
 
 
 
@@ -123,7 +132,9 @@ export default{
 
         return{
             module : new Module('','','','',''),
-            modules : []
+            modules : [],
+            moduleId:'',
+            selected:''
            
         };
     },
@@ -144,7 +155,7 @@ export default{
          
        
    
-    /*  axios.post(API_URL + 'admin/addmodule', {
+      axios.post(API_URL + 'admin/addmodule', {
 
  module: this.module  } ,{ headers : headers}
         
@@ -157,7 +168,7 @@ export default{
     }).catch((err)=>{
      
       
-    });*/
+    });
 
 
         },
@@ -180,7 +191,7 @@ export default{
           }
          
 
-axios.post(API_URL + 'admin/getmodules', { semester:this.$parent.semesterId} ,{ headers : headers}
+axios.post(API_URL + 'admin/getmodules', { semester:this.semesterid} ,{ headers : headers}
         
       
     ).then((res)=>{
@@ -201,13 +212,29 @@ axios.post(API_URL + 'admin/getmodules', { semester:this.$parent.semesterId} ,{ 
 
         },
 
+           saveModuleId(module){
+        this.moduleId = module.id;
+        this.$store.dispatch('auth/saveModuleId',{
+                moduleId: this.moduleId
+            });
+
+           
+        this.$router.push('cours')
+       
+
+    },
+
+        
 
 
 
 
 
 
-    }
+    },
+     created() {
+      this.getmodules();
+    },
 
 
 

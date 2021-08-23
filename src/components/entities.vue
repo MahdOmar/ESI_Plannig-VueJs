@@ -4,7 +4,7 @@
   <div class="jumbotron p-2 bg-custom">
     <h1>Gestion des Modules</h1>
     <p>Ici, vous pouvez ajouter, modifier et supprimer les modules</p>
-    <p>semesterid is{{ semesterid }}</p>
+   
 
     	
     
@@ -241,7 +241,7 @@
                             </select>
                             
                         </div>
-                         <button class="btn btn-primary btn-sm text-center text-white m-2" type="submit"> ok </button>
+                         <button class="btn btn-primary btn-sm text-center text-white m-2" type="submit" > confirmer </button>
                          <button class="btn btn-primary btn-sm text-center text-white m-2" data-dismiss="modal" >Anuller</button>
                     </form>
                    
@@ -349,13 +349,15 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.yearId} ,{ headers : he
 
         },
         saveId(){
-            console.log(this.selected)
+            
             const selectedId = this.selected
-            console.log(selectedId)
+            
 
             this.$store.dispatch('auth/saveId',{
                 semesterId: selectedId
             });
+
+            this.$router.push('entities/modules')
         },
 
 

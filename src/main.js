@@ -15,6 +15,8 @@ import Profile from './components/profile.vue'
 import WishForm from './components/wish_form.vue'
 import All_Plannings from './components/all_plannings.vue'
 import Modules from './components/modules.vue'
+import Requirements from './components/requirements.vue'
+import Cours from './components/cours.vue'
 import babelPolyfill from 'babel-polyfill'
 import store from './store/index.js'
 import VeeValidate from 'vee-validate';
@@ -42,6 +44,8 @@ Vue.component('profile',Profile);
 Vue.component('wish_form',WishForm);
 Vue.component('all_plannings',All_Plannings);
 Vue.component('modules', Modules);
+Vue.component('requirements',Requirements);
+Vue.component('cours' ,Cours)
 
 Vue.component('admin_dashboard',Admin_Dashboard);
 Vue.config.productionTip = false;

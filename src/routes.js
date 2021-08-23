@@ -12,6 +12,8 @@ import All_Plannings from './components/all_plannings.vue'
 import WishForm from './components/wish_form.vue'
 import Planning_view from './components/Planning_view.vue'
 import Modules from './components/modules.vue'
+import Requirements from './components/requirements.vue'
+import Cours from './components/cours.vue'
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 import guest from './middlewares/guest'
@@ -52,18 +54,18 @@ const router = new VueRouter({
     routes :[
 
         {path:'/'  , component:Login,meta : { middleware:[guest]}  },
-        {path:'/dashboard/signup'  , component:Signup },
+       
         {path:'/dashboard'  , component:Admin_Dashboard ,children:[
             {path:'welcome'  , component:Welcome },
             {path:'users'  , component:Users ,name:'users' ,meta :{ middleware : [auth , checkAuth]}},
             {path:'entities'  , component:Entities ,meta :{ middleware : [auth , checkAuth]} ,
-             children:[ {path:'modules' , component:Modules ,meta :{ middleware : [auth , checkAuth]}}]
+             children:[ {path:'modules' , component:Modules ,meta :{ middleware : [auth , checkAuth]} },
+                         {path:'cours',component:Cours , meta :{ middleware : [auth , checkAuth]}}]
           
           },
-          {path:'entities/:id'  , component:Entities ,meta :{ middleware : [auth , checkAuth]} ,
-             children:[ {path:'modules' , component:Modules ,meta :{ middleware : [auth , checkAuth]}}]
+          {path:'requirements'  , component:Requirements ,name:'requirements' ,meta :{ middleware : [auth , checkAuth]}},
+
           
-          },
             {path:'manual'  , component:Manual ,meta :{ middleware : [auth , checkAuth]} },
             {path:'plannings'  , component:Plannings ,meta :{ middleware : [auth , checkAuth]} },
             {path:'g_planning'  , component:G_Planning },
