@@ -35,6 +35,13 @@
              
                
             </div>
+
+            <div v-if="error" class="text-danger m-2">
+
+              <p> {{ error }}</p>
+
+
+            </div>
            
 
             <button type="submit" class="btn btn-dark btn-lg btn-block" >
@@ -74,7 +81,9 @@ export default {
                  form: new Form({
                    username:'',
                    password:''
-                 })
+                 }),
+
+                 error:''
 
 
                }
@@ -87,10 +96,46 @@ export default {
 
        async handleLogin(){
    
-         const {data} = await this.form.post('http://localhost:4000/login');
+       /*  const {data} = await this.form.post('http://localhost:4000/login');*/
+       //  console.log(data)
+
+         await this.form.post('http://localhost:4000/login').then(({data})=>{
+              this.$store.dispatch('auth/saveToken',{
+           token:data.accessToken,
+           reftoken:data.refreshToken
+         });
+         this.$store.dispatch('auth/fetchUser');
+
+        // console.log(data)
+
+         
+           
+           this.$router.push( 'dashboard' ) 
+
+        
+         
+            //this.$router.push( 'dashboard' ) 
+
+        
+
+     
+
+        
+      
+        
+        
+
+    }).catch((err)=>{
+       this.error = err.response.data.error
+     
+      
+    });
+
+
+
       
          
-         this.$store.dispatch('auth/saveToken',{
+      /*   this.$store.dispatch('auth/saveToken',{
            token:data.accessToken,
            reftoken:data.refreshToken
          })
@@ -100,7 +145,7 @@ export default {
      
 
          this.$router.push( 'dashboard/users' ) 
-        
+        */
 
 
          

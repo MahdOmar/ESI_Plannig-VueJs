@@ -148,6 +148,9 @@ import {mapGetters} from 'vuex'
 
 
 
+        },
+        created(){
+        //  console.log(this.user)
         }
       
 

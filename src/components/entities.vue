@@ -32,7 +32,7 @@
 
     </div>
       <div id="view" class="col-md-8 shadow p-1 m-4">
-          <div class="container-fluid text-center " style="height: 400px  ">
+          <div class="container-fluid text-center overflow-auto " style="height: 600px  ">
 
              
               <router-view/>
@@ -356,7 +356,7 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.yearId} ,{ headers : he
             this.$store.dispatch('auth/saveId',{
                 semesterId: selectedId
             });
-
+           
             this.$router.push('entities/modules')
         },
 

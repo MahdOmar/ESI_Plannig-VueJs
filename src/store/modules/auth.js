@@ -97,11 +97,11 @@ const actions ={
 
 
 
-        const {data} =  await axios.post('http://localhost:4000/admin/getuser',{},{
+        const {data} =  await axios.post('http://localhost:4000/getuser',{},{
             headers: headers
 
           })
-          console.log(data);
+       //   console.log(data);
           commit(types.FETCH_USER_SUCCESS, {user: data})
 
         }

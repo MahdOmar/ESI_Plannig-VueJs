@@ -16,9 +16,9 @@
                   </thead>
                   <tbody id="sub_entities_table">
 
-                       <tr v-for="cour in courses" :key="cour.id">
+                       <tr v-for="(cour,i) in courses" :key="i">
                     
-                    <td>  {{cour.name }}</td>
+                    <td>  {{cour.name }} </td>
                     <td> {{ cour.hour }}</td>
                     <td> {{ cour.min }} </td>
                    
@@ -28,6 +28,22 @@
                         <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" ><i class="fa fa-fw fa-plus"></i>Ajouter Responsables</button>
                     </td>
                 </tr>
+
+                 <tr v-for="(td,i) in tds" :key="'A'+i">
+                    
+                    <td>  {{td.name }}</td>
+                    <td> {{ td.hour }}</td>
+                    <td> {{ td.min }} </td>
+                   
+                    <td>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
+                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" ><i class="fa fa-fw fa-plus"></i>Ajouter Responsables</button>
+                    </td>
+                </tr>
+
+
+                
 
 
                   </tbody>
@@ -51,7 +67,7 @@
                       <div class="form-group">
                           <label for="select">Selectioner Nom </label>
                             <select v-model ="cour.name" class="custom-select" name="name" id="select">
-                                <option value="Cour" > Cour</option>
+                                <option value="Cours" > Cour</option>
                                 <option value="TD" > TD</option>
                                 <option value="TP" > TP</option>
                             
@@ -128,7 +144,7 @@ export default{
         data(){
 
         return{
-            cour : new Cours('','','','',''),
+            cour : new Cours('','','','','',''),
             courses :'',
             tds:[],
             requirements:[],
@@ -154,16 +170,17 @@ export default{
           console.log(this.cour.name)
 
 
-          if(this.cour.name == 'Cour' ){
-              console.log('couuuuuuuuuuuuuuuuuuuuuurs')
+       
+           
 
-              axios.post(API_URL + 'admin/addcour', {
+              axios.post(API_URL + 'admin/add', {
 
                  cour: this.cour  } ,{ headers : headers}
         
       
              ).then((res)=>{
                this.getcours();
+               this.getTds();
         
         
 
@@ -174,26 +191,9 @@ export default{
 
 
 
-          }
+          
 
-          else{
-/*
-              axios.post(API_URL + 'admin/addmodule', {
-
-             module: this.module  } ,{ headers : headers}
-        
-      
-            ).then((res)=>{
-           // this.getmodules();
-        
-        
-
-             }).catch((err)=>{
-     
-      
-                     });*/
-
-          }
+          
          
        
    
@@ -225,6 +225,11 @@ axios.post(API_URL + 'admin/getcours', { module:this.moduleid} ,{ headers : head
       
     ).then((res)=>{
       this.courses = res.data;
+
+       this.courses.forEach(cour => {
+           cour.type = 0
+          
+      });
      
       
         
@@ -240,6 +245,43 @@ axios.post(API_URL + 'admin/getcours', { module:this.moduleid} ,{ headers : head
 
 
         },
+
+         getTds(){
+
+            const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+         
+
+axios.post(API_URL + 'admin/gettdp', { module:this.moduleid} ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      this.tds = res.data;
+     
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+     
+
+
+
+
+        },
+
+
+
+
+
 
         getRequirements(){
                   const API_URL = 'http://127.0.0.1:4000/';
@@ -282,6 +324,7 @@ axios.post(API_URL + 'admin/getrequirement', { } ,{ headers : headers}
      created() {
       this.getRequirements();
       this.getcours();
+      this.getTds();
     },
 
 
