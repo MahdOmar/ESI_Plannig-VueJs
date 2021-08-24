@@ -14,6 +14,9 @@ import Planning_view from './components/Planning_view.vue'
 import Modules from './components/modules.vue'
 import Requirements from './components/requirements.vue'
 import Cours from './components/cours.vue'
+import Responsables from './components/responsables.vue'
+
+
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 import guest from './middlewares/guest'
@@ -60,7 +63,8 @@ const router = new VueRouter({
             {path:'users'  , component:Users ,name:'users' ,meta :{ middleware : [auth , checkAuth]}},
             {path:'entities'  , component:Entities ,meta :{ middleware : [auth , checkAuth]} ,
              children:[ {path:'modules' , component:Modules ,meta :{ middleware : [auth , checkAuth]} },
-                         {path:'cours',component:Cours , meta :{ middleware : [auth , checkAuth]}}]
+                         {path:'cours',component:Cours , meta :{ middleware : [auth , checkAuth]}},
+                         {path:'responsables',component:Responsables , meta :{ middleware : [auth , checkAuth]}}]
           
           },
           {path:'requirements'  , component:Requirements ,name:'requirements' ,meta :{ middleware : [auth , checkAuth]}},

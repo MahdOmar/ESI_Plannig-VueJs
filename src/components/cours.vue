@@ -25,7 +25,7 @@
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
-                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" ><i class="fa fa-fw fa-plus"></i>Ajouter Responsables</button>
+                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveCour(cour)" ><i class="fa fa-fw fa-plus"></i>Ajouter Responsables</button>
                     </td>
                 </tr>
 
@@ -38,7 +38,7 @@
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
-                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" ><i class="fa fa-fw fa-plus"></i>Ajouter Responsables</button>
+                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveCour(cour)" ><i class="fa fa-fw fa-plus"></i>Ajouter Responsables</button>
                     </td>
                 </tr>
 
@@ -262,6 +262,10 @@ axios.post(API_URL + 'admin/gettdp', { module:this.moduleid} ,{ headers : header
       
     ).then((res)=>{
       this.tds = res.data;
+      this.tds.forEach (td =>{
+          td.type = 1
+
+      });
      
       
         
@@ -310,6 +314,18 @@ axios.post(API_URL + 'admin/getrequirement', { } ,{ headers : headers}
 
 
 
+        },
+
+        saveCour(cour){
+            console.log(cour)
+
+            
+        this.$store.dispatch('auth/saveCour',{
+                cour: cour
+            });
+
+           
+        this.$router.push('responsables')
         }
 
       

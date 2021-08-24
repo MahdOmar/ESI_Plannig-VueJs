@@ -17,6 +17,9 @@ import All_Plannings from './components/all_plannings.vue'
 import Modules from './components/modules.vue'
 import Requirements from './components/requirements.vue'
 import Cours from './components/cours.vue'
+import Responsables from './components/responsables.vue'
+
+
 import babelPolyfill from 'babel-polyfill'
 import store from './store/index.js'
 import VeeValidate from 'vee-validate';
@@ -46,6 +49,7 @@ Vue.component('all_plannings',All_Plannings);
 Vue.component('modules', Modules);
 Vue.component('requirements',Requirements);
 Vue.component('cours' ,Cours)
+Vue.component('responsables',Responsables)
 
 Vue.component('admin_dashboard',Admin_Dashboard);
 Vue.config.productionTip = false;
