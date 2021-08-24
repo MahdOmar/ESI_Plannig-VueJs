@@ -9,6 +9,7 @@
                 <th scope="col" class="text-primary">Nom</th>
                 <th scope="col" class="text-primary">Prénom</th>
                 <th scope="col" class="text-primary">Email</th>
+                <th scope="col" class="text-primary">Type</th>
                 <th scope="col" class="text-primary">Actions</th>
             </tr>
             </thead>
@@ -25,9 +26,10 @@
                     <td>  {{ user.firstname }}</td>
                     <td> {{ user.lastname }}</td>
                     <td> {{ user.email }} </td>
+                    <td> {{ user.type }} </td>
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm "><i class="fa fa-fw fa-trash"></i></button>
                     </td>
                 </tr>
                

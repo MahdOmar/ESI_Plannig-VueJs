@@ -1,13 +1,14 @@
 <template>
-
-<div>
-
-      <button type="button" title="Edit account" data-toggle="modal" data-target="#add_requirement" style="float: right" class="btn btn-primary btn-sm "><i class="fa fa-fw fa-plus"></i>Ajouter Endroit Globale </button>
+    
+    <div>
+         <button type="button" title="Edit account" data-toggle="modal" data-target="#add_groupe" style="float: right" class="btn btn-primary btn-sm "><i class="fa fa-fw fa-plus"></i>Ajouter Groupe </button>
 
           <table class="table bg-white">
             <thead class="">
             <tr>
                 <th scope="col" class="text-primary">Nom</th>
+               
+               
                
                 <th scope="col" class="text-primary">Actions</th>
             </tr>
@@ -16,17 +17,16 @@
             <tbody>
           
 
-                <tr v-for="requirement in requirements" :key="requirement.id">
+               <tr v-for="groupe in groupes" :key="groupe.id">
                     
-                    <td>  {{requirement.name }}</td>
+                    <td>  {{groupe.name }}</td>
                   
-                   
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                         <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveRequirement(requirement)" ><i class="fa fa-fw fa-plus"></i>Gérer</button>
+                     
                     </td>
-                </tr>
+                </tr> 
                
 
 
@@ -38,27 +38,26 @@
             </tbody>
         </table>
 
-           <div class="modal fade" id="add_requirement">
+        <div class="modal fade" id="add_groupe">
   <div class="modal-dialog modal-md">
       <div class="modal-content">
 
           <!-- Modal Header -->
           <div class="modal-header">
-              <h5 class="modal-title">Créer Nouveau Endroit</h5>
-            
+              <h5 class="modal-title">Créer Nouveau Groupe</h5>
+             
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
           <!-- Modal body -->
           <div class="modal-body">
-              <form @submit.prevent="addRequirement">
+              <form @submit.prevent="addGroupe">
 
                   <div class="form-group">
-                      <label for="name">Nom d'Endroit</label>
-                      <input v-model="requirement.name" name="name" type="text" class="form-control" id="name" required>
+                      <label for="name">Nom du Groupe</label>
+                      <input v-model="groupeName" name="name" type="text" class="form-control" id="name" required>
                   </div>
-                  
-                <div v-if="error" class="text-danger m-2">
+                    <div v-if="error" class="text-danger m-2">
                          <p> {{ error }}</p>
 
                     </div>
@@ -68,6 +67,7 @@
                     </div>
 
 
+                 
                   <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
               <button type="submit" class="btn btn-primary"  >Créer</button>
@@ -85,23 +85,29 @@
 </div>
 
 
+<!-- ADD COURS TD TP-->
 
 
 
-</div>
-    
 
+
+
+
+
+
+
+
+
+    </div>
 
 
 </template>
 
 <script>
-
 import axios from 'axios'
 import {mapGetters} from 'vuex'
 
-import Module from '../models/requirement'
-import Requirement from '../models/requirement'
+
 
 
 export default{
@@ -110,23 +116,26 @@ export default{
 
  computed: mapGetters({
     
-         token: 'auth/token'
+         token: 'auth/token',
+         section: 'auth/section'
         }),
 
         data(){
 
         return{
-            requirement : new Requirement('',''),
-            requirements : [],
+            groupeName:'',
+            groupes : [],
               error:'',
             success:''
+          
+        
            
         };
     },
 
     methods: {
 
-        addRequirement(){
+        addGroupe(){
 
             const API_URL = 'http://127.0.0.1:4000/';
       
@@ -135,26 +144,25 @@ export default{
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+this.token
           }
-       
-          
+         
          
        
    
-      axios.post(API_URL + 'admin/addrequirement', {
+      axios.post(API_URL + 'admin/addgroup', {
 
- requirement: this.requirement  } ,{ headers : headers}
+       section: this.section.id, name:this.groupeName   } ,{ headers : headers}
         
       
     ).then((res)=>{
          this.error = ''
-          this.success = "Endroit ajouté";
-        this.getrequirements();
+          this.success = "Groupe ajouté";
+        this.getgroupes();
         
         
 
     }).catch((err)=>{
-         this.success =""
-        this.error = err.response.data.requirement
+       this.success =""
+        this.error = err.response.data.module
      
       
     });
@@ -169,7 +177,7 @@ export default{
 
 
 
-         getrequirements(){
+         getgroupes(){
 
             const API_URL = 'http://127.0.0.1:4000/';
       
@@ -180,12 +188,12 @@ export default{
           }
          
 
-axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
+axios.post(API_URL + 'admin/getgroups', { section:this.section.id} ,{ headers : headers}
         
       
     ).then((res)=>{
-      this.requirements = res.data;
-    
+      this.groupes = res.data;
+      
       
         
 
@@ -200,19 +208,9 @@ axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
 
 
         },
-       saveRequirement(requirement){
-           this.$store.dispatch('auth/saveRequirement',{
-                requirement: requirement
-            });
-
-           
-        this.$router.push('subrequirements')
-        }
 
 
-
-       
-
+        
 
 
 
@@ -221,7 +219,7 @@ axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
 
     },
      created() {
-      this.getrequirements();
+     this.getgroupes();
     },
 
 

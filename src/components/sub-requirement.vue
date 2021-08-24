@@ -2,12 +2,13 @@
 
 <div>
 
-      <button type="button" title="Edit account" data-toggle="modal" data-target="#add_requirement" style="float: right" class="btn btn-primary btn-sm "><i class="fa fa-fw fa-plus"></i>Ajouter Endroit Globale </button>
+      <button type="button" title="Edit account" data-toggle="modal" data-target="#add_subrequirement" style="float: right" class="btn btn-primary btn-sm "><i class="fa fa-fw fa-plus"></i>Ajouter les détails des endroits </button>
 
           <table class="table bg-white">
             <thead class="">
             <tr>
                 <th scope="col" class="text-primary">Nom</th>
+          
                
                 <th scope="col" class="text-primary">Actions</th>
             </tr>
@@ -16,17 +17,17 @@
             <tbody>
           
 
-                <tr v-for="requirement in requirements" :key="requirement.id">
+              <tr v-for="subrequirement in subrequirements" :key="subrequirement.id">
                     
-                    <td>  {{requirement.name }}</td>
-                  
+                    <td>  {{subrequirement.name }}</td>
+                   
                    
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                         <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveRequirement(requirement)" ><i class="fa fa-fw fa-plus"></i>Gérer</button>
+                       
                     </td>
-                </tr>
+                </tr>  
                
 
 
@@ -38,27 +39,26 @@
             </tbody>
         </table>
 
-           <div class="modal fade" id="add_requirement">
+           <div class="modal fade" id="add_subrequirement">
   <div class="modal-dialog modal-md">
       <div class="modal-content">
 
           <!-- Modal Header -->
           <div class="modal-header">
-              <h5 class="modal-title">Créer Nouveau Endroit</h5>
+              <h5 class="modal-title">Créer Nouveau Salle/Amphie</h5>
             
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
           <!-- Modal body -->
           <div class="modal-body">
-              <form @submit.prevent="addRequirement">
+              <form @submit.prevent="addSubRequirement">
 
                   <div class="form-group">
-                      <label for="name">Nom d'Endroit</label>
-                      <input v-model="requirement.name" name="name" type="text" class="form-control" id="name" required>
+                      <label for="name">Nom </label>
+                      <input v-model="subrequirement.name" name="name" type="text" class="form-control" id="name" required>
                   </div>
-                  
-                <div v-if="error" class="text-danger m-2">
+                  <div v-if="error" class="text-danger m-2">
                          <p> {{ error }}</p>
 
                     </div>
@@ -66,8 +66,7 @@
                          <p> {{ success }}</p>
 
                     </div>
-
-
+              
                   <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
               <button type="submit" class="btn btn-primary"  >Créer</button>
@@ -100,8 +99,8 @@
 import axios from 'axios'
 import {mapGetters} from 'vuex'
 
-import Module from '../models/requirement'
-import Requirement from '../models/requirement'
+
+import SubRequirement from '../models/requirement'
 
 
 export default{
@@ -110,15 +109,16 @@ export default{
 
  computed: mapGetters({
     
-         token: 'auth/token'
+         token: 'auth/token',
+         requirement : 'auth/requirement'
         }),
 
         data(){
 
         return{
-            requirement : new Requirement('',''),
-            requirements : [],
-              error:'',
+            subrequirement : new SubRequirement('',''),
+            subrequirements : [],
+             error:'',
             success:''
            
         };
@@ -126,7 +126,7 @@ export default{
 
     methods: {
 
-        addRequirement(){
+        addSubRequirement(){
 
             const API_URL = 'http://127.0.0.1:4000/';
       
@@ -140,21 +140,23 @@ export default{
          
        
    
-      axios.post(API_URL + 'admin/addrequirement', {
+      axios.post(API_URL + 'admin/addsubrequirement', {
 
- requirement: this.requirement  } ,{ headers : headers}
+ name: this.subrequirement.name, requirement:this.requirement.id  } ,{ headers : headers}
         
       
     ).then((res)=>{
-         this.error = ''
+
+        this.error = ''
           this.success = "Endroit ajouté";
-        this.getrequirements();
+        this.getsubrequirements();
         
         
 
     }).catch((err)=>{
+
          this.success =""
-        this.error = err.response.data.requirement
+        this.error = err.response.data.error
      
       
     });
@@ -169,7 +171,7 @@ export default{
 
 
 
-         getrequirements(){
+         getsubrequirements(){
 
             const API_URL = 'http://127.0.0.1:4000/';
       
@@ -180,11 +182,13 @@ export default{
           }
          
 
-axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
+axios.post(API_URL + 'admin/getsubrequirements', {requirement:this.requirement.id} ,{ headers : headers}
         
       
     ).then((res)=>{
-      this.requirements = res.data;
+        console.log('subreqs');
+        console.log(res.data)
+      this.subrequirements = res.data;
     
       
         
@@ -200,18 +204,6 @@ axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
 
 
         },
-       saveRequirement(requirement){
-           this.$store.dispatch('auth/saveRequirement',{
-                requirement: requirement
-            });
-
-           
-        this.$router.push('subrequirements')
-        }
-
-
-
-       
 
 
 
@@ -221,7 +213,8 @@ axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
 
     },
      created() {
-      this.getrequirements();
+      this.getsubrequirements();
+   
     },
 
 

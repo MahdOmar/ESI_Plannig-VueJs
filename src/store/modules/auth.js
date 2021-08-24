@@ -13,7 +13,9 @@ const state = {
     isLogged : false,
     semesterId:'',
     moduleId:'',
-    cour:null
+    cour:null,
+    requirement:null,
+    section:null
 }
 
 //gettters 
@@ -23,7 +25,9 @@ const getters ={
     check : state => state.isLogged,
     semesterId: state => state.semesterId,
     moduleId: state => state.moduleId,
-    cour:  state => state.cour
+    cour:  state => state.cour,
+    requirement: state => state.requirement,
+    section : state => state.section
 
     
 }
@@ -78,7 +82,17 @@ const mutations = {
     [types.SAVE_COUR](state ,{cour}){
         state.cour = cour
 
+    },
+
+    [types.SAVE_REQUIREMENT](state ,{requirement}){
+        state.requirement = requirement
+    },
+
+    [types.SAVE_SECTION](state ,{section}){
+        state.section = section
     }
+
+
 
 
 
@@ -139,6 +153,16 @@ const actions ={
     saveCour({commit}, payload){
 
         commit(types.SAVE_COUR , payload)
+    },
+
+    saveRequirement({commit}, payload){
+
+        commit(types.SAVE_REQUIREMENT , payload)
+    },
+
+    saveSection({commit}, payload){
+
+        commit(types.SAVE_SECTION , payload)
     },
 
 

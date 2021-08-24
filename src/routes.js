@@ -15,7 +15,10 @@ import Modules from './components/modules.vue'
 import Requirements from './components/requirements.vue'
 import Cours from './components/cours.vue'
 import Responsables from './components/responsables.vue'
-
+import Subrequirements from './components/sub-requirement.vue'
+import SectionsandGroupes from './components/sections-groupes.vue'
+import Sections from './components/sections.vue'
+import Groupes from './components/groupes.vue'
 
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
@@ -68,6 +71,12 @@ const router = new VueRouter({
           
           },
           {path:'requirements'  , component:Requirements ,name:'requirements' ,meta :{ middleware : [auth , checkAuth]}},
+          {path:'subrequirements'  , component:Subrequirements ,name:'subrequirements' ,meta :{ middleware : [auth , checkAuth]}},
+          
+          {path:'sections-groupes'  , component:SectionsandGroupes  ,meta :{ middleware : [auth , checkAuth]}
+        ,children :[ {path:'sections',component:Sections , meta :{ middleware : [auth , checkAuth]}},
+                     {path:'groupes',component:Groupes , meta :{ middleware : [auth , checkAuth]}}]},
+          
 
           
             {path:'manual'  , component:Manual ,meta :{ middleware : [auth , checkAuth]} },

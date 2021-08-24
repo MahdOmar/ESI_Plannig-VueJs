@@ -1,7 +1,7 @@
 <template>
     
  <div class="container-fluid bg-custom">
-        <div class="jumbotron p-2 bg-custom">
+        <div class=" p-2 m-2">
             <h1>Tous les Emplois du Temps</h1>
             
         </div>

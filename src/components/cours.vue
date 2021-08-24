@@ -23,9 +23,9 @@
                     <td> {{ cour.min }} </td>
                    
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
-                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveCour(cour)" ><i class="fa fa-fw fa-plus"></i>Ajouter Responsables</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveCour(cour)" ><i class="fa fa-fw fa-plus"></i>Gérer</button>
                     </td>
                 </tr>
 
@@ -36,9 +36,9 @@
                     <td> {{ td.min }} </td>
                    
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
-                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveCour(cour)" ><i class="fa fa-fw fa-plus"></i>Ajouter Responsables</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveCour(td)" ><i class="fa fa-fw fa-plus"></i>Gérer</button>
                     </td>
                 </tr>
 

@@ -26,9 +26,9 @@
                     <td> {{ module.examenH }} </td>
                      <td> {{ module.examenMin }} </td>
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
-                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveModuleId(module)"><i class="fa fa-fw fa-plus"></i>Ajouter Cours/TD/TP</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveModuleId(module)"><i class="fa fa-fw fa-plus"></i>Gérer</button>
                     </td>
                 </tr>
                
@@ -74,6 +74,14 @@
                       <label for="group_name">Examen Minute</label>
                       <input  v-model="module.examenMin" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
                   </div>
+                   <div v-if="error" class="text-danger m-2">
+                         <p> {{ error }}</p>
+
+                    </div>
+                    <div v-if="success" class="text-success m-2">
+                         <p> {{ success }}</p>
+
+                    </div>
 
 
 
@@ -134,7 +142,9 @@ export default{
             module : new Module('','','','',''),
             modules : [],
             moduleId:'',
-            selected:''
+            selected:'',
+            error:'',
+            success:''
            
         };
     },
@@ -161,11 +171,17 @@ export default{
         
       
     ).then((res)=>{
+         this.error = ''
+          this.success = "Module ajouté";
+
+
         this.getmodules();
         
         
 
     }).catch((err)=>{
+         this.success =""
+        this.error = err.response.data.module
      
       
     });

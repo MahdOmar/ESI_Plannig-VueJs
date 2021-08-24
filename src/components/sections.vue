@@ -1,32 +1,33 @@
 <template>
-
-<div>
-
-      <button type="button" title="Edit account" data-toggle="modal" data-target="#add_requirement" style="float: right" class="btn btn-primary btn-sm "><i class="fa fa-fw fa-plus"></i>Ajouter Endroit Globale </button>
+    
+    <div>
+         <button type="button" title="Edit account" data-toggle="modal" data-target="#add_section" style="float: right" class="btn btn-primary btn-sm "><i class="fa fa-fw fa-plus"></i>Ajouter Section </button>
 
           <table class="table bg-white">
             <thead class="">
             <tr>
                 <th scope="col" class="text-primary">Nom</th>
                
+               
+               
                 <th scope="col" class="text-primary">Actions</th>
             </tr>
             </thead>
 
             <tbody>
+              
           
 
-                <tr v-for="requirement in requirements" :key="requirement.id">
+                <tr v-for="section in sections" :key="section.id">
                     
-                    <td>  {{requirement.name }}</td>
+                    <td>  {{section.name }}</td>
                   
-                   
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                         <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveRequirement(requirement)" ><i class="fa fa-fw fa-plus"></i>Gérer</button>
+                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveSection(section)"><i class="fa fa-fw fa-plus"></i>Gérer</button>
                     </td>
-                </tr>
+                </tr> 
                
 
 
@@ -38,27 +39,27 @@
             </tbody>
         </table>
 
-           <div class="modal fade" id="add_requirement">
+        <div class="modal fade" id="add_section">
   <div class="modal-dialog modal-md">
       <div class="modal-content">
 
           <!-- Modal Header -->
           <div class="modal-header">
-              <h5 class="modal-title">Créer Nouveau Endroit</h5>
-            
+              <h5 class="modal-title">Créer Nouvelle Section</h5>
+             
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
           <!-- Modal body -->
           <div class="modal-body">
-              <form @submit.prevent="addRequirement">
+              <form @submit.prevent="addSection">
 
                   <div class="form-group">
-                      <label for="name">Nom d'Endroit</label>
-                      <input v-model="requirement.name" name="name" type="text" class="form-control" id="name" required>
+                      <label for="name">Nom du Section</label>
+                      <input v-model="sectionName" name="name" type="text" class="form-control" id="name" required>
                   </div>
-                  
-                <div v-if="error" class="text-danger m-2">
+
+                    <div v-if="error" class="text-danger m-2">
                          <p> {{ error }}</p>
 
                     </div>
@@ -68,6 +69,7 @@
                     </div>
 
 
+                 
                   <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
               <button type="submit" class="btn btn-primary"  >Créer</button>
@@ -85,23 +87,29 @@
 </div>
 
 
+<!-- ADD COURS TD TP-->
 
 
 
-</div>
-    
 
+
+
+
+
+
+
+
+
+    </div>
 
 
 </template>
 
 <script>
-
 import axios from 'axios'
 import {mapGetters} from 'vuex'
 
-import Module from '../models/requirement'
-import Requirement from '../models/requirement'
+
 
 
 export default{
@@ -116,17 +124,20 @@ export default{
         data(){
 
         return{
-            requirement : new Requirement('',''),
-            requirements : [],
-              error:'',
+            sectionName:'',
+            sections : [],
+            yearId:this.$parent.yearId,
+             error:'',
             success:''
+          
+        
            
         };
     },
 
     methods: {
 
-        addRequirement(){
+        addSection(){
 
             const API_URL = 'http://127.0.0.1:4000/';
       
@@ -136,25 +147,23 @@ export default{
             'Authorization': 'Bearer '+this.token
           }
        
-          
          
-       
-   
-      axios.post(API_URL + 'admin/addrequirement', {
+      axios.post(API_URL + 'admin/addsection', {
 
- requirement: this.requirement  } ,{ headers : headers}
+       year: this.yearId , name:this.sectionName  } ,{ headers : headers}
         
       
     ).then((res)=>{
-         this.error = ''
-          this.success = "Endroit ajouté";
-        this.getrequirements();
+           this.error = ''
+          this.success = "Section ajouté";
+
+        this.getsections();
         
         
 
     }).catch((err)=>{
          this.success =""
-        this.error = err.response.data.requirement
+        this.error = err.response.data.error
      
       
     });
@@ -169,7 +178,7 @@ export default{
 
 
 
-         getrequirements(){
+         getsections(){
 
             const API_URL = 'http://127.0.0.1:4000/';
       
@@ -180,12 +189,12 @@ export default{
           }
          
 
-axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
+axios.post(API_URL + 'admin/getsections', { year:this.yearId} ,{ headers : headers}
         
       
     ).then((res)=>{
-      this.requirements = res.data;
-    
+      
+     this.sections = res.data
       
         
 
@@ -200,19 +209,20 @@ axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
 
 
         },
-       saveRequirement(requirement){
-           this.$store.dispatch('auth/saveRequirement',{
-                requirement: requirement
+
+           saveSection(section){
+  
+        this.$store.dispatch('auth/saveSection',{
+                section: section
             });
 
            
-        this.$router.push('subrequirements')
-        }
-
-
-
+        this.$router.push('groupes')
        
 
+    },
+
+        
 
 
 
@@ -221,7 +231,7 @@ axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
 
     },
      created() {
-      this.getrequirements();
+      this.getsections();
     },
 
 

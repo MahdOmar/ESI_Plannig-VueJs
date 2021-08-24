@@ -18,6 +18,11 @@ import Modules from './components/modules.vue'
 import Requirements from './components/requirements.vue'
 import Cours from './components/cours.vue'
 import Responsables from './components/responsables.vue'
+import Subrequirements from './components/sub-requirement.vue'
+import SectionsandGroupes from './components/sections-groupes.vue'
+import Sections from './components/sections.vue'
+import Groupes from './components/groupes.vue'
+
 
 
 import babelPolyfill from 'babel-polyfill'
@@ -50,6 +55,10 @@ Vue.component('modules', Modules);
 Vue.component('requirements',Requirements);
 Vue.component('cours' ,Cours)
 Vue.component('responsables',Responsables)
+Vue.component('subrequirements',Subrequirements)
+Vue.component('sections-groupes',SectionsandGroupes)
+Vue.component('sections',Sections)
+Vue.component('groupes',Groupes)
 
 Vue.component('admin_dashboard',Admin_Dashboard);
 Vue.config.productionTip = false;

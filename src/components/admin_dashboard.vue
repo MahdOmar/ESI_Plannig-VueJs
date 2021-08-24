@@ -4,7 +4,7 @@
 
  
     </div> -->
-   <div>
+   <div class="bg-white">
       <div >
       <!--========== ADMIN SIDE MENU one ========-->
       <div class="_1side_menu" >
@@ -14,25 +14,23 @@
         </div>
 
         <!--~~~~~~~~ MENU CONTENT ~~~~~~~~-->
-        <div  class="_1side_menu_content">
+        <div  class="_1side_menu_content" style=" background: #fff;">
           <div class="_1side_menu_img_name">
             <!-- <img class="_1side_menu_img" src="/pic.png" alt="" title=""> -->
-            <p v-if="user.role === 0" class="_1side_menu_name">Admin</p>
-             <p v-if='user.role ===1' class="_1side_menu_name">Enseignant</p> 
-
+          
           </div>
 
           <!--~~~ MENU LIST ~~~~~~-->
-          <div   class="_1side_menu_list">
+          <div   class="_1side_menu_list " >
             <ul class="_1side_menu_list_ul">
              
 
 
                
-               <li v-if="user.role === 0" class="item">Enseignants </li>
-              <li v-if="user.role === 0" ><router-link to="/dashboard/users"><i class="fas fa-users"></i> Gestion des Enseignants</router-link></li>
+               <li v-if="user.role === 0" class="item font-weight-bold" style="color:#0066ff">Enseignants </li>
+              <li v-if="user.role === 0"  class="custom" ><router-link to="/dashboard/users" ><i class="fas fa-users"></i> Gestion des Enseignants</router-link></li>
 
-                 <li v-if="user.role === 0" class="item"> Emploi du temps</li>
+                 <li v-if="user.role === 0" class="item font-weight-bold" style="color:#0066ff"> Emploi du temps</li>
               <li v-if="user.role === 0" ><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i>Tous les Emplois </router-link></li>
               <li  v-if="user.role === 0" class="line"></li>
                 <li v-if="user.role === 0" >
@@ -50,12 +48,13 @@
             </li>
 
 
-         <li v-if="user.role === 0" class="item"> Gestion des Modules</li>
+         <li v-if="user.role === 0" class="item font-weight-bold" style="color:#0066ff"> Gestion des Modules</li>
               <li v-if="user.role === 0" ><router-link to="/dashboard/entities"><i class="fas fa-calendar-plus"></i> Definir les Modules</router-link></li>
-                <li v-if="user.role === 0" ><router-link to="/dashboard/requirements"><i class="fas fa-calendar-plus"></i> Definir les exigences</router-link></li>
+                <li v-if="user.role === 0" ><router-link to="/dashboard/requirements"><i class="fas fa-calendar-plus"></i> Definir les Endroits</router-link></li>
               
           
-
+          <li v-if="user.role === 0" class="item font-weight-bold" style="color:#0066ff"> Gestion des Sections et des Groupes</li>
+              <li v-if="user.role === 0" ><router-link to="/dashboard/sections-groupes"><i class="fas fa-calendar-plus"></i> Definir les Sections et des Groupes</router-link></li>
 
 
               <li v-if="user.role === 1" ><router-link to="/dashboard/plannings"> <i class="fas fa-table"></i>Tous les Emplois</router-link></li>
@@ -95,7 +94,7 @@
                  <li class=" user-img"> <img class="rounded-circle" src="../assets/img/images.png" style="height: 35px; width: 35px;align-self: center;"></li>
 
                   <li class="username">
-                 <a href="#drop2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-white"> {{ user.username }} </a>
+                 <a href="#drop2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-white text-capitalize"> {{ user.username }} </a>  <p class="text-white" style="font-size:15px">Administrateur</p>
                    <ul class="collapse list-unstyled" id="drop2">
                   
                   
@@ -110,6 +109,7 @@
                   
            
             </ul>
+           
         </div>
         </div>
 
@@ -121,7 +121,7 @@
       </div>
       <!--========= HEADER ==========-->
     </div>
-    <div class="main">
+    <div class="main bg-white">
     	<router-view/>
       </div>
     </div>

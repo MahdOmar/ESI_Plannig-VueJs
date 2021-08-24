@@ -23,9 +23,9 @@
                     <td> {{ responsable.type}} </td>
                    
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i>Éditer</button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Supprimer</button>
-                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" ><i class="fa fa-fw fa-plus"></i>Ajouter Responsables</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                    
                     </td>
                 </tr> 
 
@@ -180,7 +180,8 @@ axios.post(API_URL + 'admin/getresponsables', {  type: this.cour.type,  targetId
         
       
     ).then((res)=>{
-     console.log(res.data)
+     console.log("Responsables : "+res.data)
+     this.responsables = res.data
 
       
      
@@ -209,15 +210,15 @@ axios.post(API_URL + 'admin/getresponsables', {  type: this.cour.type,  targetId
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+this.token
           }
-          console.log(this.cour)
+        //  console.log(this.cour)
 
          
 
-axios.post(API_URL + 'admin/getproflist', {cour : this.cour  } ,{ headers : headers}
+axios.post(API_URL + 'admin/getproflist', { type: this.cour.type,  targetId:this.cour.id  } ,{ headers : headers}
         
       
     ).then((res)=>{
-        console.log(res.data)
+        console.log("ProfList: "+res.data)
       this.Enseignants = res.data;
       
       
@@ -245,6 +246,7 @@ axios.post(API_URL + 'admin/getproflist', {cour : this.cour  } ,{ headers : head
 
      created() {
          this.getEnseignants();
+         this.getresponsables();
     
     },
 

@@ -5,8 +5,8 @@
              <!-- Navigation -->
     <nav class="navbar shadow  rounded justify-content-between flex-nowrap flex-row fixed-top">
       <div class="container">
-        <a class="navbar-brand  float-left" href="/" >
-           ESI_PLANNING
+        <a class="navbar-brand  float-left text-white" href="/" >
+           ESI PLANNING
         </a>
        <ul class="nav navbar-nav flex-row float-right">
         <img class="rounded-circle" src="../assets/img/logo.png" style="height=30px; align-self: center;">
@@ -16,20 +16,20 @@
         </ul>
       </div>
     </nav>
-     <div class="vertical-center">
+     <div class="vertical-center " style="min-height:100vh">
         <div class="inner-block">
         <form @submit.prevent="handleLogin">
-            <h3>Sign In</h3>
+            <h3>Se connecter</h3>
 
             <div class="form-group">
-                <label>Username </label>
+                <label>Nom d'utilisateur </label>
                 <input type="text" v-model="form.username" name="username"  class="form-control form-control-lg" />
               
         </div>
             
 
             <div class="form-group">
-                <label>Mot de pass</label>
+                <label>Mot de passe</label>
                 <input type="password" v-model="form.password" name="password"   class="form-control form-control-lg
                 " />
              
@@ -44,13 +44,11 @@
             </div>
            
 
-            <button type="submit" class="btn btn-dark btn-lg btn-block" >
+            <button type="submit" class="btn btn-primary btn-lg btn-block" >
                 
-            <span>Sign In</span></button>
+            <span>Se connecter</span></button>
 
-            <p class="forgot-password text-right mt-2 mb-4">
-                <a href="/forgot-password">Forgot password ?</a>
-            </p>
+           
             
            
 
