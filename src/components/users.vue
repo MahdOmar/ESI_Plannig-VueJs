@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="m-4">
         <button type="button" title="Edit account" data-toggle="modal" data-target="#add" style="float: right" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i>Ajouter Enseignant </button>
 
           <table class="table bg-white">

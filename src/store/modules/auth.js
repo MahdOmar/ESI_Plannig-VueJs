@@ -7,7 +7,7 @@ import * as types from "../mutation_types.js";
 
 // state
 const state = {
-    user: null,
+    user: '',
     token: Cookies.get("token"),
     reftoken: Cookies.get("reftoken"),
     isLogged : false,

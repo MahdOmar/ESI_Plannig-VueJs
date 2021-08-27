@@ -23,17 +23,17 @@
           <!--~~~ MENU LIST ~~~~~~-->
           <div   class="_1side_menu_list " >
             <ul class="_1side_menu_list_ul">
-             
+              <div v-if="user.role === 0">   
 
 
                
-               <li v-if="user.role === 0" class="item font-weight-bold" style="color:#0066ff">Enseignants </li>
-              <li v-if="user.role === 0"  class="custom" ><router-link to="/dashboard/users" ><i class="fas fa-users"></i> Gestion des Enseignants</router-link></li>
+               <li  class="item font-weight-bold" style="color:#0066ff">Enseignants </li>
+              <li   class="custom" ><router-link to="/dashboard/users" ><i class="fas fa-users"></i> Gestion des Enseignants</router-link></li>
 
-                 <li v-if="user.role === 0" class="item font-weight-bold" style="color:#0066ff"> Emploi du temps</li>
-              <li v-if="user.role === 0" ><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i>Tous les Emplois </router-link></li>
-              <li  v-if="user.role === 0" class="line"></li>
-                <li v-if="user.role === 0" >
+                 <li class="item font-weight-bold" style="color:#0066ff"> Emploi du temps</li>
+              <li ><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i>Tous les Emplois </router-link></li>
+              <li   class="line"></li>
+                <li  >
                 <a href="#drop" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle "><i class="fas fa-calendar-plus"></i> Nouveau Emploi du Temps</a>
                 <ul class="collapse list-unstyled" id="drop">
                   
@@ -48,23 +48,37 @@
             </li>
 
 
-         <li v-if="user.role === 0" class="item font-weight-bold" style="color:#0066ff"> Gestion des Modules</li>
-              <li v-if="user.role === 0" ><router-link to="/dashboard/entities"><i class="fas fa-calendar-plus"></i> Definir les Modules</router-link></li>
-                <li v-if="user.role === 0" ><router-link to="/dashboard/requirements"><i class="fas fa-calendar-plus"></i> Definir les Endroits</router-link></li>
+         <li class="item font-weight-bold" style="color:#0066ff"> Gestion des Modules</li>
+              <li  ><router-link to="/dashboard/entities"><i class="fas fa-calendar-plus"></i> Definir les Modules</router-link></li>
+                <li  ><router-link to="/dashboard/requirements"><i class="fas fa-calendar-plus"></i> Definir les Endroits</router-link></li>
               
           
-          <li v-if="user.role === 0" class="item font-weight-bold" style="color:#0066ff"> Gestion des Sections et des Groupes</li>
-              <li v-if="user.role === 0" ><router-link to="/dashboard/sections-groupes"><i class="fas fa-calendar-plus"></i> Definir les Sections et des Groupes</router-link></li>
+          <li  class="item font-weight-bold" style="color:#0066ff"> Gestion des Sections et des Groupes</li>
+              <li  ><router-link to="/dashboard/sections-groupes"><i class="fas fa-calendar-plus"></i> Definir les Sections et des Groupes</router-link></li>
 
 
-              <li v-if="user.role === 1" ><router-link to="/dashboard/plannings"> <i class="fas fa-table"></i>Tous les Emplois</router-link></li>
-              <li v-if="user.role === 1" ><router-link to="/dashboard/g_planning"><i class="fas fa-table"></i>Emploi du temps Générale </router-link></li>
+
+
+
+              </div>
+              <div v-if ="user.role === 0">
+                <li  ><router-link to="/dashboard/plannings"> <i class="fas fa-table"></i>Tous les Emplois</router-link></li>
+              <li ><router-link to="/dashboard/g_planning"><i class="fas fa-table"></i>Emploi du temps Générale </router-link></li>
               
           
-              <li v-if="user.role === 1"><router-link to="/dashboard/profile"><i class="fas fa-user"></i>Profile</router-link></li>
+              <li ><router-link to="/dashboard/profile"><i class="fas fa-user"></i>Profile</router-link></li>
               
 
 
+
+
+              </div>
+             
+
+
+
+
+              
              
            
             </ul>
@@ -94,7 +108,8 @@
                  <li class=" user-img"> <img class="rounded-circle" src="../assets/img/images.png" style="height: 35px; width: 35px;align-self: center;"></li>
 
                   <li class="username">
-                 <a href="#drop2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-white text-capitalize"> {{ user.username }} </a>  <p class="text-white" style="font-size:15px">Administrateur</p>
+                 <a href="#drop2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-white text-capitalize"> {{ user.username }} </a> <p v-if="user.role === 0" class="text-white" style="font-size:15px">Administrateur</p>
+                 <p v-if="user.role === 1" class="text-white" style="font-size:15px">Enseignant</p>
                    <ul class="collapse list-unstyled" id="drop2">
                   
                   
@@ -121,7 +136,7 @@
       </div>
       <!--========= HEADER ==========-->
     </div>
-    <div class="main bg-white">
+    <div class="main bg-white ">
     	<router-view/>
       </div>
     </div>
@@ -131,6 +146,9 @@
 import {mapGetters} from 'vuex'
 
    export default {
+   
+
+
         
         computed: mapGetters({
           user:'auth/user'
@@ -150,9 +168,13 @@ import {mapGetters} from 'vuex'
 
         },
         created(){
-        //  console.log(this.user)
+    
+       
+        
+        
         }
       
+
 
 
 

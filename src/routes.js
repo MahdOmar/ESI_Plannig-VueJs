@@ -19,7 +19,7 @@ import Subrequirements from './components/sub-requirement.vue'
 import SectionsandGroupes from './components/sections-groupes.vue'
 import Sections from './components/sections.vue'
 import Groupes from './components/groupes.vue'
-
+import notFound from './components/404.vue'
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 import guest from './middlewares/guest'
@@ -84,12 +84,15 @@ const router = new VueRouter({
             {path:'g_planning'  , component:G_Planning },
             {path:'all_planning'  , component:All_Plannings ,meta :{ middleware : [auth , checkAuth]} },
             {path:'profile'  , component:Profile ,meta :{ middleware : [auth , checkAuth]} },
-            {path:'wish_form'  , component:WishForm }
+            {path:'wish_form'  , component:WishForm },
+            {path:'notfound'  , component:notFound ,meta :{ middleware : [auth , checkAuth]} } ,
+           {path:'*',  redirect:'notfound' }
     
     
     
          ] },
-        {path:'/planning_view'  , component:Planning_view } 
+         {path:'/planning_view'  , component:Planning_view } ,
+        
 
     ]
 

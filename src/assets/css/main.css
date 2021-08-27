@@ -534,7 +534,7 @@ textarea {
 }
 ._2menu_logo {
     height: 100%;
-    padding-top: 17px;
+    padding-top: 13px;
     border-right: 1px solid #ececec;
     padding-right: 3px;
 }
@@ -747,3 +747,25 @@ td{
 #drop2 li{
    padding-top:15px ;
 }
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: .25rem;
+    height: 200px;
+  }
+  
+  .card .card-header {
+    background-color: #fff;
+    border-bottom: none;
+  }
+
+  .fa-edit, .fa-trash, .fa-plus{
+      padding: 3px;
+  }
