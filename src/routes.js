@@ -84,14 +84,15 @@ const router = new VueRouter({
             {path:'g_planning'  , component:G_Planning },
             {path:'all_planning'  , component:All_Plannings ,meta :{ middleware : [auth , checkAuth]} },
             {path:'profile'  , component:Profile ,meta :{ middleware : [auth , checkAuth]} },
-            {path:'wish_form'  , component:WishForm },
+            {path:'planning_view'  , component:Planning_view, meta :{ middleware : [auth , checkAuth]}} ,
+           
             {path:'notfound'  , component:notFound ,meta :{ middleware : [auth , checkAuth]} } ,
            {path:'*',  redirect:'notfound' }
     
     
     
          ] },
-         {path:'/planning_view'  , component:Planning_view } ,
+         
         
 
     ]

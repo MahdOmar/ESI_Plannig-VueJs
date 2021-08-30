@@ -2,7 +2,7 @@
     
 
 <div class="planning">
-    <input type="hidden" id="id_planning" value="<%=id%>">
+   
   <div class="row">
 
     
@@ -13,7 +13,9 @@
 
                   <tr id="times" class="collapse bg-primary" style="position: absolute;z-index: 3;display: hidden;">
                      <div>
-                         <td></td>
+                         <td>
+                            
+                         </td>
                          <td>
                              <h4 class="text-white">Sunday</h4>
                           <label class="form-check-label text-white">
@@ -126,77 +128,99 @@
               <tr>
                   <td class="vertical-time" id="vertical-time">
 
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">08:00 - 09:00</div>
+                        
+                     </div>                   
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">09:00 - 10:00</div>
+                        
+                     </div>                   
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">10:00 - 11:00</div>
+                        
+                     </div>                   
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">11:00 - 12:00</div>
+                        
+                     </div>                   
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">13:00 - 14:00</div>
+                        
+                     </div>                   
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">14:00 - 15:00</div>
+                        
+                     </div>                   
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">15:00 - 16:00</div>
+                        
+                     </div>                   
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">16:00 - 17:00</div>
+                        
+                     </div>                   
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">17:00 - 18:00</div>
+                        
+                     </div>                   
+
 
                   </td>
-                  <td>
-                    <div class="card bg-primary" id="empty-0" style="margin-bottom: 5px;"></div>
+                  <td style="width:150px">
 
-                      <div id="0"
-                            ondrop="drop(event)" ondragover="allowDrop(event,this)"  style="width: 100% ;min-width:120px; height: auto;padding-bottom: 50px" >
-                      </div>
-                      <button id="gap-0" data-toggle="modal" data-target="#new_gap" class="btn btn-outline-primary btn-sm" onclick="add_gaps(0)" style="margin-bottom: 5px; height: 40px; width:100%">
-                          <i class="fa fa-plus"></i>
-                      </button>
+                       <div class="card border border-primary" style="height:160px; ">
+                       
+                        <div class="card-body">Cours Analyse 1 </div>
+                        
+                     </div> 
+
+                     
+                       <div class="card border border-primary" style="height:160px; ">
+                       
+                        <div class="card-body">Cours Analyse 1 </div>
+                        
+                     </div> 
+                      
+                   
                   </td>
-                  <td>
-                    <div class="card bg-primary" id="empty-1" style="margin-bottom: 5px;"></div>
+                  <td style="width:150px">
+                      
+                       <div class="card border border-primary" style="height:160px; ">
+                       
+                        <div class="card-body">Cours Analyse 1 </div>
+                        
+                     </div> 
 
-                      <div id="1"
-                           ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 100% ;min-width:120px; height: auto;padding-bottom: 50px" >
-                        </div>
-                      <button id="gap-1"  data-toggle="modal" data-target="#new_gap" class="btn btn-outline-primary btn-sm" onclick="add_gaps(1)" style="margin-bottom: 5px; height: 40px; width:100%">
-                          <i class="fa fa-plus"></i>
-                      </button></td>
+                   </td >
 
-                  <td>
-                    <div class="card bg-primary" id="empty-2" style="margin-bottom: 5px;"></div>
-
-                      <div id="2"
-                           ondrop="drop(event)" ondragover="allowDrop(event)" ondragend="" style="width: 100% ;min-width:120px; height: auto;padding-bottom: 50px" >
-                        </div>
-                      <button id="gap-2" data-toggle="modal" data-target="#new_gap" class="btn btn-outline-primary btn-sm" onclick="add_gaps(2)" style="margin-bottom: 5px; height: 40px; width:100%">
-                          <i class="fa fa-plus"></i>
-                      </button>
+                  <td style="width:150px">
+                   
+                   
                   </td>
-                  <td>
-                    <div class="card bg-primary" id="empty-3" style="margin-bottom: 5px;"></div>
-
-                      <div id="3"
-                           ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 100% ;min-width:120px; height: auto;padding-bottom: 50px">
-                        </div>
-                      <button id="gap-3" data-toggle="modal" data-target="#new_gap" class="btn btn-outline-primary btn-sm" onclick="add_gaps(3)" style="margin-bottom: 5px; height: 40px; width:100%">
-                          <i class="fa fa-plus"></i>
-                      </button>
+                  <td style="width:150px">
+                    
+                    
                   </td>
-                  <td>
-                    <div class="card bg-primary" id="empty-4" style="margin-bottom: 5px;"></div>
-
-                      <div id="4"
-                           ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 100% ;min-width:120px; height: auto;padding-bottom: 50px" >
-                        </div>
-                      <button id="gap-4" data-toggle="modal" data-target="#new_gap" class="btn btn-outline-primary btn-sm" onclick="add_gaps(4)" style="margin-bottom: 5px; height: 40px; width:100%">
-                          <i class="fa fa-plus"></i>
-                      </button>
+                  <td style="width:150px">
+                   
+                   
                   </td>
-                  <td>
-                    <div class="card bg-primary" id="empty-5" style="margin-bottom: 5px;"></div>
-
-                      <div id="5"
-                           ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 100% ;min-width:120px; height: auto;padding-bottom: 50px" >
-                        </div>
-                      <button id="gap-5" data-toggle="modal" data-target="#new_gap" class="btn btn-outline-primary btn-sm" onclick="add_gaps(5)" style="margin-bottom: 5px; height: 40px; width:100%">
-                          <i class="fa fa-plus"></i>
-                      </button>
+                  <td style="width:150px">
+                    
+                    
                   </td>
-                  <td>
-                    <div class="card bg-primary" id="empty-6" style="margin-bottom: 5px;"></div>
-
-                      <div id="6"
-                           ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 100% ;min-width:120px; height: auto;padding-bottom: 50px">
-                        </div>
-                      <button id="gap-6" data-toggle="modal" data-target="#new_gap" class="btn btn-outline-primary btn-sm" onclick="add_gaps(6)" style="margin-bottom: 5px; height: 40px; width:100%">
-                          <i class="fa fa-plus"></i>
-                      </button>
+                  <td style="width:150px">
+                   
                   </td>
               </tr>
               </tbody>

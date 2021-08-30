@@ -38,12 +38,9 @@
                 <ul class="collapse list-unstyled" id="drop">
                   
                     
-                         <li><router-link to="/dashboard/manual"><i class="fas fa-puzzle-piece"></i> Génénration Manuelle </router-link></li>
+                         <li><router-link to="/dashboard/manual"><i class="fas fa-puzzle-piece"></i> Génénration Automatique </router-link></li>
                     
-                    <li class="line"></li>
-                    <li>
-                      <a ><i class="fas fa-bolt"></i>  Génération Automatique</a>
-                  </li>
+                   
                 </ul>
             </li>
 
