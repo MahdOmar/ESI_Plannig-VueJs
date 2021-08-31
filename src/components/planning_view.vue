@@ -147,7 +147,14 @@
                        
                         <div class="card-body">11:00 - 12:00</div>
                         
-                     </div>                   
+                     </div>    
+                      <div class="card border border-primary" style="height:80px; ">
+                       
+                        <div class="card-body">12:00 - 13:00</div>
+                        
+                     </div> 
+
+
                       <div class="card border border-primary" style="height:80px; ">
                        
                         <div class="card-body">13:00 - 14:00</div>
@@ -176,31 +183,14 @@
 
 
                   </td>
-                  <td style="width:150px">
+                  <td v-html="content" style="width:150px">
 
-                       <div class="card border border-primary" style="height:160px; ">
-                       
-                        <div class="card-body">Cours Analyse 1 </div>
-                        
-                     </div> 
-
-                     
-                       <div class="card border border-primary" style="height:160px; ">
-                       
-                        <div class="card-body">Cours Analyse 1 </div>
-                        
-                     </div> 
                       
                    
                   </td>
-                  <td style="width:150px">
+                  <td v-html="content2" style="width:150px">
                       
-                       <div class="card border border-primary" style="height:160px; ">
                        
-                        <div class="card-body">Cours Analyse 1 </div>
-                        
-                     </div> 
-
                    </td >
 
                   <td style="width:150px">
@@ -236,3 +226,181 @@
 
 
 </template>
+
+<script>
+export default {
+   
+   data(){
+
+        return{
+   
+            content:null,
+            content2:null,
+            courses:[{
+                 day0:[
+                   {name:'Cours Analyse 1' ,hs:8 , ms:0 , he:10 ,me:30},
+                {name:'Cours Système 1',hs:11 , ms:0 , he:12 ,me:0},
+                {name:'Cours Archi 1',hs:13 , ms:0 , he:16 ,me:0}
+
+            ]
+
+            },
+                
+            {
+                day1:[
+                   {name:'Cours Algothmique 1' ,hs:8 , ms:0 , he:10 ,me:0},
+                {name:'TP Bureautique',hs:10 , ms:0 , he:12 ,me:0},
+                {name:'Cours Archi 1',hs:14 , ms:0 , he:15 ,me:0},
+                {name:'TD Electricité',hs:15 , ms:0 , he:17 ,me:0}
+
+
+            ],
+
+            }
+            
+             
+                
+
+
+            ],
+            
+
+            
+           
+        };
+    },
+    methods:{
+        addCour(index){
+            
+
+
+            
+              
+                if( index == 0){
+                    for (let i =0 ;i <this.courses[index].day0.length ; i++)
+
+            {
+
+
+
+                    if(i == 0){
+                       // console.log('day0 de '+i)
+              var dif = this.courses[index].day0[i].he - this.courses[index].day0[i].hs + Math.abs(this.courses[index].day0[i].ms - this.courses[index].day0[i].me)/60 ;
+              var hight = dif * 80
+              this.content = '<div class="card border border-primary" style="height:'+hight+'px "><div class="card-body text-center">'+this.courses[index].day0[i].name+'</div></div>'
+
+                }
+                else{
+                   
+                    var dif1 = (this.courses[index].day0[i].hs + (this.courses[index].day0[i].ms/60)) - (this.courses[index].day0[i-1].he +( this.courses[index].day0[i-1].me /60))  ;
+
+                    var dif2 = this.courses[index].day0[i].he - this.courses[index].day0[i].hs + Math.abs(this.courses[index].day0[i].ms - this.courses[index].day0[i].me)/60 ;
+                      
+                  
+                     var hight = dif1 * 80
+                    var hight2 = dif2 * 80
+                      this.content = this.content+' <div  style="height:'+hight+'px; "></div>'+
+                      '<div class="card border border-primary" style="height:'+hight2+'px; "><div class="card-body text-center">'+this.courses[index].day0[i].name+'</div></div>'
+                      
+
+
+
+                }
+
+
+
+                }
+
+            }
+
+            else if( index == 1){
+
+                  for (let i =0 ;i <this.courses[index].day1.length ; i++)
+
+            {
+
+
+
+                    if(i == 0){
+                       // console.log('day0 de '+i)
+              var dif = this.courses[index].day1[i].he - this.courses[index].day1[i].hs + Math.abs(this.courses[index].day1[i].ms - this.courses[index].day1[i].me)/60 ;
+              var hight = dif * 80
+              this.content2 = '<div class="card border border-primary" style="height:'+hight+'px "><div class="card-body text-center">'+this.courses[index].day1[i].name+'</div></div>'
+
+                }
+                else{
+                   
+                    var dif1 = (this.courses[index].day1[i].hs + (this.courses[index].day1[i].ms/60)) - (this.courses[index].day1[i-1].he +( this.courses[index].day1[i-1].me /60))  ;
+
+                    var dif2 = this.courses[index].day1[i].he - this.courses[index].day1[i].hs + Math.abs(this.courses[index].day1[i].ms - this.courses[index].day1[i].me)/60 ;
+                      
+                  
+                     var hight = dif1 * 80
+                    var hight2 = dif2 * 80
+                      this.content2 = this.content2+' <div  style="height:'+hight+'px; "></div>'+
+                      '<div class="card border border-primary" style="height:'+hight2+'px; "><div class="card-body text-center">'+this.courses[index].day1[i].name+'</div></div>'
+                      
+
+
+
+                }
+
+
+
+                }
+
+
+
+
+            }
+
+
+
+           // const dif1 = (this.cour2.hs +( this.cour2.ms /60)) - (this.cour1.he + (this.cour1.me/60)) ;
+           // const dif = this.cour1.he - this.cour1.hs + Math.abs(this.cour1.ms - this.cour1.me)/60 ;
+        
+            
+
+      /*     const dif2 = this.cour2.he - this.cour2.hs + Math.abs(this.cour2.ms - this.cour2.me)/60 ;
+            const hight1 = dif * 80
+            const hight = dif1 * 80
+            const hight2 = dif2 * 80
+            this.content = ' <div class="card border border-primary" style="height:'+hight1+'px "><div class="card-body">'+this.cour1.name+'</div></div>'
+            +' <div  style="height:'+hight+'px; "></div>'+
+            '<div class="card border border-primary" style="height:'+hight2+'px; "><div class="card-body">'+this.cour2.name+'</div></div>'
+            */
+
+
+        }
+
+
+
+
+    },
+
+
+
+    mounted(){
+       
+     
+     
+
+       for(let index = 0 ; index < this.courses.length;index++){
+         
+
+             this.addCour(index);
+
+        }
+
+
+       
+       
+    }
+
+
+
+
+
+
+}
+</script>
