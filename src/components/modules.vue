@@ -7,9 +7,9 @@
             <thead class="">
             <tr>
                 <th scope="col" class="text-primary">Nom</th>
-                <th scope="col" class="text-primary">Coeffition</th>
-                <th scope="col" class="text-primary">ExamenH</th>
-                <th scope="col" class="text-primary">ExamenMin</th>
+                <th scope="col" class="text-primary">Coefficient</th>
+                <th scope="col" class="text-primary">Durée d'Examen</th>
+                
 
                
                 <th scope="col" class="text-primary">Actions</th>
@@ -23,8 +23,9 @@
                     
                     <td>  {{module.name }}</td>
                     <td> {{ module.coefficient }}</td>
-                    <td> {{ module.examenH }} </td>
-                     <td> {{ module.examenMin }} </td>
+                    <td v-if="module.examenMin == 0"> {{ module.examenH }}h </td>
+                    <td v-else>{{ module.examenH }}h{{ module.examenMin }}min</td>
+                     
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>

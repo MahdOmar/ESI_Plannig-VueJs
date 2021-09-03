@@ -517,7 +517,17 @@ textarea {
     
 }
 .slider{
-    padding-left: 0px;
+   padding-left: 0px;
+
+}
+.sliderpl{
+    margin: 0 150px !important;
+    margin-top: 100px !important;
+    
+    
+  
+
+
 }
 
 

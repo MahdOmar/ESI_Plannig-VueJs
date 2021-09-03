@@ -58,7 +58,7 @@
 
 
               </div>
-              <div v-if ="user.role === 0">
+              <div v-if ="user.role === 1">
                 <li  ><router-link to="/dashboard/plannings"> <i class="fas fa-table"></i>Tous les Emplois</router-link></li>
               <li ><router-link to="/dashboard/g_planning"><i class="fas fa-table"></i>Emploi du temps Générale </router-link></li>
               
