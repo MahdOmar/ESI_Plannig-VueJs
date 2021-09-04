@@ -271,7 +271,7 @@ export default {
             this.planning[k][i].name +
             '</div><div class="size2">' +
             this.planning[k][i].prof.user.firstname + ' ' + this.planning[k][i].prof.user.lastname +
-            '</div><div class="d-flex justify-content-end size2">'+this.planning[k][i].requirement.name+'</div></div>';
+            '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning[k][i].requirement.name+'</div></div>';
         } else {
           var dif1 =
             this.planning[k][i].startH +
@@ -299,7 +299,7 @@ export default {
             this.planning[k][i].name +
             '</div><div class="size2">' +
              this.planning[k][i].prof.user.firstname + ' ' + this.planning[k][i].prof.user.lastname +
-            '</div><div  class="d-flex justify-content-end size2">'+this.planning[k][i].requirement.name+'</div></div>';
+            '</div><div  class="d-flex m-2 justify-content-end size2">'+this.planning[k][i].requirement.name+'</div></div>';
             
         }
         
