@@ -23,7 +23,7 @@
                     
                     <td>  {{module.name }}</td>
                     <td> {{ module.coefficient }}</td>
-                    <td v-if="module.examenMin == 0"> {{ module.examenH }}h </td>
+                    <td v-if="module.examenMin == 0"> {{ module.examenH }}h </td> 
                     <td v-else>{{ module.examenH }}h{{ module.examenMin }}min</td>
                      
                     <td>
@@ -56,6 +56,16 @@
 
           <!-- Modal body -->
           <div class="modal-body">
+               <div class="row justify-content-center">
+                      <div v-if="success" class="text-success text-center m-2 col-md-4">
+                         <p> {{ success }}</p>
+
+                    </div>
+
+
+                </div>
+
+
               <form @submit.prevent="addModule">
 
                   <div class="form-group">
@@ -79,10 +89,7 @@
                          <p> {{ error }}</p>
 
                     </div>
-                    <div v-if="success" class="text-success m-2">
-                         <p> {{ success }}</p>
-
-                    </div>
+                  
 
 
 
@@ -126,6 +133,7 @@ import axios from 'axios'
 import {mapGetters} from 'vuex'
 
 import Module from '../models/module'
+import $ from 'jquery'
 
 
 export default{
@@ -134,14 +142,15 @@ export default{
 
  computed: mapGetters({
          semesterid:'auth/semesterId',
-         token: 'auth/token'
+         token: 'auth/token',
+         modules:'auth/modules'
         }),
 
         data(){
 
         return{
             module : new Module('','','','',''),
-            modules : [],
+         //   modules : null,
             moduleId:'',
             selected:'',
             error:'',
@@ -149,6 +158,7 @@ export default{
            
         };
     },
+  
 
     methods: {
 
@@ -174,9 +184,14 @@ export default{
     ).then((res)=>{
          this.error = ''
           this.success = "Module ajouté";
+          
 
 
         this.getmodules();
+           setTimeout(function(){
+      $("#add_module").modal('hide')
+   }, 1 * 1000);
+
         
         
 
@@ -212,8 +227,9 @@ axios.post(API_URL + 'admin/getmodules', { semester:this.semesterid} ,{ headers 
         
       
     ).then((res)=>{
-      this.modules = res.data;
-      console.log(this.modules)
+      this.$store.dispatch("auth/saveModules", {
+        modules: res.data
+      });
       
         
 
@@ -249,8 +265,10 @@ axios.post(API_URL + 'admin/getmodules', { semester:this.semesterid} ,{ headers 
 
 
     },
-     created() {
-      this.getmodules();
+     mounted() {
+   //      this.modules = this.$parent.modules
+     
+   console.log('child '+this.modules)
     },
 
 

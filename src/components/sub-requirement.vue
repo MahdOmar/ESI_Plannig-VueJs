@@ -101,6 +101,7 @@ import {mapGetters} from 'vuex'
 
 
 import SubRequirement from '../models/requirement'
+import $ from 'jquery'
 
 
 export default{
@@ -150,6 +151,10 @@ export default{
         this.error = ''
           this.success = "Endroit ajouté";
         this.getsubrequirements();
+
+           setTimeout(function(){
+      $("#add_subrequirement").modal('hide')
+   }, 1 * 1000);
         
         
 

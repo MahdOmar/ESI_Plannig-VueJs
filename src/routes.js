@@ -20,6 +20,11 @@ import SectionsandGroupes from './components/sections-groupes.vue'
 import Sections from './components/sections.vue'
 import Groupes from './components/groupes.vue'
 import notFound from './components/404.vue'
+import plannings_admin from './components/plannings_admin.vue'
+
+
+
+
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 import guest from './middlewares/guest'
@@ -82,7 +87,9 @@ const router = new VueRouter({
             {path:'manual'  , component:Manual ,meta :{ middleware : [auth , checkAuth]} },
             {path:'plannings'  , component:Plannings ,meta :{ middleware : [auth , checkAuth]} },
             {path:'g_planning'  , component:G_Planning },
-            {path:'all_planning'  , component:All_Plannings ,meta :{ middleware : [auth , checkAuth]} },
+            {path:'all_planning'  , component:All_Plannings ,meta :{ middleware : [auth , checkAuth]},
+           },
+
             {path:'profile'  , component:Profile ,meta :{ middleware : [auth , checkAuth]} },
             {path:'planning_view'  , component:Planning_view, meta :{ middleware : [auth , checkAuth]}} ,
            

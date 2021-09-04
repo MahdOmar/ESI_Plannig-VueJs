@@ -54,6 +54,16 @@
 
             <!-- Modal body -->
             <div class="modal-body">
+                <div class="row justify-content-center">
+                      <div v-if="success" class="text-success text-center m-2 col-md-4">
+                         <p> {{ success }}</p>
+
+                    </div>
+
+
+                </div>
+               
+
                 <form ref='form' @submit.prevent="handleRegister">
                      <div class="form-group">
                         <label for="username">Username</label>
@@ -61,43 +71,58 @@
                     </div>
 
 
-                    <div class="form-group">
-                        <label for="firstName">Nom</label>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="firstName">Nom</label>
                         <input name="firstname"  v-model="user.firstname"   type="text" class="form-control" id="firstName" required>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="lastNameInput">Prénom</label>
+                        </div>
+                        <div class="col-md-6">
+                            
+                         <label for="lastNameInput">Prénom</label>
                         <input name="lastname"  v-model="user.lastname"  type="text" class="form-control" id="lastName"  required>
+                  
+
+                        </div>
+                       
                     </div>
 
-                    <div class="form-group">
-                        <label for="emailInput">Email </label>
+                    
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                             <label for="emailInput">Email </label>
                         <input name="email" type="email"  v-model="user.email"  class="form-control" id="email" placeholder="" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="type">Selectioner Type</label>
+                     
+                        </div>
+                        <div class="col-md-6">
+                             <label for="type">Selectioner Type</label>
                        <select v-model="user.type" class="form-control" id="type" required>
-                          <option>Maitre de conférence A</option>
-                          <option>Maitre de conférence B</option>
-                          <option>Professeur</option>
+                          <option >MCA</option>
+                          <option>MCB</option>
+                          <option>Pr</option>
                         
                       </select>
+
+
+                        </div>
+
+
+                              
                     </div>
 
-                    <div class="form-group">
-                        <label for="passwordInput">Mot de Pass</label>
+                  
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="passwordInput">Mot de Pass</label>
                         <input name="password"  v-model="user.password" type="password" class="form-control" id="password" placeholder="" required >
                          
-                         
 
+                        </div>
 
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confirmPasswordInput">Confirmer Mot de Pass</label>
+                        <div class="col-md-6">
+                            <label for="confirmPasswordInput">Confirmer Mot de Pass</label>
                         <input  v-model="password" name="confirmPassword"  type="password" class="form-control" id="confirmPassword"
                                placeholder="" @keyup="checkPass" required>
 
@@ -106,7 +131,13 @@
                          <p v-if="passcheck" class="text-success"> {{ passcheck }}</p>
                          
 
+
+                        </div>
+
+
                     </div>
+
+                   
 
 
                     </div>
@@ -115,11 +146,7 @@
                          <p> {{ error }}</p>
 
                     </div>
-                    <div v-if="success" class="text-success m-2">
-                         <p> {{ success }}</p>
-
-                    </div>
-
+                   
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="submit" class="btn btn-primary"  >Créer</button>
@@ -156,6 +183,7 @@
 
 import User from '../models/user'; 
 import axios from  "axios"
+import $ from 'jquery'
 import {mapGetters} from 'vuex'
 
 export default {
@@ -205,10 +233,11 @@ computed: mapGetters({
     ).then((res)=>{
           this.error = ''
           this.success = "Enseignant ajouté";
-        
-         
-        
+          
         this.getUsers();
+          setTimeout(function(){
+      $("#add").modal('hide')
+   }, 1 * 1000);
         
         
 

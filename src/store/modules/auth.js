@@ -16,7 +16,9 @@ const state = {
     cour:null,
     requirement:null,
     section:null,
-    planning:null
+    planning:null,
+    modules:'',
+    sections:''
 }
 
 //gettters 
@@ -29,7 +31,9 @@ const getters ={
     cour:  state => state.cour,
     requirement: state => state.requirement,
     section : state => state.section,
-    planning: state => state.planning
+    planning: state => state.planning,
+    modules : state => state.modules,
+    sections: state => state.sections
 
     
 }
@@ -96,7 +100,15 @@ const mutations = {
 
     [types.SAVE_PLANNING](state ,{planning}){
         state.planning = planning
-    }
+    },
+
+    [types.SAVE_MODULES](state , {modules}){
+        state.modules = modules
+    },
+
+    [types.SAVE_SECTIONS](state ,{sections}){
+        state.sections = sections
+    },
 
 
 
@@ -174,7 +186,16 @@ const actions ={
         commit(types.SAVE_PLANNING , payload)
 
 
-    }
+    },
+
+    saveModules({commit}, payload){
+        commit(types.SAVE_MODULES, payload)
+    },
+
+    saveSections({commit}, payload){
+
+        commit(types.SAVE_SECTIONS , payload)
+    },
 
 
 

@@ -5,6 +5,9 @@
       <p>Ici, vous pouvez ajouter, modifier et supprimer les modules</p>
     </div>
     <div class="row">
+      
+
+
       <div class="col-md-3 p-2 shadow text-center">
         <table class="table table-bordered table-hover">
           <thead>
@@ -40,12 +43,12 @@
 
     <!--         Semester modal              -->
 
-    <div class="modal fade" id="semesters">
+    <div class="modal fade" id="semesters" ref="sem">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <!-- Modal Header -->
           <div class="modal-header">
-            <h5 class="modal-title">Semester</h5>
+            <h5 class="modal-title">Selectionner Semester</h5>
             <button type="button" class="close" data-dismiss="modal">
               &times;
             </button>
@@ -55,11 +58,11 @@
           <div class="modal-body">
             <div id="model_body"></div>
 
-            <br />
+           
             <div>
               <form @submit.prevent="saveId">
                 <div class="form-group">
-                  <label for="select">Selectioner Semester </label>
+                
                   <select
                     v-model="selected"
                     class="custom-select"
@@ -77,9 +80,9 @@
                 </div>
                 <button
                   class="btn btn-primary btn-sm text-center text-white m-2"
-                  type="submit"
+                  type="submit"  
                 >
-                  confirmer
+                  Confirmer
                 </button>
                 <button
                   class="btn btn-primary btn-sm text-center text-white m-2"
@@ -101,7 +104,12 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import $ from 'jquery'
+
+
+import modules from './modules.vue';
 export default {
+  components: { modules },
   computed: mapGetters({
     token: "auth/token",
     semesterid: "auth/semesterId",
@@ -113,6 +121,7 @@ export default {
       semesters: [],
       yearId: null,
       selected: "",
+      modules:[]
     };
   },
   methods: {
@@ -156,6 +165,50 @@ export default {
           console.log(err.message);
         });
     },
+    
+         getmodules(){
+
+            const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+         
+
+axios.post(API_URL + 'admin/getmodules', { semester:this.selected} ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      this.modules = res.data;
+      console.log(this.modules)
+      this.$store.dispatch("auth/saveModules", {
+        modules: this.modules
+      });
+     
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+     
+
+
+
+
+        },
+
+
+
+
+
+
+
+
     saveId() {
       const selectedId = this.selected;
 
@@ -163,7 +216,26 @@ export default {
         semesterId: selectedId
       });
 
-      this.$router.push("/dashboard/entities/modules");
+      
+      $("#semesters").modal('hide')
+   
+
+
+     
+
+      this.getmodules();
+ 
+      
+
+      
+const path = "/dashboard/entities/modules"
+if (this.$route.path !== path) this.$router.push(path)
+
+
+      
+
+   //  this.$router.push("/dashboard/entities/modules");
+     
     },
 
     getYearId(year) {

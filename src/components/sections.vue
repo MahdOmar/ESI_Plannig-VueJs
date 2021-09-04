@@ -118,14 +118,16 @@ export default{
 
  computed: mapGetters({
     
-         token: 'auth/token'
+         token: 'auth/token',
+         sections:'auth/sections'
+
         }),
 
         data(){
 
         return{
             sectionName:'',
-            sections : [],
+           // sections : [],
             yearId:this.$parent.yearId,
              error:'',
             success:''
@@ -194,7 +196,9 @@ axios.post(API_URL + 'admin/getsections', { year:this.yearId} ,{ headers : heade
       
     ).then((res)=>{
       
-     this.sections = res.data
+     this.$store.dispatch("auth/saveSections", {
+        sections: res.data
+      });
       
         
 
@@ -231,7 +235,7 @@ axios.post(API_URL + 'admin/getsections', { year:this.yearId} ,{ headers : heade
 
     },
      created() {
-      this.getsections();
+      //this.getsections();
     },
 
 

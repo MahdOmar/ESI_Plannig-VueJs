@@ -52,6 +52,15 @@
 
           <!-- Modal body -->
           <div class="modal-body">
+              <div class="row justify-content-center">
+                      <div v-if="success" class="text-success text-center m-2 col-md-4">
+                         <p> {{ success }}</p>
+
+                    </div>
+               </div>
+
+
+
              <form @submit.prevent="addresponsable">
                       <div class="form-group">
                           <label for="select">Selectioner Nom </label>
@@ -92,6 +101,7 @@
 <script>
 import axios from 'axios'
 import {mapGetters} from 'vuex'
+import $ from 'jquery'
 
 
 export default{
@@ -108,7 +118,8 @@ export default{
         return{
             Enseignants : [],
             responsables : [],
-            profId:''
+            profId:'',
+            success:''
            
            
         };
@@ -135,7 +146,12 @@ export default{
         
       
              ).then((res)=>{
+                 this.success = "Responsable Ajouté"
                this.getresponsables();
+               
+               setTimeout(function(){
+                $("#add_resp").modal('hide')
+               }, 1 * 1000);
            
         
         

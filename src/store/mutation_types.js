@@ -10,3 +10,6 @@ export const SAVE_COUR  = " SAVE_COUR "
 export const SAVE_REQUIREMENT  = " SAVE_REQUIREMENT "
 export const SAVE_SECTION  = " SAVE_SECTION "
 export const SAVE_PLANNING  = " SAVE_PLANNING "
+export const SAVE_MODULES  = " SAVE_MODULES "
+export const SAVE_SECTIONS  = " SAVE_SECTIONS"
+

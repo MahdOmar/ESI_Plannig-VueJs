@@ -102,6 +102,7 @@ import {mapGetters} from 'vuex'
 
 import Module from '../models/requirement'
 import Requirement from '../models/requirement'
+import $ from 'jquery'
 
 
 export default{
@@ -149,6 +150,11 @@ export default{
          this.error = ''
           this.success = "Endroit ajouté";
         this.getrequirements();
+        setTimeout(function(){
+      $("#add_requirement").modal('hide')
+   }, 1 * 1000);
+
+
         
         
 

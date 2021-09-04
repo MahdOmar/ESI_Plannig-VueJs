@@ -7,10 +7,7 @@
   </div>
 <div class="container">
   <form @submit.prevent="generate">
-    <div class="form-group">
-        <label for="planning_name2">Nom d'Emploi</label>
-        <input name="planning_name2" type="text" class="form-control" id="planning_name2" required>
-    </div>
+  
     <div class="form-group">
         <label for="groups_select">Selectionner Année</label>
          <select v-model ="selected" class="custom-select" name="semester" id="select_emp" @change="getsemesters()">
@@ -180,6 +177,9 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
         },
 
         getsemesters(){
+          this.groupes ='';
+          this.semesters="";
+          this.sections=''
 
             const API_URL = 'http://127.0.0.1:4000/';
       
@@ -211,6 +211,8 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.selected} ,{ headers : 
         },
 
         getSections(){
+          this.sections=''
+          this.groupes=''
 
             const API_URL = 'http://127.0.0.1:4000/';
       
@@ -221,7 +223,7 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.selected} ,{ headers : 
           }
          
 
-axios.post(API_URL + 'admin/getsections', { year:this.selected} ,{ headers : headers}
+axios.post(API_URL + 'admin/getsections', { year:this.selectSem} ,{ headers : headers}
         
       
     ).then((res)=>{
@@ -248,6 +250,7 @@ axios.post(API_URL + 'admin/getsections', { year:this.selected} ,{ headers : hea
 
 
         getGroupes(){
+          this.groupes = ''
 
                const API_URL = 'http://127.0.0.1:4000/';
       

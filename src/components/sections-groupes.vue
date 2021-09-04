@@ -71,6 +71,7 @@ export default  {
             semesters:[],
             yearId:null,
             selected:'',
+            sections:[]
            
 
 
@@ -128,12 +129,54 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.yearId} ,{ headers : he
      
       
     });
+
+     
+
+        },
+
+           getsections(){
+
+            const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+         
+
+axios.post(API_URL + 'admin/getsections', { year:this.yearId} ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      
+     this.sections = res.data
+
+     console.log(this.sections)
+
+     this.$store.dispatch("auth/saveSections", {
+        sections: this.sections
+      });
+     
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
      
 
 
 
 
         },
+
+
+
+
+
         saveId(){
             
             const selectedId = this.selected
@@ -142,8 +185,12 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.yearId} ,{ headers : he
             this.$store.dispatch('auth/saveId',{
                 semesterId: selectedId
             });
+
+         
+
+
            
-            this.$router.push('entities/modules')
+         //   this.$router.push('entities/modules')
         },
 
 
@@ -158,7 +205,9 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.yearId} ,{ headers : he
 
         getYearId(year){
         this.yearId = year.id
-          this.$router.push('sections-groupes/sections')
+           this.getsections();
+        const path = "/dashboard/sections-groupes/sections"
+if (this.$route.path !== path) this.$router.push(path)
        
 
     },

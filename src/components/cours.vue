@@ -7,8 +7,8 @@
                   <thead>
                   <tr>
                       <th scope="col" class="text-primary">Name</th>
-                      <th scope="col" class="text-primary">Heure</th>
-                      <th scope="col" class="text-primary">Minute</th>
+                      <th scope="col" class="text-primary">Durée de Séance</th>
+                     
                      
                       <th scope="col" class="text-primary">Options</th>
                       
@@ -19,8 +19,8 @@
                        <tr v-for="(cour,i) in courses" :key="i">
                     
                     <td>  {{cour.name }} </td>
-                    <td> {{ cour.hour }}</td>
-                    <td> {{ cour.min }} </td>
+                    <td v-if="cour.min == 0"> {{cour.hour }}h </td> 
+                    <td v-else>{{ cour.hour }}h{{ cour.min }}min</td>
                    
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
@@ -32,8 +32,8 @@
                  <tr v-for="(td,i) in tds" :key="'A'+i">
                     
                     <td>  {{td.name }}</td>
-                    <td> {{ td.hour }}</td>
-                    <td> {{ td.min }} </td>
+                       <td v-if="cour.min == 0"> {{cour.hour }}h </td> 
+                    <td v-else>{{ cour.hour }}h{{ cour.min }}min</td>
                    
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
@@ -63,11 +63,20 @@
 
           <!-- Modal body -->
           <div class="modal-body">
+               <div class="row justify-content-center">
+                      <div v-if="success" class="text-success text-center m-2 col-md-4">
+                         <p> {{ success }}</p>
+
+                    </div>
+               </div>
+              
+
+
              <form @submit.prevent="addCour()">
                       <div class="form-group">
                           <label for="select">Selectioner Nom </label>
                             <select v-model ="cour.name" class="custom-select" name="name" id="select">
-                                <option value="Cours" > Cour</option>
+                                <option value="Cours" > Cours</option>
                                 <option value="TD" > TD</option>
                                 <option value="TP" > TP</option>
                             
@@ -130,6 +139,7 @@ import axios from 'axios'
 import {mapGetters} from 'vuex'
 
 import Cours from '../models/cours'
+import $ from 'jquery'
 
 
 export default{
@@ -148,6 +158,7 @@ export default{
             courses :'',
             tds:[],
             requirements:[],
+            success:'',
           
             selected:''
            
@@ -179,8 +190,28 @@ export default{
         
       
              ).then((res)=>{
+                 if(this.cour.name == "Cours"){
+                     this.success ='Cours Ajouté'
+
+                 }
+                else if(this.cour.name == "TD"){
+                     this.success ='TD Ajouté'
+
+                 }
+               else  if(this.cour.name == "TP"){
+                     this.success ='TP Ajouté'
+
+                 }
+                 
+
+
                this.getcours();
                this.getTds();
+
+               setTimeout(function(){
+      $("#add_cour").modal('hide')
+   }, 1 * 1000);
+
         
         
 
