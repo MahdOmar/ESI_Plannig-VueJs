@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid" style="padding-left: 40px">
     <div class="p-2">
-      <h1>Gestion des Modules</h1>
-      <p>Ici, vous pouvez ajouter, modifier et supprimer les modules</p>
+      <h2>Gestion des Modules</h2>
+     
     </div>
     <div class="row">
       
@@ -88,7 +88,7 @@
                   class="btn btn-primary btn-sm text-center text-white m-2"
                   data-dismiss="modal"
                 >
-                  Anuller
+                  Annuler
                 </button>
               </form>
             </div>

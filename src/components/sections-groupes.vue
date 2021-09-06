@@ -2,8 +2,8 @@
     
 <div class="container-fluid " style="padding-left: 40px; ">
   <div class=" p-2 ">
-    <h1>Gestion des Sections/Groupes</h1>
-    <p>Ici, vous pouvez ajouter, modifier et supprimer les sections et les groupes</p>
+    <h2>Gestion des Sections/Groupes</h2>
+   
    
 
     	

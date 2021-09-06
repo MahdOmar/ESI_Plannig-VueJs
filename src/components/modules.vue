@@ -27,9 +27,9 @@
                     <td v-else>{{ module.examenH }}h{{ module.examenMin }}min</td>
                      
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveModuleId(module)"><i class="fa fa-fw fa-plus"></i>Gérer</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_module" @click="getModule(module)"  ><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deletemodule(module)"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-info  btn-sm" @click="saveModuleId(module)">Gérer</button>
                     </td>
                 </tr>
                
@@ -66,7 +66,7 @@
                 </div>
 
 
-              <form @submit.prevent="addModule">
+              <form @submit.prevent="addModule" class="text-left">
 
                   <div class="form-group">
                       <label for="name">Nom du Module</label>
@@ -76,15 +76,24 @@
                       <label for="coef">Coeffition</label>
                       <input v-model="module.coefficient" name="coef" type="number" class="form-control" id="coef" required>
                   </div>
-                  <div class="form-group">
-                      <label for="group_name">Examen Heure</label>
+                  <div class="form-group row">
+                      <div class="col-md-6">
+                           <label for="group_name">Examen Heure</label>
                       <input v-model="module.examenH" name="ExamenH" type="number" class="form-control" id="ExamenH" max="4" required>
+                
+                      </div>
+                      <div class="col-md-6">
+                         <label for="group_name">Examen Minute</label>
+                    <input  v-model="module.examenMin" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
+                
+
+                      </div>
+
+
+                     
                   </div>
 
-                   <div class="form-group">
-                      <label for="group_name">Examen Minute</label>
-                      <input  v-model="module.examenMin" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
-                  </div>
+                  
                    <div v-if="error" class="text-danger m-2">
                          <p> {{ error }}</p>
 
@@ -108,6 +117,81 @@
       </div>
   </div>
 </div>
+<!--      Modify Module        -->
+
+ <div class="modal fade" id="edit_module">
+  <div class="modal-dialog modal-md">
+      <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h5 class="modal-title">Editer Module</h5>
+             
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+               <div class="row justify-content-center">
+                      <div v-if="success" class="text-success text-center m-2 col-md-4">
+                         <p> {{ success }}</p>
+
+                    </div>
+
+
+                </div>
+
+
+              <form @submit.prevent="EditModule"  class="text-left">
+
+                  <div class="form-group">
+                      <label for="name">Nom du Module</label>
+                      <input v-model="moduleE.name" name="name" type="text" class="form-control" id="name" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="coef">Coeffition</label>
+                      <input v-model="moduleE.coefficient" name="coef" type="number" class="form-control" id="coef" required>
+                  </div>
+                  <div class="form-group row">
+                      <div class="col-md-6">
+                           <label for="group_name">Examen Heure</label>
+                      <input v-model="moduleE.examenH" name="ExamenH" type="number" class="form-control" id="ExamenH" max="4" required>
+                  
+                      </div>
+                      <div class="col-md-6">
+                          <label for="group_name">Examen Minute</label>
+                      <input  v-model="moduleE.examenMin" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
+                
+                      </div>
+                     
+                  </div>
+
+                  
+                   <div v-if="error" class="text-danger m-2">
+                         <p> {{ error }}</p>
+
+                    </div>
+                  
+
+
+
+                  <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary"  >Créer</button>
+          </div>
+                     
+
+              </form>
+          </div>
+
+          <!-- Modal footer -->
+          
+
+      </div>
+  </div>
+</div>
+
+
 
 
 <!-- ADD COURS TD TP-->
@@ -152,6 +236,8 @@ export default{
             module : new Module('','','','',''),
          //   modules : null,
             moduleId:'',
+            moduleE:'',
+            moduleName:'',
             selected:'',
             error:'',
             success:''
@@ -246,16 +332,36 @@ axios.post(API_URL + 'admin/getmodules', { semester:this.semesterid} ,{ headers 
         },
 
            saveModuleId(module){
-        this.moduleId = module.id;
+     //   this.moduleId = module.id;
         this.$store.dispatch('auth/saveModuleId',{
-                moduleId: this.moduleId
+                moduleId: module
             });
+
+            this.moduleName = module.name
 
            
         this.$router.push('cours')
        
 
     },
+    getModule(module){
+        this.moduleE = Object.assign({},module)
+
+
+    },
+
+    splice(arr, val) {
+         for (var i = arr.length; i--;) {
+         if (arr[i] === val) {
+            arr.splice(i, 1);
+    }
+  }
+},
+
+   deletemodule(module){
+       console.log("ouiiiiiiiii")
+      this.splice(this.modules,module)
+   }
 
         
 
@@ -268,7 +374,7 @@ axios.post(API_URL + 'admin/getmodules', { semester:this.semesterid} ,{ headers 
      mounted() {
    //      this.modules = this.$parent.modules
      
-   console.log('child '+this.modules)
+  
     },
 
 

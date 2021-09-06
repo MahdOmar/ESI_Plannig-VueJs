@@ -28,8 +28,8 @@
                     <td> {{ user.email }} </td>
                     <td> {{ user.type }} </td>
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm "><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" @click="getUser(user)"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm " @click="deleteUser(user)" ><i class="fa fa-fw fa-trash"></i></button>
                     </td>
                 </tr>
                
@@ -169,6 +169,139 @@
 
         </div>
     </div>
+    <!-- Modify User           -->
+
+    <div class="modal fade" id="edit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Editer compte</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                      <div v-if="success" class="text-success text-center m-2 col-md-4">
+                         <p> {{ success }}</p>
+
+                    </div>
+
+
+                </div>
+               
+
+                <form ref='form' @submit.prevent="Edit">
+                     <div class="form-group">
+                        <label for="usernameE">Username</label>
+                        <input name="usernameE"  v-model="userE.username" type="text" class="form-control" id="usernameE"  required>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="firstNameE">Nom</label>
+                        <input name="firstnameE"  v-model="userE.firstname"   type="text" class="form-control" id="firstNameE" required>
+
+                        </div>
+                        <div class="col-md-6">
+                            
+                         <label for="lastNameInputE">Prénom</label>
+                        <input name="lastnameE"  v-model="userE.lastname"  type="text" class="form-control" id="lastNameE"  required>
+                  
+
+                        </div>
+                       
+                    </div>
+
+                    
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                             <label for="emailInputE">Email </label>
+                        <input name="emailE" type="email"  v-model="userE.email"  class="form-control" id="emailE"  placeholder="" required>
+                     
+                        </div>
+                        <div class="col-md-6">
+                             <label for="typeE">Selectioner Type</label>
+                       <select v-model="userE.type" class="form-control" id="typeE" required >
+                          <option >MCA</option>
+                          <option>MCB</option>
+                          <option>Pr</option>
+                        
+                      </select>
+
+
+                        </div>
+
+
+                              
+                    </div>
+
+                  
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="passwordInputE">Mot de Pass</label>
+                        <input name="passwordE"  v-model="userE.password" type="password" class="form-control" id="passwordE"   required >
+                         
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="confirmPasswordInputE">Confirmer Mot de Pass</label>
+                        <input  v-model="password" name="confirmPasswordE"  type="password" class="form-control" id="confirmPasswordE"
+                                @keyup="checkPass" required>
+
+                               <div  class="text-danger m-2">
+                         <p v-if="checked" class="text-danger"> {{ checked }}</p>
+                         <p v-if="passcheck" class="text-success"> {{ passcheck }}</p>
+                         
+
+
+                        </div>
+
+
+                    </div>
+
+                   
+
+
+                    </div>
+
+                    <div v-if="error" class="text-danger m-2">
+                         <p> {{ error }}</p>
+
+                    </div>
+                   
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary"  >Créer</button>
+
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              
+
+                
+    </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
 </div>
 
 
@@ -186,6 +319,7 @@ import axios from  "axios"
 import $ from 'jquery'
 import {mapGetters} from 'vuex'
 
+
 export default {
 
 computed: mapGetters({
@@ -197,6 +331,7 @@ computed: mapGetters({
   data() {
     return {
       user: new User('','','','','',''),
+      userE:'',
       users:[],
       error:'',
       password:'',
@@ -255,6 +390,19 @@ computed: mapGetters({
     
   },
 
+   Edit(){
+       console.log(this.userE.username)
+
+
+
+   },
+
+
+
+
+
+
+
     getUsers() {
        const API_URL = 'http://127.0.0.1:4000/';
       
@@ -291,7 +439,24 @@ axios.post(API_URL + 'admin/getprofs', { } ,{ headers : headers}
           this.passcheck = 'mot de passe correspondant'
           this.passSuccess = true
       }
+  },
+
+   getUser(user){
+       this.userE = Object.assign({},user)
+       this.password = this.userE.password
+       console.log(this.userE)
+   },
+    splice(arr, val) {
+         for (var i = arr.length; i--;) {
+         if (arr[i] === val) {
+            arr.splice(i, 1);
+    }
   }
+},
+
+   deleteUser(user){
+      this.splice(this.users,user)
+   }
      
     
   },

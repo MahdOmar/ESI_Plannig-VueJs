@@ -22,8 +22,8 @@
                     <td>  {{groupe.name }}</td>
                   
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_groupe"  @click="getGroupe(groupe)"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deletegroupe(groupe)"><i class="fa fa-fw fa-trash"></i></button>
                      
                     </td>
                 </tr> 
@@ -51,7 +51,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-              <form @submit.prevent="addGroupe">
+              <form @submit.prevent="addGroupe"  class="text-left">
 
                   <div class="form-group">
                       <label for="name">Nom du Groupe</label>
@@ -85,9 +85,54 @@
 </div>
 
 
-<!-- ADD COURS TD TP-->
+<!-- Modify Group-->
 
 
+  <div class="modal fade" id="edit_groupe">
+  <div class="modal-dialog modal-md">
+      <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h5 class="modal-title">Editer Groupe</h5>
+             
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <form @submit.prevent="editGroupe"  class="text-left">
+
+                  <div class="form-group">
+                      <label for="name">Nom du Groupe</label>
+                      <input v-model="groupeNameE.name" name="name" type="text" class="form-control" id="name" required>
+                  </div>
+                    <div v-if="error" class="text-danger m-2">
+                         <p> {{ error }}</p>
+
+                    </div>
+                    <div v-if="success" class="text-success m-2">
+                         <p> {{ success }}</p>
+
+                    </div>
+
+
+                 
+                  <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary"  >Créer</button>
+          </div>
+                     
+
+              </form>
+          </div>
+
+          <!-- Modal footer -->
+          
+
+      </div>
+  </div>
+</div>
 
 
 
@@ -124,6 +169,7 @@ export default{
 
         return{
             groupeName:'',
+            groupeNameE:'',
             groupes : [],
               error:'',
             success:''
@@ -208,6 +254,22 @@ axios.post(API_URL + 'admin/getgroups', { section:this.section.id} ,{ headers : 
 
 
         },
+
+        getGroupe(groupe){
+            this.groupeNameE = Object.assign({},groupe)
+        },
+
+        splice(arr, val) {
+         for (var i = arr.length; i--;) {
+         if (arr[i] === val) {
+            arr.splice(i, 1);
+    }
+  }
+},
+
+   deletegroupe(groupe){
+      this.splice(this.groupes,groupe)
+   }
 
 
         

@@ -5,14 +5,14 @@ $(function(){
             $(".hidden").removeClass("hidden");
             $(".header").removeClass("slider");
             $(".main").removeClass("slider");
-            $(".main").removeClass("sliderpl");
+            $(".planning").removeClass("sliderpl");
         }
         else{
          //   $("._1side_menu").toggle();
             $("._1side_menu").addClass("hidden");
             $(".header").addClass("slider");
             $(".main").addClass("slider");
-            $(".main").addClass("sliderpl");
+            $(".planning").addClass("sliderpl");
 
         }
        

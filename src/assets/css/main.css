@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
 * {
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
   }
   
   body {
@@ -386,8 +389,8 @@ textarea {
 }
 
 ._1side_menu_content::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px #e4f6ff;
-  box-shadow: inset 0 0 6px #e4f6ff; 
+  -webkit-box-shadow: inset 0 0 10px #2d8cf0;/* #e4f6ff */
+  box-shadow: inset 0 0 10px #2d8cf0; 
 }
 ._1side_menu_content::-webkit-scrollbar-thumb {
   background-color:  #2d8cf0;
@@ -406,7 +409,7 @@ textarea {
     display: flex;
     flex-direction: column;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 10px 20px rgba(47, 91, 231, 0.1);
+    box-shadow: 0 10px 20px #2d8cf0;
     opacity: 1;
     transition: opacity 0.5s ;
 }
@@ -451,12 +454,9 @@ textarea {
     margin-bottom: 16px;
 }
 
-._1side_menu_list_ul li:hover {
-    background-color:  #0066ff;
-    color: #fff !important;
-    
-}
+
 ._1side_menu_list_ul li a:hover{
+    background-color:  #0066ff;
     color: #fff;
     
 }
@@ -510,7 +510,7 @@ textarea {
 
 .main{
     width: 100%;
-   margin-top: 100px;
+   margin-top: 70px;
     z-index: 1;
     padding-left: 260px;
     top: 200px;
@@ -521,7 +521,7 @@ textarea {
 
 }
 .sliderpl{
-    margin: 0 150px !important;
+    margin: 0 250px !important;
     margin-top: 100px !important;
     
     

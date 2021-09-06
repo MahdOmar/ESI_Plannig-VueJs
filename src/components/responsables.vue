@@ -6,8 +6,8 @@
          <table id="table" class="table text-center">
                   <thead>
                   <tr>
-                      <th scope="col" class="text-primary">Nom</th>
-                      <th scope="col" class="text-primary">Prénom</th>
+                      <th scope="col" class="text-primary">Responsable</th>
+                     
                       <th scope="col" class="text-primary">Type</th>
                      
                       <th scope="col" class="text-primary">Options</th>
@@ -18,13 +18,13 @@
 
                   <tr v-for="(responsable,i) in responsables" :key="i">
                     
-                    <td>  {{responsable.firstname }} </td>
-                    <td> {{ responsable.lastname }}</td>
+                    <td>  {{responsable.firstname }} {{ responsable.lastname }}</td>
+                   
                     <td> {{ responsable.type}} </td>
                    
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#edit_resp"  @click="getProf(responsable)"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click=" deleteresp(responsable)"><i class="fa fa-fw fa-trash"></i></button>
                     
                     </td>
                 </tr> 
@@ -61,10 +61,61 @@
 
 
 
-             <form @submit.prevent="addresponsable">
+             <form @submit.prevent="addresponsable"  class="text-left">
                       <div class="form-group">
                           <label for="select">Selectioner Nom </label>
                             <select v-model ="profId" class="custom-select" name="requirement" id="select">
+                     <option  v-for="enseignant in Enseignants" :key="enseignant.id" :value="enseignant.id" > {{enseignant.firstname }}  {{ enseignant.lastname}}</option>
+                            
+                              
+                            </select>
+                      </div>
+                
+                  <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary"  >Créer</button>
+          </div>
+                    
+                       
+                  </form>
+          </div>
+
+          
+          
+
+      </div>
+  </div>
+</div>
+
+<!--   Modify responsable    -->
+
+ <div class="modal fade" id="edit_resp">
+  <div class="modal-dialog modal-md">
+      <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h5 class="modal-title">Editer Responsable </h5>
+             
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <div class="row justify-content-center">
+                      <div v-if="success" class="text-success text-center m-2 col-md-4">
+                         <p> {{ success }}</p>
+
+                    </div>
+               </div>
+
+
+
+             <form @submit.prevent="addresponsable"  class="text-left">
+                      <div class="form-group">
+                          <label for="select">Selectioner Nom </label>
+                            <select v-model ="profE" class="custom-select" name="requirement" id="select">
+                                <option disabled >{{profE}}</option>
                      <option  v-for="enseignant in Enseignants" :key="enseignant.id" :value="enseignant.id" > {{enseignant.firstname }}  {{ enseignant.lastname}}</option>
                             
                               
@@ -119,6 +170,7 @@ export default{
             Enseignants : [],
             responsables : [],
             profId:'',
+            profE:'',
             success:''
            
            
@@ -248,7 +300,29 @@ axios.post(API_URL + 'admin/getproflist', { type: this.cour.type,  targetId:this
 
 
 
-        }
+        },
+
+        getProf(responsable){
+            this.profE = responsable.firstname+' '+responsable.lastname
+            console.log(this.profE)
+            
+
+
+        },
+
+        splice(arr, val) {
+         for (var i = arr.length; i--;) {
+         if (arr[i] === val) {
+            arr.splice(i, 1);
+    }
+  }
+},
+
+   deleteresp(resp){
+      this.splice(this.responsables,resp)
+   }
+
+
 
       
 

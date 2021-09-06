@@ -23,8 +23,8 @@
                    
                    
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_subrequirement"  @click="getSub(subrequirement)"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deleteSub(subrequirement)"  ><i class="fa fa-fw fa-trash"></i></button>
                        
                     </td>
                 </tr>  
@@ -39,7 +39,7 @@
             </tbody>
         </table>
 
-           <div class="modal fade" id="add_subrequirement">
+   <div class="modal fade" id="add_subrequirement">
   <div class="modal-dialog modal-md">
       <div class="modal-content">
 
@@ -52,7 +52,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-              <form @submit.prevent="addSubRequirement">
+              <form @submit.prevent="addSubRequirement"  class="text-left">
 
                   <div class="form-group">
                       <label for="name">Nom </label>
@@ -82,6 +82,53 @@
       </div>
   </div>
 </div>
+<!--  Modify SubRequirement   -->
+
+
+<div class="modal fade" id="edit_subrequirement">
+  <div class="modal-dialog modal-md">
+      <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h5 class="modal-title">Editer Salle/Amphie</h5>
+            
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <form @submit.prevent="editSubRequirement"  class="text-left">
+
+                  <div class="form-group">
+                      <label for="name">Nom </label>
+                      <input v-model="subrequirementE.name" name="name" type="text" class="form-control" id="name" required>
+                  </div>
+                  <div v-if="error" class="text-danger m-2">
+                         <p> {{ error }}</p>
+
+                    </div>
+                    <div v-if="success" class="text-success m-2">
+                         <p> {{ success }}</p>
+
+                    </div>
+              
+                  <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary"  >Créer</button>
+          </div>
+                     
+
+              </form>
+          </div>
+
+          <!-- Modal footer -->
+          
+
+      </div>
+  </div>
+</div>
+
 
 
 
@@ -118,6 +165,7 @@ export default{
 
         return{
             subrequirement : new SubRequirement('',''),
+            subrequirementE:'',
             subrequirements : [],
              error:'',
             success:''
@@ -209,6 +257,23 @@ axios.post(API_URL + 'admin/getsubrequirements', {requirement:this.requirement.i
 
 
         },
+
+        getSub(sub){
+            this.subrequirementE = Object.assign({},sub)
+
+        },
+
+        splice(arr, val) {
+         for (var i = arr.length; i--;) {
+         if (arr[i] === val) {
+            arr.splice(i, 1);
+    }
+  }
+},
+
+   deleteSub(sub){
+      this.splice(this.subrequirements,sub)
+   }
 
 
 

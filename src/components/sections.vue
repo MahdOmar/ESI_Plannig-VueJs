@@ -23,9 +23,9 @@
                     <td>  {{section.name }}</td>
                   
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveSection(section)"><i class="fa fa-fw fa-plus"></i>Gérer</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_section"  @click="getSection(section)"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deletesection(section)"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-info  btn-sm" @click="saveSection(section)">Gérer</button>
                     </td>
                 </tr> 
                
@@ -52,7 +52,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-              <form @submit.prevent="addSection">
+              <form @submit.prevent="addSection"  class="text-left">
 
                   <div class="form-group">
                       <label for="name">Nom du Section</label>
@@ -86,8 +86,56 @@
   </div>
 </div>
 
+<!--    Modify Section   -->
+<div class="modal fade" id="edit_section">
+  <div class="modal-dialog modal-md">
+      <div class="modal-content">
 
-<!-- ADD COURS TD TP-->
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h5 class="modal-title">Editer Section</h5>
+             
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <form @submit.prevent="editSection"  class="text-left">
+
+                  <div class="form-group">
+                      <label for="name">Nom du Section</label>
+                      <input v-model="sectionNameE.name" name="name" type="text" class="form-control" id="name" required>
+                  </div>
+
+                    <div v-if="error" class="text-danger m-2">
+                         <p> {{ error }}</p>
+
+                    </div>
+                    <div v-if="success" class="text-success m-2">
+                         <p> {{ success }}</p>
+
+                    </div>
+
+
+                 
+                  <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary"  >Créer</button>
+          </div>
+                     
+
+              </form>
+          </div>
+
+          <!-- Modal footer -->
+          
+
+      </div>
+  </div>
+</div>
+
+
+
 
 
 
@@ -127,6 +175,7 @@ export default{
 
         return{
             sectionName:'',
+            sectionNameE:'',
            // sections : [],
             yearId:this.$parent.yearId,
              error:'',
@@ -226,6 +275,21 @@ axios.post(API_URL + 'admin/getsections', { year:this.yearId} ,{ headers : heade
 
     },
 
+   getSection(section){
+       this.sectionNameE = Object.assign({},section)
+   },
+
+   splice(arr, val) {
+         for (var i = arr.length; i--;) {
+         if (arr[i] === val) {
+            arr.splice(i, 1);
+    }
+  }
+},
+
+   deletesection(section){
+      this.splice(this.sections,section)
+   }
         
 
 

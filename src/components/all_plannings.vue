@@ -2,8 +2,8 @@
     
  <div class="container-fluid " style="padding-left: 40px; ">
   <div class=" p-2 ">
-    <h1>Gestion des Emplois du temps</h1>
-    <p>Ici, vous pouvez Consuleter et supprimer les emplois du temps</p>
+    <h2>Gestion des Emplois du temps</h2>
+   
    
 
     	

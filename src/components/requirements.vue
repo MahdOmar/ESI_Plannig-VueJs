@@ -22,9 +22,9 @@
                   
                    
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                         <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveRequirement(requirement)" ><i class="fa fa-fw fa-plus"></i>Gérer</button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_requirement" @click="getRequirement(requirement)"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deletereq(requirement)"  ><i class="fa fa-fw fa-trash"></i></button>
+                         <button type="button" title="Delete account" class="btn btn-info btn-sm" @click="saveRequirement(requirement)" >Gérer</button>
                     </td>
                 </tr>
                
@@ -51,7 +51,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-              <form @submit.prevent="addRequirement">
+              <form @submit.prevent="addRequirement" class="text-left">
 
                   <div class="form-group">
                       <label for="name">Nom d'Endroit</label>
@@ -83,6 +83,55 @@
       </div>
   </div>
 </div>
+
+<!--    Modufy Requirement    -->
+
+     <div class="modal fade" id="edit_requirement">
+  <div class="modal-dialog modal-md">
+      <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h5 class="modal-title">Editer Endroit</h5>
+            
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <form @submit.prevent="editRequirement"  class="text-left">
+
+                  <div class="form-group">
+                      <label for="name">Nom d'Endroit</label>
+                      <input v-model="requirementE.name" name="name" type="text" class="form-control" id="name" required>
+                  </div>
+                  
+                <div v-if="error" class="text-danger m-2">
+                         <p> {{ error }}</p>
+
+                    </div>
+                    <div v-if="success" class="text-success m-2">
+                         <p> {{ success }}</p>
+
+                    </div>
+
+
+                  <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary"  >Créer</button>
+          </div>
+                     
+
+              </form>
+          </div>
+
+          <!-- Modal footer -->
+          
+
+      </div>
+  </div>
+</div>
+
 
 
 
@@ -118,6 +167,7 @@ export default{
 
         return{
             requirement : new Requirement('',''),
+            requirementE:'',
             requirements : [],
               error:'',
             success:''
@@ -213,7 +263,26 @@ axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
 
            
         this.$router.push('subrequirements')
-        }
+        },
+
+        getRequirement(req){
+            this.requirementE = Object.assign({},req)
+
+
+
+        },
+
+        splice(arr, val) {
+         for (var i = arr.length; i--;) {
+         if (arr[i] === val) {
+            arr.splice(i, 1);
+    }
+  }
+},
+
+   deletereq(req){
+      this.splice(this.requirements,req)
+   }
 
 
 

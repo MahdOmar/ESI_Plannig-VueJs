@@ -32,13 +32,14 @@
 
                  <li class="item font-weight-bold" style="color:#0066ff"> Emploi du temps</li>
               <li ><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i>Tous les Emplois </router-link></li>
-              <li   class="line"></li>
+              
                 <li  >
                 <a href="#drop" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle "><i class="fas fa-calendar-plus"></i> Nouveau Emploi du Temps</a>
                 <ul class="collapse list-unstyled" id="drop">
                   
-                    
-                         <li><router-link to="/dashboard/manual"><i class="fas fa-puzzle-piece"></i> Génénration Automatique </router-link></li>
+                         <li><router-link to="/dashboard/manual"><i class="fas fa-puzzle-piece"></i> Semestrielle </router-link></li>
+                         <li><router-link to="/dashboard/manual"><i class="fas fa-puzzle-piece"></i> Examens </router-link></li>
+                         <li><router-link to="/dashboard/manual"><i class="fas fa-puzzle-piece"></i> Soutnances </router-link></li>
                     
                    
                 </ul>
