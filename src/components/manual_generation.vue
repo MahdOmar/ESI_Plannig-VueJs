@@ -55,22 +55,7 @@
 
 
 
-
-
-    <div class="form-group row">
-        <label for="start" class="col-2 col-form-label">Start :</label>
-        <div class="col-10">
-            <input class="form-control" v-model="start" type="date" id="start" required>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="end" class="col-2 col-form-label">End :</label>
-        <div class="col-10">
-            <input class="form-control" v-model="end" type="date"  id="end" required>
-        </div>
-    </div>
-<h6 id="gen_error" class="text-danger d-none">you need to feel out all fields</h6>
-<button class="btn btn-primary"  type="submit"   >Create</button>
+   <button class="btn btn-primary"  type="submit"   >Générer</button>
 </form>
 
 </div>
@@ -124,7 +109,7 @@ export default  {
           }
 
 axios.post(API_URL + 'admin/makeplanning', {group:this.selectGrp , semester:this.selectSem
-,start: this.start , end:this.end } ,{ headers : headers}
+ } ,{ headers : headers}
         
       
     ).then((res)=>{
