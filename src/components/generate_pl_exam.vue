@@ -1,8 +1,9 @@
 <template>
-    
+
+ 
     <div class="container-fluid bg-custom" style="padding-left: 40px;height:800px ">
   <div class=" p-2 bg-custom">
-    <h2 class="m-2">Génénration d'Emploi du temps Semestrielle</h2>
+    <h2 class="m-2">Génénration d'Emploi du temps d'Examens</h2>
    
   </div>
 <div class="container">
@@ -29,31 +30,6 @@
           </select>
     </div>
 
-      <div class="form-group">
-        <label for="groups_select">Selectionner Section</label>
-         <select v-model ="selectSec" class="custom-select" name="semester" id="select_emp" @change="getGroupes()" >
-             
-          <option  v-for="section in sections" :key="section.id" :value="section.id" > {{ section.name }}</option>
-                            
-                              
-          </select>
-
-       
-    </div>
-
-    <div class="form-group">
-        <label for="groups_select">Selectionner Groupe</label>
-         <select v-model ="selectGrp" class="custom-select" name="semester" id="select_emp"  >
-             
-          <option  v-for="groupe in groupes" :key="groupe.id" :value="groupe.id" > {{ groupe.name }}</option>
-                            
-                              
-          </select>
-
-       
-    </div>
-
-
 
    <button class="btn btn-primary"  type="submit"   >Générer</button>
 </form>
@@ -62,12 +38,10 @@
 
     </div>
 
-
-
-
 </template>
 
 <script>
+
 import axios from 'axios'
 import {mapGetters} from 'vuex'
 export default  {
@@ -195,78 +169,7 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.selected} ,{ headers : 
 
         },
 
-        getSections(){
-          this.sections=''
-          this.groupes=''
 
-            const API_URL = 'http://127.0.0.1:4000/';
-      
-        
-         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-         
-
-axios.post(API_URL + 'admin/getsections', { year:this.selectSem} ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-      
-     this.sections = res.data
-      
-        
-
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-
-
-
-        },
-
-
-
-
-
-
-
-
-        getGroupes(){
-          this.groupes = ''
-
-               const API_URL = 'http://127.0.0.1:4000/';
-      
-        
-         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-         
-
-axios.post(API_URL + 'admin/getgroups', { section:this.selectSec} ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-        
-      this.groupes = res.data;
-      
-      
-        
-
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-
-
-
-
-
-        },
         
 
 
@@ -289,6 +192,8 @@ axios.post(API_URL + 'admin/getgroups', { section:this.selectSec} ,{ headers : h
       this.getyears();
     },
 }
+
+
 
 
 

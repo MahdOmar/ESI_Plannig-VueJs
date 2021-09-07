@@ -38,8 +38,8 @@
                 <ul class="collapse list-unstyled" id="drop">
                   
                          <li><router-link to="/dashboard/manual"><i class="fas fa-puzzle-piece"></i> Semestrielle </router-link></li>
-                         <li><router-link to="/dashboard/manual"><i class="fas fa-puzzle-piece"></i> Examens </router-link></li>
-                         <li><router-link to="/dashboard/manual"><i class="fas fa-puzzle-piece"></i> Soutnances </router-link></li>
+                         <li><router-link to="/dashboard/exam_planning_generation"><i class="fas fa-puzzle-piece"></i> Examens </router-link></li>
+                        
                     
                    
                 </ul>

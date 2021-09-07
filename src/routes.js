@@ -20,7 +20,7 @@ import SectionsandGroupes from './components/sections-groupes.vue'
 import Sections from './components/sections.vue'
 import Groupes from './components/groupes.vue'
 import notFound from './components/404.vue'
-import plannings_admin from './components/plannings_admin.vue'
+import exam from './components/generate_pl_exam.vue'
 
 
 
@@ -89,6 +89,7 @@ const router = new VueRouter({
             {path:'g_planning'  , component:G_Planning },
             {path:'all_planning'  , component:All_Plannings ,meta :{ middleware : [auth , checkAuth]},
            },
+           {path:'exam_planning_generation'  , component:exam ,meta :{ middleware : [auth , checkAuth]} },
 
             {path:'profile'  , component:Profile ,meta :{ middleware : [auth , checkAuth]} },
             {path:'planning_view'  , component:Planning_view, meta :{ middleware : [auth , checkAuth]}} ,

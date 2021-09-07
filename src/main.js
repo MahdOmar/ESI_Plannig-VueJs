@@ -23,7 +23,7 @@ import SectionsandGroupes from './components/sections-groupes.vue'
 import Sections from './components/sections.vue'
 import Groupes from './components/groupes.vue'
 import notFound from './components/404.vue'
-import plannings_admin from './components/plannings_admin.vue'
+import exam from './components/generate_pl_exam.vue'
 
 
 import babelPolyfill from 'babel-polyfill'
@@ -61,7 +61,7 @@ Vue.component('sections-groupes',SectionsandGroupes)
 Vue.component('sections',Sections)
 Vue.component('groupes',Groupes)
 Vue.component('notfound',notFound)
-Vue.component('plannings_admin',  plannings_admin)
+Vue.component('exam_planning_generation',exam)
 
 Vue.component('admin_dashboard',Admin_Dashboard);
 Vue.config.productionTip = false;

@@ -6,8 +6,8 @@
             <thead class="">
             <tr>
                 <th scope="col" class="text-primary">Photo</th>
-                <th scope="col" class="text-primary">Nom</th>
-                <th scope="col" class="text-primary">Prénom</th>
+                <th scope="col" class="text-primary">Enseignant</th>
+           
                 <th scope="col" class="text-primary">Email</th>
                 <th scope="col" class="text-primary">Type</th>
                 <th scope="col" class="text-primary">Actions</th>
@@ -23,8 +23,8 @@
   height: 50px;
   border-radius: 50%;' alt="image">
                     </td>
-                    <td>  {{ user.firstname }}</td>
-                    <td> {{ user.lastname }}</td>
+                    <td>  {{ user.firstname }} {{ user.lastname }}</td>
+                    
                     <td> {{ user.email }} </td>
                     <td> {{ user.type }} </td>
                     <td>
