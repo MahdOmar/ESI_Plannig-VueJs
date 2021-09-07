@@ -68,6 +68,7 @@ export default  {
 
         return{
             years : [],
+            year:'',
             semesters:[],
             yearId:null,
             selected:'',
@@ -204,6 +205,7 @@ axios.post(API_URL + 'admin/getsections', { year:this.yearId} ,{ headers : heade
 
 
         getYearId(year){
+            this.year = year
         this.yearId = year.id
            this.getsections();
         const path = "/dashboard/sections-groupes/sections"

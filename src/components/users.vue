@@ -9,7 +9,7 @@
                 <th scope="col" class="text-primary">Enseignant</th>
            
                 <th scope="col" class="text-primary">Email</th>
-                <th scope="col" class="text-primary">Type</th>
+                <th scope="col" class="text-primary">Grade</th>
                 <th scope="col" class="text-primary">Actions</th>
             </tr>
             </thead>

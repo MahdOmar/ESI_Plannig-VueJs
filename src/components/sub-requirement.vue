@@ -45,7 +45,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-              <h5 class="modal-title">Créer Nouveau Salle/Amphie</h5>
+              <h5 class="modal-title">Créer Nouveau Salle/Amphi</h5>
             
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
@@ -91,7 +91,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-              <h5 class="modal-title">Editer Salle/Amphie</h5>
+              <h5 class="modal-title">Editer Salle/Amphi</h5>
             
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>

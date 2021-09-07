@@ -5,7 +5,7 @@
         class="col-xs-auto col-sm-auto col-md-auto col-lg-auto"
         style="padding: 0px"
       >
-      <h2 class="m-2">Planning:</h2>
+      <h2 class="m-2 text-center">{{planning.name}}</h2>
 
         <div class="table-responsive">
           <table class="table text-center">
@@ -254,15 +254,15 @@ export default {
     addCour() {
       for (let k = 0; k < 7; k++) {
       
-      for (let i = 0; i < this.planning[k].length; i++) {
+      for (let i = 0; i < this.planning.days[k].length; i++) {
    //       console.log(" day "+k +" session "+this.planning[k][i].name+" module "+this.planning[k][i].module.name)
         if (i == 0) {   
           // console.log('day0 de '+i)
           var dif =
-            this.planning[k][i].endH -
-            this.planning[k][i].startH +
+            this.planning.days[k][i].endH -
+            this.planning.days[k][i].startH +
             Math.abs(
-              this.planning[k][i].startMin - this.planning[k][i].endMin
+              this.planning.days[k][i].startMin - this.planning.days[k][i].endMin
             ) /
               60;
           var hight = dif * 80;
@@ -270,22 +270,22 @@ export default {
             '<div class="d-flex flex-column justify-content-between border border-primary" style="height:' +
             hight +
             'px "><div class="size m-2">' +
-            this.planning[k][i].name +
+            this.planning.days[k][i].name +
             '</div><div class="size2">' +
-            this.planning[k][i].prof + 
-            '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning[k][i].requirement+'</div></div>';
+            this.planning.days[k][i].prof + 
+            '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning.days[k][i].requirement+'</div></div>';
         } else {
           var dif1 =
-            this.planning[k][i].startH +
-            this.planning[k][i].startMin / 60 -
-            (this.planning[k][i - 1].endH +
-              this.planning[k][i - 1].endMin / 60);
+            this.planning.days[k][i].startH +
+            this.planning.days[k][i].startMin / 60 -
+            (this.planning.days[k][i - 1].endH +
+              this.planning.days[k][i - 1].endMin / 60);
 
           var dif2 =
-            this.planning[k][i].endH -
-            this.planning[k][i].startH +
+            this.planning.days[k][i].endH -
+            this.planning.days[k][i].startH +
             Math.abs(
-              this.planning[k][i].startMin - this.planning[k][i].endMin
+              this.planning.days[k][i].startMin - this.planning.days[k][i].endMin
             ) /
               60;
 
@@ -298,10 +298,10 @@ export default {
             '<div class="d-flex flex-column justify-content-between border border-primary" style="height:' +
             hight2 +
              'px "><div class="size m-2">' +
-            this.planning[k][i].name +
+            this.planning.days[k][i].name +
             '</div><div class="size2">' +
-             this.planning[k][i].prof +
-            '</div><div  class="d-flex m-2 justify-content-end size2">'+this.planning[k][i].requirement+'</div></div>';
+             this.planning.days[k][i].prof +
+            '</div><div  class="d-flex m-2 justify-content-end size2">'+this.planning.days[k][i].requirement+'</div></div>';
             
         }
         

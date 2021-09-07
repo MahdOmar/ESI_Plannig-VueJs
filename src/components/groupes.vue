@@ -1,8 +1,14 @@
 <template>
     
     <div>
-         <button type="button" title="Edit account" data-toggle="modal" data-target="#add_groupe" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter Groupe </button>
 
+        <div class="d-flex justify-content-between">
+        <h3 class="m-2"> {{ this.yearName }} {{ this.section.name }} </h3>
+
+        <button type="button" title="Edit account" data-toggle="modal" data-target="#add_groupe" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter Groupe </button>
+
+        </div>
+        
           <table class="table bg-white">
             <thead class="">
             <tr>
@@ -168,6 +174,7 @@ export default{
         data(){
 
         return{
+            yearName:this.$parent.year.name,
             groupeName:'',
             groupeNameE:'',
             groupes : [],

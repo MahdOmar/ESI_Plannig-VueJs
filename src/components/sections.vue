@@ -1,8 +1,14 @@
 <template>
     
     <div>
-         <button type="button" title="Edit account" data-toggle="modal" data-target="#add_section" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter Section </button>
 
+        <div class="d-flex justify-content-between">
+            <h3 class="m-2"> {{ this.yearName }} </h3>
+
+             <button type="button" title="Edit account" data-toggle="modal" data-target="#add_section" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter Section </button>
+
+        </div>
+        
           <table class="table bg-white">
             <thead class="">
             <tr>
@@ -174,6 +180,7 @@ export default{
         data(){
 
         return{
+            yearName:this.$parent.year.name,
             sectionName:'',
             sectionNameE:'',
            // sections : [],

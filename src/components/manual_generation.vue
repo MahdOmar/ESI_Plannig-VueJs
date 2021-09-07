@@ -208,7 +208,7 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.selected} ,{ headers : 
           }
          
 
-axios.post(API_URL + 'admin/getsections', { year:this.selectSem} ,{ headers : headers}
+axios.post(API_URL + 'admin/getsections', { year:this.selected} ,{ headers : headers}
         
       
     ).then((res)=>{
