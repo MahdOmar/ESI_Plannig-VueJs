@@ -253,7 +253,7 @@ export default {
       for (let k = 0; k < 7; k++) {
       
       for (let i = 0; i < this.planning[k].length; i++) {
-          console.log(" day "+k +" session "+this.planning[k][i].name+" module "+this.planning[k][i].module.name)
+   //       console.log(" day "+k +" session "+this.planning[k][i].name+" module "+this.planning[k][i].module.name)
         if (i == 0) {   
           // console.log('day0 de '+i)
           var dif =
@@ -270,8 +270,8 @@ export default {
             'px "><div class="size">' +
             this.planning[k][i].name +
             '</div><div class="size2">' +
-            this.planning[k][i].prof.user.firstname + ' ' + this.planning[k][i].prof.user.lastname +
-            '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning[k][i].requirement.name+'</div></div>';
+            this.planning[k][i].prof + 
+            '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning[k][i].requirement+'</div></div>';
         } else {
           var dif1 =
             this.planning[k][i].startH +
@@ -298,8 +298,8 @@ export default {
              'px "><div class="size">' +
             this.planning[k][i].name +
             '</div><div class="size2">' +
-             this.planning[k][i].prof.user.firstname + ' ' + this.planning[k][i].prof.user.lastname +
-            '</div><div  class="d-flex m-2 justify-content-end size2">'+this.planning[k][i].requirement.name+'</div></div>';
+             this.planning[k][i].prof +
+            '</div><div  class="d-flex m-2 justify-content-end size2">'+this.planning[k][i].requirement+'</div></div>';
             
         }
         

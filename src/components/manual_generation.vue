@@ -118,7 +118,7 @@ axios.post(API_URL + 'admin/makeplanning', {group:this.selectGrp , semester:this
         planning: res.data
       });
 
-      this.$router.push("/dashboard/planning_view");
+      this.$router.push("/dashboard/all_planning");
       
         
 

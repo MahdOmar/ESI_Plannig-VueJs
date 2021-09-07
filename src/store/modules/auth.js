@@ -33,7 +33,8 @@ const getters ={
     section : state => state.section,
     planning: state => state.planning,
     modules : state => state.modules,
-    sections: state => state.sections
+    sections: state => state.sections,
+    planning: state => state.planning
 
     
 }
@@ -109,6 +110,7 @@ const mutations = {
     [types.SAVE_SECTIONS](state ,{sections}){
         state.sections = sections
     },
+    
 
 
 
@@ -196,6 +198,8 @@ const actions ={
 
         commit(types.SAVE_SECTIONS , payload)
     },
+
+    
 
 
 

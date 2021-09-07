@@ -49,17 +49,17 @@
               
           
 
-           <!--     <tr v-for="section in sections" :key="section.id">
+               <tr v-for="planning in plannings" :key="planning.id">
                     
-                    <td>  {{section.name }}</td>
+                    <td>  {{planning.name }}</td>
                   
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fa fa-fw fa-edit"></i></button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-info m-2 btn-sm" @click="saveSection(section)"><i class="fa fa-fw fa-plus"></i>Gérer</button>
+                      
                     </td>
                 </tr> 
-               -->
+            
 
 
 
@@ -136,11 +136,12 @@ export default{
             'Authorization': 'Bearer '+this.token
           }
 
-axios.post(API_URL + 'admin/getplannings', { yearId:this.yearId } ,{ headers : headers}
+axios.post(API_URL + 'admin/getPlannings', { yearId:this.yearId } ,{ headers : headers}
         
       
     ).then((res)=>{
-      this.years = res.data;
+        console.log(res.data)
+      this.plannings = res.data;
       
         
 
@@ -187,8 +188,45 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
 
         getYearId(year){
             this.yearId = year.id
+            this.getPlannings();
 
 
+        },
+
+        viewPlanning(planning){
+             const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+     
+             this.$store.dispatch("auth/savePlanning", {
+        planning: res.data
+      });
+     this.$router.push("/dashboard/planning_view");
+
+
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+     
+
+
+
+
+        
         }
 
 
@@ -206,6 +244,7 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
     },
      created() {
       this.getyears();
+      
     },
 
 
