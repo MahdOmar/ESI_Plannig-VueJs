@@ -509,7 +509,7 @@ textarea {
 
 
 .main{
-    width: 100%;
+    max-width: 100%;
    margin-top: 70px;
     z-index: 1;
     padding-left: 260px;
@@ -521,7 +521,7 @@ textarea {
 
 }
 .sliderpl{
-    margin: 0 250px !important;
+    max-width: 100%;
     margin-top: 100px !important;
     
     
@@ -743,7 +743,8 @@ li.activeclass {
 }
 
 .planning{
-    margin: 0 100px;
+  /*  margin: 0 100px;*/
+ max-width: 100%;
   
 }
 .item{

@@ -9,7 +9,7 @@
            ESI PLANNING
         </a>
        <ul class="nav navbar-nav flex-row float-right">
-        <img class="rounded-circle" src="../assets/img/logo.png" style="height=30px; align-self: center;">
+        <img class="rounded-circle" src="../assets/img/logo.png" style="height=40px; align-self: center;">
           <li class="nav-item">
           
           </li>

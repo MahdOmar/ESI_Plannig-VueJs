@@ -1,8 +1,13 @@
 <template>
     
-    <div>
-   <button type="button" data-toggle="modal" data-target="#add_resp" style="float: right" class="btn btn-primary btn-sm "><i class="fa fa-fw fa-plus"></i>Ajouter Responsable </button>
+    <div >
+        <div class="d-flex justify-content-between">
+              <h4 class="m-2">  {{cour.name}}</h4>
+            <button type="button" data-toggle="modal" data-target="#add_resp" style="float: right" class="btn btn-primary btn-sm  m-2"><i class="fa fa-fw fa-plus"></i>Ajouter Responsable </button>
 
+
+        </div>
+   
          <table id="table" class="table text-center">
                   <thead>
                   <tr>

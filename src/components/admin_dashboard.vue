@@ -112,7 +112,7 @@
                   
                   
                     
-                         <li ><a @click="logout">Logout</a></li>
+                         <li ><a class="text-white" @click="logout">Logout</a></li>
                     
                    
                 </ul>

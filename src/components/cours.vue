@@ -2,8 +2,8 @@
     
     <div>
         <div class="d-flex justify-content-between">
-            <h4>Module:  {{moduleid.name}}</h4>
-   <button type="button" data-toggle="modal" data-target="#add_cour" style="float: right" class="btn btn-primary btn-sm "><i class="fa fa-fw fa-plus"></i>Ajouter Cours/TD/TP </button>
+            <h4 class="m-2">Module:  {{moduleid.name}}</h4>
+   <button type="button" data-toggle="modal" data-target="#add_cour" style="float: right" class="btn btn-primary btn-sm m-2 "><i class="fa fa-fw fa-plus"></i>Ajouter Cours/TD/TP </button>
 </div>
          <table id="table" class="table text-center">
                   <thead>
@@ -182,15 +182,21 @@
 
 
 
-                      <div class="form-group">
-                      <label for="group_name">Heure</label>
+                      <div class="form-group row">
+                          <div class="col-md-6">
+                               <label for="group_name">Heure</label>
                       <input v-model="courE.hour" name="ExamenH" type="number" class="form-control" id="ExamenH" max="4" required>
+               </div>
+                          <div class="col-md-6">
+                              <label for="group_name"> Minute</label>
+                      <input  v-model="courE.min" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
+               
+                          </div>
+                          
+                     
                   </div>
 
-                   <div class="form-group">
-                      <label for="group_name"> Minute</label>
-                      <input  v-model="courE.min" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
-                  </div>
+                   
 
                   
                   <div class="modal-footer">

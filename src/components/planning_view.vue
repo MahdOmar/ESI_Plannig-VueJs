@@ -1,10 +1,12 @@
 <template>
-  <div class="planning">
-    <div class="row">
+  <div class="planning m-4">
+    <div >
       <div
         class="col-xs-auto col-sm-auto col-md-auto col-lg-auto"
         style="padding: 0px"
       >
+      <h2 class="m-2">Planning:</h2>
+
         <div class="table-responsive">
           <table class="table text-center">
             <thead
@@ -212,11 +214,11 @@
                     <div class="card-body">17:00 - 18:00</div>
                   </div>
                 </td>
-                <td v-html="day1" style="width: 150px"></td>
-                <td v-html="day2" style="width: 150px"></td>
-                <td v-html="day3" style="width: 150px"></td>
-                <td v-html="day4"  style="width: 150px"></td>
-                <td v-html="day5" style="width: 150px"></td>
+                <td v-html="day1" ></td>
+                <td v-html="day2" ></td>
+                <td v-html="day3"></td>
+                <td v-html="day4" ></td>
+                <td v-html="day5" ></td>
               </tr>
             </tbody>
           </table>
@@ -267,7 +269,7 @@ export default {
           this.days[k] =
             '<div class="d-flex flex-column justify-content-between border border-primary" style="height:' +
             hight +
-            'px "><div class="size">' +
+            'px "><div class="size m-2">' +
             this.planning[k][i].name +
             '</div><div class="size2">' +
             this.planning[k][i].prof + 
@@ -295,7 +297,7 @@ export default {
             'px; "></div>' +
             '<div class="d-flex flex-column justify-content-between border border-primary" style="height:' +
             hight2 +
-             'px "><div class="size">' +
+             'px "><div class="size m-2">' +
             this.planning[k][i].name +
             '</div><div class="size2">' +
              this.planning[k][i].prof +
