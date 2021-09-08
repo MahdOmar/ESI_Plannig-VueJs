@@ -30,6 +30,16 @@
           </select>
     </div>
 
+     <div class="form-group">
+        <label for="groups_select">Selectionner EMD</label>
+         <select v-model ="selectEmd" class="custom-select" name="semester" id="select_emp" @change="getSections()">
+             
+          <option  v-for="semester in semesters" :key="semester.id" :value="semester.id" > {{ semester.name }}</option>
+                            
+                              
+          </select>
+    </div>
+
 
    <button class="btn btn-primary"  type="submit"   >Générer</button>
 </form>

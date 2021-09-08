@@ -578,6 +578,16 @@ textarea {
     color: #222 !important;
    
 }
+.etapes{
+    box-shadow: 0 10px 20px rgba(47, 91, 231, 0.1);
+    margin-top: 20px;
+
+
+}
+.etapes ul{
+    list-style: none;
+    padding: 10px;
+}
 
 
 

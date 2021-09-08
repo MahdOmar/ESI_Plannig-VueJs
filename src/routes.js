@@ -67,7 +67,7 @@ const router = new VueRouter({
         {path:'/'  , component:Login,meta : { middleware:[guest]}  },
        
         {path:'/dashboard'  , component:Admin_Dashboard ,children:[
-            {path:'welcome'  , component:Welcome },
+            {path:'welcome'  , component:Welcome , meta :{ middleware : [auth , checkAuth]} },
             {path:'users'  , component:Users ,name:'users' ,meta :{ middleware : [auth , checkAuth]}},
             {path:'entities'  , component:Entities ,meta :{ middleware : [auth , checkAuth]} ,
              children:[ {path:'modules' , component:Modules ,meta :{ middleware : [auth , checkAuth]} },

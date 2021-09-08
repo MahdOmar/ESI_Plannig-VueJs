@@ -265,12 +265,21 @@ export default {
               this.planning.days[k][i].startMin - this.planning.days[k][i].endMin
             ) /
               60;
+              var dif3 =
+            ((this.planning.days[k][i].startH +
+            this.planning.days[k][i].startMin) / 60) - 8;
+
+          var hightemp = dif3 * 80
+
           var hight = dif * 80;
           this.days[k] =
+          ' <div class="bg-secondary"  style="height:' +
+            hightemp +
+            'px; "></div>' +
             '<div class="d-flex flex-column justify-content-between border border-primary" style="height:' +
             hight +
             'px "><div class="size m-2">' +
-            this.planning.days[k][i].name +
+            this.planning.days[k][i].name +' '+this.planning.days[k][i].startH+
             '</div><div class="size2">' +
             this.planning.days[k][i].prof + 
             '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning.days[k][i].requirement+'</div></div>';

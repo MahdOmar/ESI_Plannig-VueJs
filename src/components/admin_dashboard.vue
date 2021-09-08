@@ -24,6 +24,7 @@
           <div   class="_1side_menu_list " >
             <ul class="_1side_menu_list_ul">
               <div v-if="user.role === 0">   
+                <li   class="custom" ><router-link to="/dashboard/welcome" ><i class="fas fa-home"></i> Accueil</router-link></li>
 
 
                
