@@ -39,7 +39,7 @@
                    
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_cour"  @click="getCour(td)"  ><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deletecour(td)"  ><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deletetdps(td)"  ><i class="fa fa-fw fa-trash"></i></button>
                         <button type="button" title="Delete account" class="btn btn-info  btn-sm" @click="saveCour(td)" >Gérer</button>
                     </td>
                 </tr>
@@ -161,7 +161,7 @@
              <form @submit.prevent="editCour()"  class="text-left">
                       <div class="form-group">
                           <label for="select">Selectioner Nom </label>
-                            <select v-model ="courE.name" class="custom-select" name="name" id="select">
+                            <select v-model ="courE.name" class="custom-select" name="name" id="select" disabled>
                                 <option value="Cours" > Cours</option>
                                 <option value="TD" > TD</option>
                                 <option value="TP" > TP</option>
@@ -201,7 +201,7 @@
                   
                   <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-              <button type="submit" class="btn btn-primary"  >Créer</button>
+              <button type="submit" class="btn btn-primary"  >Editer</button>
           </div>
                     
                        
@@ -214,6 +214,36 @@
       </div>
   </div>
 </div>
+
+  <div class="modal" id="delete">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+       
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body text-center text-danger">
+        {{ error }}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 
 
@@ -229,6 +259,7 @@
 <script>
 import axios from 'axios'
 import {mapGetters} from 'vuex'
+import Swal from 'sweetalert2'
 
 import Cours from '../models/cours'
 import $ from 'jquery'
@@ -253,6 +284,7 @@ export default{
             tds:[],
             requirements:[],
             success:'',
+            error:'',
           
             selected:''
            
@@ -301,9 +333,11 @@ export default{
 
                this.getcours();
                this.getTds();
+               var that = this
 
                setTimeout(function(){
       $("#add_cour").modal('hide')
+      that.success = ''
    }, 1 * 1000);
 
         
@@ -327,8 +361,176 @@ export default{
 
         },
         editCour(){
-            console.log(this.courE.name)
 
+             const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+          this.cour.module = this.moduleid
+         
+
+              axios.post(API_URL + 'admin/updatetdp_cours', {hour : this.courE.hour ,
+
+
+              min:this.courE.min,  requirement:this.courE.requirementId , type:this.courE.type,   id: this.courE.id  } ,{ headers : headers}
+        
+      
+             ).then((res)=>{
+                 if(this.cour.name == "Cours"){
+                     this.success ='Cours Edité'
+
+                 }
+                else if(this.cour.name == "TD"){
+                     this.success ='TD Edité'
+
+                 }
+               else  if(this.cour.name == "TP"){
+                     this.success ='TP Edité'
+
+                 }
+                 
+
+
+               this.getcours();
+               this.getTds();
+
+               var that = this
+
+               setTimeout(function(){
+      $("#edit_cour").modal('hide')
+      that.success = ''
+   }, 1 * 1000);
+
+        
+        
+
+            }).catch((err)=>{
+     
+      
+    });
+
+           
+
+
+        },
+
+        deletecour(cour){
+            const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+          Swal.fire({
+            title: 'Vous etes sur?',
+            text: "Vous ne pourrez pas revenir en arrière !",
+            type: 'Alerte',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Annuler',
+            confirmButtonText: 'Oui, supprimer!'
+        }).then((result) => {
+            if (result.value) {
+
+                  axios.post(API_URL + 'admin/deletecours', { id:cour.id
+
+             } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+          this.error = ''
+          this.success = "Enseignant Supprimé";
+          
+        this.getcours();
+        console.log("rani fe response")
+       
+        
+        
+
+    }).catch((err)=>{
+         console.log("rani fe catch")
+        this.success =""
+        console.log(err)
+       // this.error = err.response.data.error
+        $("#delete").modal('show')
+      
+        setTimeout(function(){
+      $("#delete").modal('hide')
+      
+      
+   }, 1 * 4000);
+     // console.log(err.response.data)
+        
+     
+      
+    });
+
+               
+
+            }
+        })
+
+        },
+
+        deletetdps(cour){
+            const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+          Swal.fire({
+            title: 'Vous etes sur?',
+            text: "Vous ne pourrez pas revenir en arrière !",
+            type: 'Alerte',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Annuler',
+            confirmButtonText: 'Oui, supprimer!'
+        }).then((result) => {
+            if (result.value) {
+
+                  axios.post(API_URL + 'admin/deletetdp', { id:cour.id
+
+             } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+          this.error = ''
+          this.success = "Enseignant Supprimé";
+          
+       
+        this.getTds();
+        
+        
+
+    }).catch((err)=>{
+        this.success =""
+        this.error = err.response.data.error
+        $("#delete").modal('show')
+      
+        setTimeout(function(){
+      $("#delete").modal('hide')
+      
+      
+   }, 1 * 4000);
+     // console.log(err.response.data)
+        
+     
+      
+    });
+
+               
+
+            }
+        })
 
         },
 
@@ -485,11 +687,11 @@ axios.post(API_URL + 'admin/getrequirement', { } ,{ headers : headers}
   }
 },
 
-   deletecour(cour){
+  /* deletecour(cour){
       
       this.splice(this.courses,cour)
       this.splice(this.tds,cour)
-   }
+   }*/
 
       
 

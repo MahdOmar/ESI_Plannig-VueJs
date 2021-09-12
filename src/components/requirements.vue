@@ -118,7 +118,7 @@
 
                   <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-              <button type="submit" class="btn btn-primary"  >Créer</button>
+              <button type="submit" class="btn btn-primary"  >Editer</button>
           </div>
                      
 
@@ -131,6 +131,31 @@
       </div>
   </div>
 </div>
+
+ <div class="modal" id="delete">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+       
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body text-center text-danger">
+        {{ error }}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -148,7 +173,7 @@
 
 import axios from 'axios'
 import {mapGetters} from 'vuex'
-
+import Swal from 'sweetalert2'
 import Module from '../models/requirement'
 import Requirement from '../models/requirement'
 import $ from 'jquery'
@@ -200,8 +225,53 @@ export default{
          this.error = ''
           this.success = "Endroit ajouté";
         this.getrequirements();
+        var that = this
         setTimeout(function(){
       $("#add_requirement").modal('hide')
+       that.success = ''
+   }, 1 * 1000);
+
+
+        
+        
+
+    }).catch((err)=>{
+         this.success =""
+        this.error = err.response.data.requirement
+     
+      
+    });
+
+
+        },
+
+        editRequirement(){
+
+             const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+       
+          
+         
+       
+   
+      axios.post(API_URL + 'admin/updaterequirement', {
+
+ id: this.requirementE.id ,  name: this.requirementE.name } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+         this.error = ''
+          this.success = "Endroit Edité";
+        this.getrequirements();
+        var that = this
+        setTimeout(function(){
+      $("#edit_requirement").modal('hide')
+      that.success = ''
    }, 1 * 1000);
 
 
@@ -272,16 +342,65 @@ axios.post(API_URL + 'admin/getrequirement', {} ,{ headers : headers}
 
         },
 
-        splice(arr, val) {
-         for (var i = arr.length; i--;) {
-         if (arr[i] === val) {
-            arr.splice(i, 1);
-    }
-  }
-},
+      
 
    deletereq(req){
-      this.splice(this.requirements,req)
+     const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+          Swal.fire({
+            title: 'Vous etes sur?',
+            text: "Vous ne pourrez pas revenir en arrière !",
+            type: 'Alerte',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Annuler',
+            confirmButtonText: 'Oui, supprimer!'
+        }).then((result) => {
+            if (result.value) {
+
+                  axios.post(API_URL + 'admin/deleterequirement', { id:req.id
+
+             } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+          this.error = ''
+          this.success = "Enseignant Supprimé";
+          
+        this.getrequirements();
+      
+        
+        
+
+    }).catch((err)=>{
+        this.success =""
+        this.error = err.response.data.error
+        $("#delete").modal('show')
+      
+        setTimeout(function(){
+      $("#delete").modal('hide')
+      
+      
+   }, 1 * 4000);
+     // console.log(err.response.data)
+        
+     
+      
+    });
+
+               
+
+            }
+        })
+     
+
+    
    }
 
 

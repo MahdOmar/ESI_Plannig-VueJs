@@ -242,34 +242,7 @@
 
                   
 
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label for="passwordInputE">Mot de Pass</label>
-                        <input name="passwordE"  v-model="userE.password" type="password" class="form-control" id="passwordE"   required >
-                         
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="confirmPasswordInputE">Confirmer Mot de Pass</label>
-                        <input  v-model="password" name="confirmPasswordE"  type="password" class="form-control" id="confirmPasswordE"
-                                @keyup="checkPass" required>
-
-                               <div  class="text-danger m-2">
-                         <p v-if="checked" class="text-danger"> {{ checked }}</p>
-                         <p v-if="passcheck" class="text-success"> {{ passcheck }}</p>
-                         
-
-
-                        </div>
-
-
-                    </div>
-
                    
-
-
-                    </div>
 
                     <div v-if="error" class="text-danger m-2">
                          <p> {{ error }}</p>
@@ -278,7 +251,7 @@
                    
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    <button type="submit" class="btn btn-primary"  >Créer</button>
+                    <button type="submit" class="btn btn-primary"  >Editer</button>
 
                 </form>
             </div>
@@ -299,6 +272,30 @@
         </div>
     </div>
 
+    <div class="modal" id="delete">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+       
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body text-center text-danger">
+        {{ error }}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -317,6 +314,7 @@
 import User from '../models/user'; 
 import axios from  "axios"
 import $ from 'jquery'
+import Swal from 'sweetalert2'
 import {mapGetters} from 'vuex'
 
 
@@ -391,12 +389,141 @@ computed: mapGetters({
   },
 
    Edit(){
-       console.log(this.userE.username)
+        const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
 
+          axios.post(API_URL + 'admin/updateprof', {
+
+         id:this.userE.id, username:this.userE.username , type: this.userE.type , firstname:this.userE.firstname ,
+          lastname:this.userE.lastname , email: this.userE.email   } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+          this.error = ''
+          this.success = "Enseignant Edité";
+          
+        this.getUsers();
+          setTimeout(function(){
+      $("#edit").modal('hide')
+   }, 1 * 1000);
+        
+        
+
+    }).catch((err)=>{
+        this.success =""
+        this.error = err.response.data.error
+     // console.log(err.response.data)
+        
+     
+      
+    });
 
 
    },
+  deleteUser(user){
 
+       const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+          Swal.fire({
+            title: 'Vous etes sur?',
+            text: "Vous ne pourrez pas revenir en arrière !",
+            type: 'Alerte',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Annuler',
+            confirmButtonText: 'Oui, supprimer!'
+        }).then((result) => {
+            if (result.value) {
+
+                  axios.post(API_URL + 'admin/deleteprof', { id:user.id
+
+             } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+          this.error = ''
+          this.success = "Enseignant Supprimé";
+          
+        this.getUsers();
+        
+        
+
+    }).catch((err)=>{
+        this.success =""
+        this.error = err.response.data.error
+        $("#delete").modal('show')
+      
+        setTimeout(function(){
+      $("#delete").modal('hide')
+      
+      
+   }, 1 * 4000);
+     // console.log(err.response.data)
+        
+     
+      
+    });
+
+               
+
+            }
+        })
+
+
+
+
+
+
+
+
+     /*     if(confirm("Voullez vous vraiment supprimer?")){
+
+          
+
+          axios.post(API_URL + 'admin/deleteprof', { id:user.id
+
+             } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+          this.error = ''
+          this.success = "Enseignant Supprimé";
+          
+        this.getUsers();
+        
+        
+
+    }).catch((err)=>{
+        this.success =""
+        this.error = err.response.data.error
+        $("#delete").modal('show')
+      
+        setTimeout(function(){
+      $("#delete").modal('hide')
+      
+      
+   }, 1 * 4000);
+     // console.log(err.response.data)
+        
+     
+      
+    });
+          }*/
+
+
+
+  },
 
 
 
@@ -443,10 +570,10 @@ axios.post(API_URL + 'admin/getprofs', { } ,{ headers : headers}
 
    getUser(user){
        this.userE = Object.assign({},user)
-       this.password = this.userE.password
-       console.log(this.userE)
+     
+       
    },
-    splice(arr, val) {
+ /*   splice(arr, val) {
          for (var i = arr.length; i--;) {
          if (arr[i] === val) {
             arr.splice(i, 1);
@@ -456,7 +583,7 @@ axios.post(API_URL + 'admin/getprofs', { } ,{ headers : headers}
 
    deleteUser(user){
       this.splice(this.users,user)
-   }
+   }*/
      
     
   },

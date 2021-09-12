@@ -13,18 +13,21 @@ $(function(){
             $(".header").addClass("slider");
             $(".main").addClass("slider");
             $(".planning").addClass("sliderpl");
+            
 
         }
        
+        
        
 
 
 
     });
+   
+
 
     
 
 
 });
-
 

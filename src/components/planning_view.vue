@@ -255,6 +255,7 @@ export default {
       for (let k = 0; k < 7; k++) {
       
       for (let i = 0; i < this.planning.days[k].length; i++) {
+        
    //       console.log(" day "+k +" session "+this.planning[k][i].name+" module "+this.planning[k][i].module.name)
         if (i == 0) {   
           // console.log('day0 de '+i)
@@ -263,13 +264,14 @@ export default {
             this.planning.days[k][i].startH +
             Math.abs(
               this.planning.days[k][i].startMin - this.planning.days[k][i].endMin
-            ) /
-              60;
+            ) /60;
               var dif3 =
-            ((this.planning.days[k][i].startH +
-            this.planning.days[k][i].startMin) / 60) - 8;
+            this.planning.days[k][i].startH +
+            (this.planning.days[k][i].startMin / 60) - 8;
+            console.log(dif3)
 
           var hightemp = dif3 * 80
+          console.log(hightemp)
 
           var hight = dif * 80;
           this.days[k] =
@@ -285,10 +287,11 @@ export default {
             '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning.days[k][i].requirement+'</div></div>';
         } else {
           var dif1 =
-            this.planning.days[k][i].startH +
-            this.planning.days[k][i].startMin / 60 -
+           Math.abs( (this.planning.days[k][i].startH +
+            this.planning.days[k][i].startMin / 60 )-
+          
             (this.planning.days[k][i - 1].endH +
-              this.planning.days[k][i - 1].endMin / 60);
+              this.planning.days[k][i - 1].endMin / 60));
 
           var dif2 =
             this.planning.days[k][i].endH -

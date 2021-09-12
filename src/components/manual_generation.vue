@@ -6,6 +6,7 @@
    
   </div>
 <div class="container">
+  <p v-if="error">{{error}}</p>
   <form @submit.prevent="generate">
   
     <div class="form-group">
@@ -55,10 +56,45 @@
 
 
 
-   <button class="btn btn-primary"  type="submit"   >Générer</button>
+   <button class="btn btn-primary"  type="submit"  >Générer</button>
 </form>
 
 </div>
+<!--    Modal Succes       -->
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+       
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body text-center">
+        {{ succes }}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 
     </div>
 
@@ -70,6 +106,7 @@
 <script>
 import axios from 'axios'
 import {mapGetters} from 'vuex'
+import $ from 'jquery'
 export default  {
     computed: mapGetters({
          token:'auth/token',
@@ -86,10 +123,10 @@ export default  {
             selectSem:'',
             selectSec:'',
             selectGrp:'',
+            succes:'',
             sections:[],
             groupes:[],
-            start:'',
-            end:'',
+            error:''
            
            
 
@@ -118,12 +155,26 @@ axios.post(API_URL + 'admin/makeplanning', {group:this.selectGrp , semester:this
         planning: res.data
       });
 
-      this.$router.push("/dashboard/all_planning");
+    
+      this.succes = res.data.message
+
+      $("#myModal").modal('show')
+      var that = this
+        setTimeout(function(){
+      $("#myModal").modal('hide')
+      that.$router.push('/dashboard/all_planning')
+      
+   }, 1 * 2000);
+
+
+
+
       
         
 
     }).catch((err)=>{
-        console.log(err.message);
+      console.log(err.response.data.error)
+        this.error = err.response.data.error;
      
       
     });

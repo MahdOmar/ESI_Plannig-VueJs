@@ -139,9 +139,7 @@ a:focus, a:active, button:focus, button:active {
   border: 0;
 }
 
-a {
-  color: #0099ff;
-}
+
 a:hover {
  color: #fff;
   text-decoration: none;
@@ -578,6 +576,15 @@ textarea {
     color: #222 !important;
    
 }
+td.active{
+    background-color: #2554FF;
+    color: #f4f4f5 !important
+}
+
+td.active a{
+    color: #f4f4f5 !important
+}
+
 .etapes{
     box-shadow: 0 10px 20px rgba(47, 91, 231, 0.1);
     margin-top: 20px;

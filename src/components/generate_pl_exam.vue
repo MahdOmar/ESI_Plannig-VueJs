@@ -40,6 +40,20 @@
           </select>
     </div>
 
+     <div class="form-group row">
+       <div class="col-md-6">
+         <label for="date">Selectionner la date debut</label>
+          <input name="date" type="date"  v-model="date"  class="form-control" id="date"  required>
+         
+       </div>
+        
+          <div class="col-md-6">
+            <label for="date">Selectionner la date fin</label>
+          <input name="date" type="date"  v-model="date"  class="form-control" id="date"  required>
+         
+          </div>
+    </div>
+
 
    <button class="btn btn-primary"  type="submit"   >Générer</button>
 </form>
@@ -72,8 +86,8 @@ export default  {
             selectGrp:'',
             sections:[],
             groupes:[],
-            start:'',
-            end:'',
+            date:'',
+          
            
            
 

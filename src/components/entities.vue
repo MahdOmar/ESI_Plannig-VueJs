@@ -17,13 +17,13 @@
           </thead>
           <tbody id="groups">
             <tr v-for="year in years" :key="year.id">
-              <td
+              <td class="year" :class="{active:year.id == active}"
                 @click="
                   getYearId(year);
                   getsemesters();
                 "
-              >
-                <a class="custom" data-target="#semesters" data-toggle="modal">
+              data-target="#semesters" data-toggle="modal">
+                <a class="custom" >
                   {{ year.name }}</a
                 >
               </td>
@@ -36,6 +36,9 @@
           class="container-fluid text-center overflow-auto"
           style="height: 600px"
         >
+
+         <p v-if="!child" style="margin-top:150px">Selectionner une année pour voir ses Modules</p>
+
           <router-view />
         </div>
       </div>
@@ -121,7 +124,10 @@ export default {
       semesters: [],
       yearId: null,
       selected: "",
+      active:"",
+      child:false,
       modules:[]
+
     };
   },
   methods: {
@@ -240,6 +246,8 @@ if (this.$route.path !== path) this.$router.push(path)
 
     getYearId(year) {
       this.yearId = year.id;
+      this.active = year.id
+      this.child = true
     },
   },
 

@@ -18,7 +18,8 @@
          <tbody id="groups">
       
              <tr v-for="year in years" :key="year.id"> 
-                 <td @click="getYearId(year)"> <a  class=" custom text-center"> {{ year.name }}</a>   </td> </tr>
+                 
+                 <td class="year" :class="{active:year.id == active}" @click="getYearId(year)"> <a  class=" custom text-center"> {{ year.name }}</a>   </td> </tr>
                  
                  
                 
@@ -33,6 +34,7 @@
     </div>
       <div id="view" class="col-md-8 shadow p-1 m-4">
           <div class="container-fluid text-center overflow-auto " style="height: 600px  ">
+               <p v-if="!child" style="margin-top:150px">Selectionner une année pour voir ses sections</p>
 
              
               <router-view/>
@@ -58,6 +60,7 @@
 <script>
 import axios from 'axios'
 import {mapGetters} from 'vuex'
+
 export default  {
     computed: mapGetters({
          token:'auth/token',
@@ -72,6 +75,9 @@ export default  {
             semesters:[],
             yearId:null,
             selected:'',
+            child:false,
+            active:undefined,
+         
             sections:[]
            
 
@@ -205,8 +211,13 @@ axios.post(API_URL + 'admin/getsections', { year:this.yearId} ,{ headers : heade
 
 
         getYearId(year){
+            this.active = year.id
+            this.child = true
+
+ 
             this.year = year
         this.yearId = year.id
+        console.log(this.year)
            this.getsections();
         const path = "/dashboard/sections-groupes/sections"
 if (this.$route.path !== path) this.$router.push(path)
