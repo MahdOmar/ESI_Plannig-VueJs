@@ -71,7 +71,7 @@
 
                     <td v-if="planning.statut == -1">
                         <button type="button" title="" class="btn btn-warning btn-sm" ><i class="fas fa-sync-alt"></i></button>
-                        <button type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm" @click="deletePlanning(planning)"><i class="fa fa-fw fa-trash"></i></button>
                       
                        
                     </td>

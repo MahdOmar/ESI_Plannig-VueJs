@@ -1,41 +1,174 @@
 <template>
     
-<div class="container-fluid bg-custom" style="padding-left: 40px; ">
-  <div class="jumbotron p-2 bg-custom">
-    <h1>Plannings</h1>
-    <p>Here you see and edit created plannings.</p>
-  </div>
-
-  <div class="row">
-    <div class="col shadow text-center">
-     <table class="table text-center table-stripped">
-         <thead>
-         <tr ><th colspan="3" class="text-primary font-weight-bold">Plannings</th></tr>
-         </thead>
-         <tbody id="plannings">
-         
-            <tr>
-                <td class="text-center"> <a class="btn btn-sm btn-light  font-weight-bolder " data-toggle="modal" data-target="#view_planning" onclick="" >
-                   
-                    </a>     </td>
-                    <td>                    <a class="btn btn-info btn-sm col-2 text-white d-inline" href=""><i class="fa fa-edit"></i>Edit</a>
-</td>
-                    <td>                    <a class="btn btn-danger btn-sm col-2 d-inline text-white"><i class="fa fa-trash"></i>Delete</a>
-</td>
-            
+<div id="view" class=" p-1 m-4">
+          <div class="container-fluid text-center overflow-auto " style="height: 600px  ">
                  
+              <table class="table bg-white">
+            <thead class="">
+            <tr>
+                <th scope="col" class="text-primary">Nom</th>
+                
+               
+               
+                <th scope="col" class="text-primary">Actions</th>
             </tr>
-       
+            </thead>
+
+            <tbody>
+              
+          
+
+               <tr v-for="planning in plannings" :key="planning.id">
+                    
+                    <td>  {{planning.name }}</td>
+
+                    
+                   
+                   <td>
+                     <button type="button" title="Edit account" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fa fa-fw fa-edit"></i></button>
+                      
+                       
+                    </td>
+
+                  
+                </tr> 
+            
 
 
-         </tbody>
-     </table>
 
-    </div>
-   
-  </div>
-    </div>
+
+        
+
+
+            </tbody>
+        </table>
+
+
+             
+            
+          </div>
+      </div>
 
 
 
 </template>
+
+<script>
+import {mapGetters} from 'vuex'
+
+import axios from 'axios'
+export default {
+   
+
+
+        
+        computed: mapGetters({
+          user:'auth/user',
+          token:'auth/token'
+        }),
+
+         data() {
+    return {
+      plannings:[],
+      
+    };
+  },
+
+        methods :{
+          logout(){
+
+            this.$store.dispatch('auth/logout');
+             this.$router.push( '/' ) 
+
+
+
+          },
+
+           getPlannings(){
+
+             const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+axios.post(API_URL + 'prof/getplannings', { id:this.user.id } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+        console.log(res.data)
+      this.plannings = res.data;
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+
+
+
+        },
+
+         viewPlanning(planning){
+             const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+axios.post(API_URL + 'prof/getplanning', { planningId:planning.id } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+     
+             this.$store.dispatch("auth/savePlanning", {
+        planning: res.data
+      });
+     this.$router.push("/dashboard/planning_view");
+
+
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+     
+
+
+
+
+        
+        }
+
+
+
+        },
+        created(){
+    
+       this.getPlannings();
+        
+        
+        }
+      
+
+
+
+
+
+
+
+};
+
+
+
+
+</script>
