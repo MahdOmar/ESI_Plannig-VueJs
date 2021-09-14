@@ -80,8 +80,6 @@
             
 
 
-
-
         
 
 
@@ -212,6 +210,7 @@ export default{
             active:undefined,
             child:false,
             plannings:[],
+       
             error:'',
            
             
@@ -317,6 +316,7 @@ axios.post(API_URL + 'admin/getPlannings', { yearId:this.yearId } ,{ headers : h
 
 
 
+
          getyears(){
 
             const API_URL = 'http://127.0.0.1:4000/';
@@ -350,6 +350,7 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
              this.active = year.id
             this.child = true
             this.getPlannings();
+        
 
 
         },
@@ -388,7 +389,8 @@ axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers 
 
 
         
-        }
+        },
+        
 
 
 

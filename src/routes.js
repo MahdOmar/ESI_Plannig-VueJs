@@ -22,6 +22,7 @@ import Groupes from './components/groupes.vue'
 import notFound from './components/404.vue'
 import exam from './components/generate_pl_exam.vue'
 import exam_view from './components/exam_view.vue'
+import all_exams from './components/all_exams.vue'
 
 
 
@@ -87,10 +88,9 @@ const router = new VueRouter({
           
             {path:'manual'  , component:Manual ,meta :{ middleware : [auth , checkAuth]} },
             {path:'plannings'  , component:Plannings ,meta :{ middleware : [auth , checkAuth]} },
-            {path:'g_planning'  , component:G_Planning },
-            {path:'all_planning'  , component:All_Plannings ,meta :{ middleware : [auth , checkAuth]},
-            
-           },
+            {path:'g_planning'  , component:G_Planning ,meta :{ middleware : [auth , checkAuth]} },
+            {path:'all_planning'  , component:All_Plannings ,meta :{ middleware : [auth , checkAuth]}},
+            {path:'all_exams'  , component:all_exams ,meta :{ middleware : [auth , checkAuth]}},
            {path:'exam_planning_generation'  , component:exam ,meta :{ middleware : [auth , checkAuth]} },
 
             {path:'profile'  , component:Profile ,meta :{ middleware : [auth , checkAuth]} },

@@ -67,21 +67,15 @@
     <div class="modal-content">
 
       <!-- Modal Header -->
-      <div class="modal-header">
-       
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+     
 
       <!-- Modal body -->
-      <div class="modal-body text-center">
+      <div class="modal-body text-center" style="height:100px">
         {{ succes }}
       </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer">
-      
-      </div>
-
+     
     </div>
   </div>
 </div>
