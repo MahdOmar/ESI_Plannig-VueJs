@@ -281,7 +281,7 @@ export default {
             '<div class="d-flex flex-column justify-content-between border border-primary" style="height:' +
             hight +
             'px "><div class="size m-2">' +
-            this.planning.days[k][i].name +' '+this.planning.days[k][i].startH+
+            this.planning.days[k][i].name +
             '</div><div class="size2">' +
             this.planning.days[k][i].prof + 
             '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning.days[k][i].requirement+'</div></div>';
