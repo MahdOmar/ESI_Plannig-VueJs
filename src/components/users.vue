@@ -96,8 +96,10 @@
                      
                         </div>
                         <div class="col-md-6">
-                             <label for="type">Selectioner Type</label>
+                             <label for="type">Grade</label>
                        <select v-model="user.type" class="form-control" id="type" required>
+                          <option >MAA</option>
+                          <option >MAB</option>
                           <option >MCA</option>
                           <option>MCB</option>
                           <option>Pr</option>
@@ -225,8 +227,10 @@
                      
                         </div>
                         <div class="col-md-6">
-                             <label for="typeE">Selectioner Type</label>
+                             <label for="typeE">Grade</label>
                        <select v-model="userE.type" class="form-control" id="typeE" required >
+                           <option >MAA</option>
+                          <option >MAB</option>
                           <option >MCA</option>
                           <option>MCB</option>
                           <option>Pr</option>

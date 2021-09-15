@@ -149,7 +149,7 @@
                       <input v-model="moduleE.name" name="name" type="text" class="form-control" id="name" required>
                   </div>
                   <div class="form-group">
-                      <label for="coef">Coeffition</label>
+                      <label for="coef">Coefficient</label>
                       <input v-model="moduleE.coefficient" name="coef" type="number" class="form-control" id="coef" required>
                   </div>
                   <div class="form-group row">

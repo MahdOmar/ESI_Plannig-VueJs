@@ -86,7 +86,7 @@
                             </select>
                       </div>
                       <div class="form-group">
-                          <label for="select">Selectioner Exigence </label>
+                          <label for="select">Selectioner Lieu </label>
                             <select v-model ="cour.requirementId" class="custom-select" name="requirement" id="select">
                      <option  v-for="requirement in requirements" :key="requirement.id" :value="requirement.id" > {{ requirement.name }}</option>
                               
@@ -160,7 +160,7 @@
 
              <form @submit.prevent="editCour()"  class="text-left">
                       <div class="form-group">
-                          <label for="select">Selectioner Nom </label>
+                          <label for="select">Selectionner Nom </label>
                             <select v-model ="courE.name" class="custom-select" name="name" id="select" disabled>
                                 <option value="Cours" > Cours</option>
                                 <option value="TD" > TD</option>
@@ -170,7 +170,7 @@
                             </select>
                       </div>
                       <div class="form-group">
-                          <label for="select">Selectioner Exigence </label>
+                          <label for="select">Selectionner Lieu </label>
                             <select v-model ="courE.requirementId" class="custom-select" name="requirement" id="select">
                      <option  v-for="requirement in requirements" :key="requirement.id" :value="requirement.id" > {{ requirement.name }}</option>
                               

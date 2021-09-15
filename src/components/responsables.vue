@@ -28,8 +28,8 @@
                     <td> {{ responsable.user.type}} </td>
                    
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#edit_resp"  @click="getProf(responsable)"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click=" deleteresp(responsable)"><i class="fa fa-fw fa-trash"></i></button>
+                       
+                        <button type="button" title="Supprimer responsable" class="btn btn-danger btn-sm" @click=" deleteresp(responsable)"><i class="fa fa-fw fa-trash"></i></button>
                     
                     </td>
                 </tr> 
@@ -276,7 +276,7 @@ export default{
           
 
 
-              axios.post(API_URL + 'admin/addresponsable', {
+              axios.post(API_URL + 'admin/editresponsable', {
 
                  type: this.cour.type, userId:this.profId , targetId:this.cour.id  } ,{ headers : headers}
         

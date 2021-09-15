@@ -42,23 +42,23 @@
 
      <div class="form-group row">
        <div class="col-md-6">
-         <label for="date">Selectionner la date debut</label>
+         <label for="date"> date debut</label>
           <input name="date" type="date"  v-model="dateD"  class="form-control" id="date"  required>
          
        </div>
         
           <div class="col-md-6">
-            <label for="date">Selectionner la date fin</label>
+            <label for="date">date fin</label>
           <input name="date" type="date"  v-model="dateE"  class="form-control" id="date"  required>
          
           </div>
     </div>
      <div class="form-group">
-        <label for="groups_select">Samedi inclus?</label>
+        <label for="groups_select">Samedi inclu?</label>
         
-        <label class="radio-inline m-2 p-2"><input type="radio" value = "1" v-model="radio" name="radio" >Oui</label>
+        <label class="radio-inline m-2 p-2"><input class="m-1" type="radio" value = "1" v-model="radio" name="radio" >Oui</label>
         
-        <label class="radio-inline m-2 p-2"><input type="radio" value = "0" v-model="radio" name="radio">Non</label>
+        <label class="radio-inline m-2 p-2"><input class=" m-1 " type="radio" value = "0" v-model="radio" name="radio">Non</label>
         
     </div>
 

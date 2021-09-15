@@ -2,7 +2,7 @@
 
 <div class="m-4">
 
-      <button type="button" title="Edit account" data-toggle="modal" data-target="#add_requirement" style="float: right" class="btn btn-primary btn-sm m-2 "><i class="fa fa-fw fa-plus"></i>Ajouter Endroit Globale </button>
+      <button type="button" title="Edit account" data-toggle="modal" data-target="#add_requirement" style="float: right" class="btn btn-primary btn-sm m-2 "><i class="fa fa-fw fa-plus"></i>Ajouter lieu d'étude </button>
 
           <table class="table bg-white">
             <thead class="">
@@ -44,7 +44,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-              <h5 class="modal-title">Créer Nouveau Endroit</h5>
+              <h5 class="modal-title">Créer Nouveau lieu</h5>
             
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
@@ -54,7 +54,7 @@
               <form @submit.prevent="addRequirement" class="text-left">
 
                   <div class="form-group">
-                      <label for="name">Nom d'Endroit</label>
+                      <label for="name">Nom de lieu</label>
                       <input v-model="requirement.name" name="name" type="text" class="form-control" id="name" required>
                   </div>
                   
@@ -92,7 +92,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-              <h5 class="modal-title">Editer Endroit</h5>
+              <h5 class="modal-title">Editer lieu</h5>
             
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
@@ -102,7 +102,7 @@
               <form @submit.prevent="editRequirement"  class="text-left">
 
                   <div class="form-group">
-                      <label for="name">Nom d'Endroit</label>
+                      <label for="name">Nom de lieu</label>
                       <input v-model="requirementE.name" name="name" type="text" class="form-control" id="name" required>
                   </div>
                   

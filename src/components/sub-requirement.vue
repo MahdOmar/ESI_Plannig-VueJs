@@ -2,7 +2,7 @@
 
 <div class="m-4">
 
-      <button type="button" title="Edit account" data-toggle="modal" data-target="#add_subrequirement" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter les détails des endroits </button>
+      <button type="button" title="Edit account" data-toggle="modal" data-target="#add_subrequirement" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter </button>
 
           <table class="table bg-white">
             <thead class="">

@@ -9,7 +9,7 @@
       <!--========== ADMIN SIDE MENU one ========-->
       <div class="_1side_menu" >
         <div class="_1side_menu_logo">
-          <h3><a href="/" style="text-align:center; color:white">ESI PLANNIG</a></h3>
+          <h3><a href="/" style="text-align:center; color:white">ESI PLANNING</a></h3>
           <!--<img src="/img/logo.jpg" style="width: 108px;margin-left: 68px;"/>-->
         </div>
 
@@ -65,7 +65,9 @@
 
          <li class="item font-weight-bold" style="color:#0066ff"> Gestion des Modules</li>
               <li  ><router-link to="/dashboard/entities"><i class="fas fa-calendar-plus"></i> Definir les Modules</router-link></li>
-                <li  ><router-link to="/dashboard/requirements"><i class="fas fa-calendar-plus"></i> Definir les Endroits</router-link></li>
+
+           <li class="item font-weight-bold" style="color:#0066ff"> Gestion des Lieux d'étude</li>
+                <li  ><router-link to="/dashboard/requirements"><i class="fas fa-calendar-plus"></i> Definir les Lieux d'étude</router-link></li>
               
           
           <li  class="item font-weight-bold" style="color:#0066ff"> Gestion des Sections et des Groupes</li>
