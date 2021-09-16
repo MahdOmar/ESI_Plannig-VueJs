@@ -26,49 +26,7 @@
               </tr>
             </thead>
             <tbody v-html="content" style="z-index: 1">
-              <tr >
-               
-                <td  rowspan="2">Dimanche 27/01/2022</td>
-                <td >Analyse 1 </td>
-                
-                <td>8h-10h</td>
-                <td>Nourdine Amroun</td>
-                
-              </tr>
-               <tr>
-               
-                <td>Algebre</td>
-                <td >14h-16h</td>
-                <td>Mustapha Mechab</td>
-               
-                
-              </tr>
-               <tr>
-               
-                <td>lundy 28/01/2022</td>
-                <td >Archi 1</td> 
-                <td >8h-10h</td> 
-                <td>Hicham badsi</td>
-                
-              </tr>
-
-              <tr >
-               
-                <td  rowspan="2">Mardi 28/01/2022</td>
-                <td >Système d'exploitation </td>
-                
-                <td>8h-10h</td>
-                <td>Beckouch Mohammed <br> Badsi Hicham</td>
-                
-              </tr>
-               <tr>
-               
-                <td>TEE</td>
-                <td >14h-16h</td>
-                <td>Hind Mami</td>
-               
-                
-              </tr>
+             
 
               
             </tbody>

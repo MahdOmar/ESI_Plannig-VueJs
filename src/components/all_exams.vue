@@ -2,7 +2,7 @@
     
  <div class="container-fluid " style="padding-left: 40px; ">
   <div class=" p-2 ">
-    <h2>Gestion des Emplois du temps</h2>
+    <h2>Gestion des Emplois du temps d'Examens</h2>
    
    
 

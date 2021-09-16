@@ -6,12 +6,15 @@
    
   </div>
 <div class="container">
-  <p v-if="error">{{error}}</p>
+  <div class="text-center text-danger">
+    <p v-if="error">{{error}}</p>
+  </div>
+  
   <form @submit.prevent="generate">
   
     <div class="form-group">
         <label for="groups_select">Selectionner Année</label>
-         <select v-model ="selected" class="custom-select" name="semester" id="select_emp" @change="getsemesters()">
+         <select v-model ="selected" class="custom-select" name="semester" id="select_emp" @change="getsemesters()" required>
           <option  v-for="year in years" :key="year.id" :value="year.id" > {{ year.name }}</option>
                             
                               
@@ -22,7 +25,7 @@
 
       <div class="form-group">
         <label for="groups_select">Selectionner Semestre</label>
-         <select v-model ="selectSem" class="custom-select" name="semester" id="select_emp" @change="getSections()">
+         <select v-model ="selectSem" class="custom-select" name="semester" id="select_emp" @change="getSections()" required>
              
           <option  v-for="semester in semesters" :key="semester.id" :value="semester.id" > {{ semester.name }}</option>
                             
@@ -32,7 +35,7 @@
 
       <div class="form-group">
         <label for="groups_select">Selectionner Section</label>
-         <select v-model ="selectSec" class="custom-select" name="semester" id="select_emp" @change="getGroupes()" >
+         <select v-model ="selectSec" class="custom-select" name="semester" id="select_emp" @change="getGroupes()" required >
              
           <option  v-for="section in sections" :key="section.id" :value="section.id" > {{ section.name }}</option>
                             
@@ -44,7 +47,7 @@
 
     <div class="form-group">
         <label for="groups_select">Selectionner Groupe</label>
-         <select v-model ="selectGrp" class="custom-select" name="semester" id="select_emp"  >
+         <select v-model ="selectGrp" class="custom-select" name="semester" id="select_emp" required >
              
           <option  v-for="groupe in groupes" :key="groupe.id" :value="groupe.id" > {{ groupe.name }}</option>
                             

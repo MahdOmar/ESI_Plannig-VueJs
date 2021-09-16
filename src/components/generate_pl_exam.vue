@@ -7,11 +7,14 @@
    
   </div>
 <div class="container">
+  <div class="text-center text-danger">
+    <p>{{error}}</p>
+  </div>
   <form @submit.prevent="generate">
   
     <div class="form-group">
         <label for="groups_select">Selectionner Année</label>
-         <select v-model ="selected" class="custom-select" name="semester" id="select_emp" @change="getsemesters()">
+         <select v-model ="selected" class="custom-select" name="semester" id="select_emp" @change="getsemesters()" required>
           <option  v-for="year in years" :key="year.id" :value="year.id" > {{ year.name }}</option>
                             
                               
@@ -22,7 +25,7 @@
 
       <div class="form-group">
         <label for="groups_select">Selectionner Semestre</label>
-         <select v-model ="selectSem" class="custom-select" name="semester" id="select_emp" >
+         <select v-model ="selectSem" class="custom-select" name="semester" id="select_emp" required >
              
           <option  v-for="semester in semesters" :key="semester.id" :value="semester.id" > {{ semester.name }}</option>
                             
@@ -32,7 +35,7 @@
 
      <div class="form-group">
         <label for="groups_select">Selectionner EMD</label>
-         <select v-model ="selectEmd" class="custom-select" name="semester" id="select_emp">
+         <select v-model ="selectEmd" class="custom-select" name="semester" id="select_emp" required>
              <option value="EMD1">EMD1</option>
               <option value="EMD2">EMD2</option>
         
@@ -94,6 +97,7 @@ export default  {
             dateD:'',
             dateE:'',
             radio:'',
+            error:''
 
            
             
@@ -128,12 +132,13 @@ axios.post(API_URL + 'admin/makeexams', {semester:this.selectSem, emd:this.selec
         planning: res.data
       });
 
-      this.$router.push('/dashboard/all_planning')
+      this.$router.push('/dashboard/all_exams')
       
         
 
     }).catch((err)=>{
         console.log(err.message);
+        this.error = err.response.data.error;
      
       
     });

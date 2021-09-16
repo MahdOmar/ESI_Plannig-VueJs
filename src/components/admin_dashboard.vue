@@ -34,16 +34,17 @@
                  <li class="item font-weight-bold" style="color:#0066ff"> Emploi du temps</li>
              
 
-              <li  >
-                <a href="#drop4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle "><i class="fas fa-calendar-plus"></i> Tous les Emplois</a>
-                <ul class="collapse list-unstyled" id="drop4">
-                   <li ><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i>Semestrielle </router-link></li>
-                <li ><router-link to="/dashboard/all_exams"><i class="fas fa-table"></i>Examens </router-link></li>
+              
+               
+                
+                   <li ><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i> Tous les Emplois Semestrielle </router-link></li>
+               
+                <li ><router-link to="/dashboard/all_exams"><i class="fas fa-table"></i> Tous les Emplois d'Examens </router-link></li>
               
                     
                    
-                </ul>
-            </li>
+                
+         
 
 
 
@@ -71,7 +72,7 @@
               
           
           <li  class="item font-weight-bold" style="color:#0066ff"> Gestion des Sections et des Groupes</li>
-              <li  ><router-link to="/dashboard/sections-groupes"><i class="fas fa-calendar-plus"></i> Definir les Sections et des Groupes</router-link></li>
+              <li  ><router-link to="/dashboard/sections-groupes"><i class="fas fa-calendar-plus"></i> Definir les Sections et les Groupes</router-link></li>
 
 
 
@@ -79,7 +80,9 @@
 
               </div>
               <div v-if ="user.role === 1">
-                <li  ><router-link to="/dashboard/plannings"> <i class="fas fa-table"></i>Tous les Emplois</router-link></li>
+                <li ><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i> Tous les Emplois Semestrielle </router-link></li>
+               
+              <li  ><router-link to="/dashboard/plannings"> <i class="fas fa-table"></i>Mes Emplois</router-link></li>
               <li ><router-link to="/dashboard/g_planning"><i class="fas fa-table"></i>Emploi du temps Générale </router-link></li>
               
           

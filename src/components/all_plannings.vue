@@ -2,7 +2,7 @@
     
  <div class="container-fluid " style="padding-left: 40px; ">
   <div class=" p-2 ">
-    <h2>Gestion des Emplois du temps</h2>
+    <h2>Gestion des Emplois du temps Semestrielle</h2>
    
    
 
@@ -64,7 +64,7 @@
                     </td>
                      <td v-if="planning.statut == 1">
                      <button type="button" title="Edit account" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm" @click="deletePlanning(planning)"><i class="fa fa-fw fa-trash"></i></button>
+                        <button v-if="user.role == 0" type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm" @click="deletePlanning(planning)"><i class="fa fa-fw fa-trash"></i></button>
                       
                        
                     </td>
@@ -198,6 +198,7 @@ export default{
  computed: mapGetters({
     
          token: 'auth/token',
+         user:'auth/user'
      
 
         }),

@@ -278,8 +278,8 @@ export default {
           ' <div class="bg-secondary"  style="height:' +
             hightemp +
             'px; "></div>' +
-            '<div class="d-flex flex-column justify-content-between border border-primary" style="height:' +
-            hight +
+            '<div class="d-flex flex-column justify-content-between " style="  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;'
+            +'height:' +hight +
             'px "><div class="size m-2">' +
             this.planning.days[k][i].name +
             '</div><div class="size2">' +
@@ -307,7 +307,8 @@ export default {
           ' <div class="bg-secondary"  style="height:' +
             hight +
             'px; "></div>' +
-            '<div class="d-flex flex-column justify-content-between border border-primary" style="height:' +
+            '<div class="d-flex flex-column justify-content-between " style=" box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;'
+            +'height:' +
             hight2 +
              'px "><div class="size m-2">' +
             this.planning.days[k][i].name +

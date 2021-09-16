@@ -586,7 +586,8 @@ td.active a{
 }
 
 .etapes{
-    box-shadow: 0 10px 20px rgba(47, 91, 231, 0.1);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+
     margin-top: 20px;
 
 
