@@ -11,7 +11,7 @@
   </div>
   <div class="row">
     <div class="col-md-3 p-2 shadow text-center">
-    
+   
      <table class="table table-bordered table-hover text-center">
          <thead>
          <tr><th class="bg-primary text-white font-weight-bold">Années</th></tr>
@@ -35,6 +35,9 @@
       <div id="view" class="col-md-8 shadow p-1 m-4">
           <div class="container-fluid text-center overflow-auto " style="height: 600px  ">
                   <p v-if="!child" style="margin-top:150px">Selectionner une année pour voir ses emplois du temps</p>
+
+  <button v-if="child" type="button"  style="float: right" class="btn btn-primary btn-sm m-2 " @click="refresh()"  ><i class="fas fa-sync-alt"></i>Actualiser </button>
+
 
               <table v-if="child"  class="table bg-white">
             <thead class="">
@@ -94,59 +97,7 @@
   </div>
 
 
-    <div class="modal fade" id="type" ref="sem">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h5 class="modal-title">Selectionner type d'emploi</h5>
-            <button type="button" class="close" data-dismiss="modal">
-              &times;
-            </button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            <div id="model_body"></div>
-
-           
-            <div>
-              <form @submit.prevent="saveId">
-                <div class="form-group">
-                
-                  <select
-                    v-model="selected"
-                    class="custom-select"
-                    name="semester"
-                    id="select_emp"
-                  >
-                    <option
-                     
-                    >
-                      
-                    </option>
-                  </select>
-                </div>
-                <button
-                  class="btn btn-primary btn-sm text-center text-white m-2"
-                  type="submit"  
-                >
-                  Confirmer
-                </button>
-                <button
-                  class="btn btn-primary btn-sm text-center text-white m-2"
-                  data-dismiss="modal"
-                >
-                  Annuler
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <!-- Modal footer -->
-        </div>
-      </div>
-    </div>
+  
 
  <div class="modal" id="delete">
   <div class="modal-dialog modal-dialog-centered">
@@ -384,6 +335,8 @@ axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers 
      
       
     });
+
+    
      
 
 
@@ -391,6 +344,11 @@ axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers 
 
         
         },
+
+        refresh(){
+          this.getPlannings();
+      
+    }
         
 
 

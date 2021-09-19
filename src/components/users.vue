@@ -372,8 +372,21 @@ computed: mapGetters({
           this.success = "Enseignant ajouté";
           
         this.getUsers();
+        var that = this
           setTimeout(function(){
+             that.success = "";
       $("#add").modal('hide')
+      for (var key in that.user ) {
+  that.user[key] = null;
+}
+
+      
+      that.password = ""
+      that.passcheck=""
+     
+    
+
+      
    }, 1 * 1000);
         
         
@@ -412,7 +425,9 @@ computed: mapGetters({
           this.success = "Enseignant Edité";
           
         this.getUsers();
+        var that = this
           setTimeout(function(){
+             that.success = "";
       $("#edit").modal('hide')
    }, 1 * 1000);
         
@@ -439,7 +454,7 @@ computed: mapGetters({
             'Authorization': 'Bearer '+this.token
           }
           Swal.fire({
-            title: 'Vous etes sur?',
+            title: 'Vous êtes sûr?',
             text: "Vous ne pourrez pas revenir en arrière !",
             type: 'Alerte',
             showCancelButton: true,
@@ -457,7 +472,7 @@ computed: mapGetters({
       
     ).then((res)=>{
           this.error = ''
-          this.success = "Enseignant Supprimé";
+         
           
         this.getUsers();
         

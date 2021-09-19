@@ -297,9 +297,13 @@ export default{
           
          var that = this
         this.getmodules();
+        var that=this
            setTimeout(function(){
+               that.success = ''
       $("#add_module").modal('hide')
-      that.success = ''
+       for (var key in that.module ) {
+  that.module[key] = null;
+       }
    }, 1 * 1000);
 
         
@@ -372,7 +376,7 @@ export default{
             'Authorization': 'Bearer '+this.token
           }
           Swal.fire({
-            title: 'Vous etes sur?',
+            title: 'Vous êtes sûr?',
             text: "Vous ne pourrez pas revenir en arrière !",
             type: 'Alerte',
             showCancelButton: true,
