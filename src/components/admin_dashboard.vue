@@ -71,8 +71,8 @@
                 <li  ><router-link to="/dashboard/requirements"><i class="fas fa-calendar-plus"></i> Definir les Lieux d'étude</router-link></li>
               
           
-          <li  class="item font-weight-bold" style="color:#0066ff"> Gestion des Sections et des Groupes</li>
-              <li  ><router-link to="/dashboard/sections-groupes"><i class="fas fa-calendar-plus"></i> Definir les Sections et les Groupes</router-link></li>
+          <li  class="item font-weight-bold" style="color:#0066ff"> Gestion des Sections / Groupes</li>
+              <li  ><router-link to="/dashboard/sections-groupes"><i class="fas fa-calendar-plus"></i> Definir les Sections / Groupes</router-link></li>
 
 
 

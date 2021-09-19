@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" style="padding-left: 40px">
+  <div class="container-fluid" style="padding-left: 60px">
     <div class="p-2">
       <h2>Gestion des Modules</h2>
      

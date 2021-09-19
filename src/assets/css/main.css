@@ -396,7 +396,7 @@ textarea {
   color: #fff;
 }
 ._1side_menu {
-    width: 260px;
+    width: 280px;
     position: fixed;
     left: 0;
     top: 0;
@@ -719,7 +719,7 @@ li.activeclass {
 
 /*========= 4.HOME =======*/
 .content {
-    margin-left: 248px;
+    margin-left: 260px;
     padding-top: 80px;
     padding-bottom: 100px;
     padding-left: 20px;

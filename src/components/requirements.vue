@@ -1,6 +1,6 @@
 <template>
 
-<div class="m-4">
+<div class="m-5">
 
       <button type="button" title="Edit account" data-toggle="modal" data-target="#add_requirement" style="float: right" class="btn btn-primary btn-sm m-2 "><i class="fa fa-fw fa-plus"></i>Ajouter lieu d'étude </button>
 

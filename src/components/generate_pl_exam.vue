@@ -1,7 +1,7 @@
 <template>
 
  
-    <div class="container-fluid bg-custom" style="padding-left: 40px;height:800px ">
+    <div class="container-fluid bg-custom" style="padding-left: 60px;height:800px ">
   <div class=" p-2 bg-custom">
     <h2 class="m-2">Génénration d'Emploi du temps d'Examens</h2>
    

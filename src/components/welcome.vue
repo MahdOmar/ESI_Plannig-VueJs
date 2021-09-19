@@ -2,7 +2,7 @@
  <template>
   
 
-     <div class="m-4">
+     <div class="m-5">
            <h1 class="m-4">Accueil </h1>
         <div v-if="user.role == 0" class=" p-3 m-4 bg-white" style="background:rgb(255, 255, 255)">
            <p>{{ user.firstname }} {{ user.lastname }} , Bienvenue à ESI PLANNING votre générateur automatique d'Emploi du temps</p>
