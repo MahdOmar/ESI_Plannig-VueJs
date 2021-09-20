@@ -1,7 +1,7 @@
 <template>
     
 
-    <div class="planning m-4">
+    <div class="planning m-5">
     <div >
       <div
         class="col-xs-auto col-sm-auto col-md-auto col-lg-auto"
@@ -70,12 +70,37 @@ export default {
 
         
        this.content=this.content+ '<tr > <td  rowspan="2">'+this.planning.positionsexams[i].date+'</td>'+
-                '<td >'+this.planning.positionsexams[i].module.name+'</td>'+
-                
-               ' <td>'+this.planning.positionsexams[i].startH+'h-'+this.planning.positionsexams[i].endH+'h'+'</td>'+
+                '<td >'+this.planning.positionsexams[i].module.name+'</td>'
+
+                if(this.planning.positionsexams[i].endMin > 0)
+                {
+                  this.content = this.content+ ' <td>'+this.planning.positionsexams[i].startH+'h-'+this.planning.positionsexams[i].endH+'h'+this.planning.positionsexams[i].endMin+'min</td>'+
                 '<td>'+this.planning.positionsexams[i].prof+'</td>'+
+                '</tr>'
+
+                }
+                else {
+                  this.content = this.content +' <td>'+this.planning.positionsexams[i].startH+'h-'+this.planning.positionsexams[i].endH+'h'+'</td>'+
+                '<td>'+this.planning.positionsexams[i].prof+'</td>'+
+                '</tr>'
+
+                }
+                 if(this.planning.positionsexams[i+1].endMin > 0)
+                {
+                  this.content = this.content+
+                 ' <tr><td>'+this.planning.positionsexams[i+1].module.name+'</td>'+
+                '<td >'+this.planning.positionsexams[i+1].startH+'h-'+this.planning.positionsexams[i+1].endH+'h'+this.planning.positionsexams[i+1].endMin+'min</td>'+
+                '<td>'+this.planning.positionsexams[i+1].prof+'</td>'+
+               
                 
-              '</tr>'+
+             ' </tr>'
+             i+=1;
+
+                }
+                else
+                {
+                  this.content = this.content+
+
               ' <tr><td>'+this.planning.positionsexams[i+1].module.name+'</td>'+
                 '<td >'+this.planning.positionsexams[i+1].startH+'h-'+this.planning.positionsexams[i+1].endH+'h'+'</td>'+
                 '<td>'+this.planning.positionsexams[i+1].prof+'</td>'+
@@ -83,15 +108,34 @@ export default {
                 
              ' </tr>'
              i+=1;
+             }
         }
             
             else{
-              this.content = this.content + ' <tr><td>'+this.planning.positionsexams[i].date+'</td>'+
+              if(this.planning.positionsexams[i].endMin > 0){
+                this.content = this.content + ' <tr><td>'+this.planning.positionsexams[i].date+'</td>'+
+                '<td >'+this.planning.positionsexams[i].module.name+'</td> '+
+               ' <td >'+this.planning.positionsexams[i].startH+'h-'+this.planning.positionsexams[i].endH+'h'+this.planning.positionsexams[i].endMin+'min</td> '+
+                '<td>'+this.planning.positionsexams[i].prof+'</td>'+
+                
+              '</tr>'
+
+              }
+
+              else 
+              {
+                this.content = this.content + ' <tr><td>'+this.planning.positionsexams[i].date+'</td>'+
                 '<td >'+this.planning.positionsexams[i].module.name+'</td> '+
                ' <td >'+this.planning.positionsexams[i].startH+'h-'+this.planning.positionsexams[i].endH+'h'+'</td> '+
                 '<td>'+this.planning.positionsexams[i].prof+'</td>'+
                 
               '</tr>'
+
+              }
+
+
+
+              
 
             }
               

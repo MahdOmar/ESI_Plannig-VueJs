@@ -68,6 +68,7 @@
                      <td v-if="planning.statut == 1">
                      <button type="button" title="Edit account" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fa fa-fw fa-edit"></i></button>
                         <button v-if="user.role == 0" type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm" @click="deletePlanning(planning)"><i class="fa fa-fw fa-trash"></i></button>
+                      <button v-if="user.role == 0" type="button" title="Envoyer email au groupe" class="btn btn-secondary btn-sm" @click="sendMail(planning)"><i class="far fa-envelope"></i></button>
                       
                        
                     </td>
@@ -343,6 +344,37 @@ axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers 
 
 
         
+        },
+
+        sendMail(planning){
+           const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+axios.post(API_URL + 'admin/mail', { id:planning.id , type:0 } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+     
+            
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+
+    
+     
+
+
+
+
+
         },
 
         refresh(){
