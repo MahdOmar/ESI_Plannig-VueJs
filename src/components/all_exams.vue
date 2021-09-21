@@ -54,10 +54,10 @@
             
              <tr v-for="exam in exams" :key="exam.id">
                <td>  {{exam.name }}</td>
-               <button type="button" title="Edit account" class="btn btn-primary btn-sm m-1" @click="viewExam(exam)"><i class="fa fa-fw fa-edit"></i></button>
-               <button type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm m-1" ><i class="fa fa-fw fa-trash"></i></button>
-                  <button type="button" title="Envoyer email au groupe" class="btn btn-secondary btn-sm m-1" @click="sendMail(exam)"><i class="far fa-envelope"></i></button>
-                        
+               <button type="button" title="Edit account" class="btn btn-primary btn-sm m-1" @click="viewExam(exam)"><i class="fas fa-eye"></i></button>
+                <button v-if="user.role == 0" type="button" title="Envoyer email au groupe" class="btn btn-secondary btn-sm m-1" @click="sendMail(exam)"><i class="far fa-envelope"></i></button>
+               <button v-if="user.role == 0" type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm m-1" @click="deleteExam(exam)" ><i class="fa fa-fw fa-trash"></i></button>
+                     
 
 
              </tr>
@@ -121,6 +121,7 @@ import $ from 'jquery'
 
 
 
+
 export default{
 
 
@@ -128,6 +129,7 @@ export default{
  computed: mapGetters({
     
          token: 'auth/token',
+         user:'auth/user'
      
 
         }),
@@ -152,7 +154,7 @@ export default{
 
     methods: {
 
-      deleteExam(planning){
+      deleteExam(exam){
            const API_URL = 'http://127.0.0.1:4000/';
       
         
@@ -172,7 +174,7 @@ export default{
         }).then((result) => {
             if (result.value) {
 
-                  axios.post(API_URL + 'admin/deleteplanning', { id:planning.id
+                  axios.post(API_URL + 'admin/deleteplanningexam', { id:exam.id
 
              } ,{ headers : headers}
         
@@ -221,7 +223,10 @@ export default{
             'Authorization': 'Bearer '+this.token
           }
 
-axios.post(API_URL + 'admin/getexamsplannings', { year:this.yearId } ,{ headers : headers}
+          if( this.user.role == 0)
+          {
+
+            axios.post(API_URL + 'admin/getexamsplannings', { year:this.yearId } ,{ headers : headers}
         
       
     ).then((res)=>{
@@ -236,7 +241,28 @@ axios.post(API_URL + 'admin/getexamsplannings', { year:this.yearId } ,{ headers 
       
     });
 
+          }
 
+     else{
+
+     
+
+axios.post(API_URL + 'prof/getexamsplannings', { year:this.yearId } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+        console.log(res.data)
+      this.exams = res.data;
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+
+}
 
         },
 
@@ -254,7 +280,10 @@ axios.post(API_URL + 'admin/getexamsplannings', { year:this.yearId } ,{ headers 
             'Authorization': 'Bearer '+this.token
           }
 
-axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
+          if(this.user.role == 0 )
+          {
+
+            axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
         
       
     ).then((res)=>{
@@ -267,6 +296,31 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
      
       
     });
+     
+
+
+          }
+
+          else{
+
+
+          
+
+axios.post(API_URL + 'prof/getyears', { } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      this.years = res.data;
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+
+    }
      
 
         },
@@ -292,7 +346,9 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
             'Authorization': 'Bearer '+this.token
           }
 
-axios.post(API_URL + 'admin/getexamplanning', { id:exam.id } ,{ headers : headers}
+          if(this.user.role == 0 ){
+
+            axios.post(API_URL + 'admin/getexamplanning', { id:exam.id } ,{ headers : headers}
         
       
     ).then((res)=>{
@@ -315,6 +371,37 @@ axios.post(API_URL + 'admin/getexamplanning', { id:exam.id } ,{ headers : header
 
 
 
+          }
+
+          else {
+
+
+          
+
+axios.post(API_URL + 'prof/getexamplanning', { id:exam.id } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+     
+             this.$store.dispatch("auth/savePlanning", {
+        planning: res.data
+      });
+     this.$router.push("/dashboard/exam_view");
+
+
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+     
+     }
+
+
+
 
 
         },
@@ -326,6 +413,17 @@ axios.post(API_URL + 'admin/getexamplanning', { id:exam.id } ,{ headers : header
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+this.token
           }
+            Swal.fire({
+            title: 'Vous etes sur?',
+            text: "Nous allons envoyer un email  !",
+            type: 'Alerte',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Annuler',
+            confirmButtonText: 'Oui, supprimer!'
+        }).then((result) => {
+            if (result.value) {
 
 axios.post(API_URL + 'admin/mail', { id:planning.id , type:1 } ,{ headers : headers}
         
@@ -339,6 +437,9 @@ axios.post(API_URL + 'admin/mail', { id:planning.id , type:1 } ,{ headers : head
      
       
     });
+
+    }
+        })
 
     
      

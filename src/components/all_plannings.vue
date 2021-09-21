@@ -66,10 +66,10 @@
                        
                     </td>
                      <td v-if="planning.statut == 1">
-                     <button type="button" title="Edit account" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fa fa-fw fa-edit"></i></button>
+                     <button type="button" title="Edit account" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fas fa-eye"></i></button>
+                       <button v-if="user.role == 0" type="button" title="Envoyer email au groupe" class="btn btn-secondary btn-sm" @click="sendMail(planning)"><i class="far fa-envelope"></i></button>
                         <button v-if="user.role == 0" type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm" @click="deletePlanning(planning)"><i class="fa fa-fw fa-trash"></i></button>
-                      <button v-if="user.role == 0" type="button" title="Envoyer email au groupe" class="btn btn-secondary btn-sm" @click="sendMail(planning)"><i class="far fa-envelope"></i></button>
-                      
+                     
                        
                     </td>
 
@@ -247,7 +247,9 @@ export default{
             'Authorization': 'Bearer '+this.token
           }
 
-axios.post(API_URL + 'admin/getPlannings', { yearId:this.yearId } ,{ headers : headers}
+          if( this.user.role == 0){
+
+            axios.post(API_URL + 'admin/getPlannings', { yearId:this.yearId } ,{ headers : headers}
         
       
     ).then((res)=>{
@@ -261,6 +263,33 @@ axios.post(API_URL + 'admin/getPlannings', { yearId:this.yearId } ,{ headers : h
      
       
     });
+
+
+
+
+
+          }
+
+          else{
+
+          
+
+axios.post(API_URL + 'prof/getallplannings', { yearId:this.yearId } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+        console.log(res.data)
+      this.plannings = res.data;
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+
+          }
 
 
 
@@ -279,8 +308,9 @@ axios.post(API_URL + 'admin/getPlannings', { yearId:this.yearId } ,{ headers : h
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+this.token
           }
+          if(this.user.role == 0) {
 
-axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
+            axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
         
       
     ).then((res)=>{
@@ -293,6 +323,29 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
      
       
     });
+     
+
+
+          }
+
+          else{
+
+          
+
+axios.post(API_URL + 'prof/getyears', { } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      this.years = res.data;
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+          }
      
 
         },
@@ -317,7 +370,36 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
             'Authorization': 'Bearer '+this.token
           }
 
-axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers : headers}
+          if(this.user.role == 0) {
+
+            axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+     
+             this.$store.dispatch("auth/savePlanning", {
+        planning: res.data
+      });
+     this.$router.push("/dashboard/planning_view");
+
+
+      
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+     
+      
+    });
+
+
+          }
+
+          else{
+
+          
+
+axios.post(API_URL + 'prof/getplanning', { planningId:planning.id } ,{ headers : headers}
         
       
     ).then((res)=>{
@@ -339,7 +421,7 @@ axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers 
 
     
      
-
+}
 
 
 
@@ -347,6 +429,9 @@ axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers 
         },
 
         sendMail(planning){
+
+
+
            const API_URL = 'http://127.0.0.1:4000/';
       
         
@@ -354,6 +439,19 @@ axios.post(API_URL + 'admin/getPlanning', { planningId:planning.id } ,{ headers 
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+this.token
           }
+
+           Swal.fire({
+            title: 'Vous etes sur?',
+            text: "Nous allons envoyer un email  !",
+            type: 'Alerte',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Annuler',
+            confirmButtonText: 'Oui, supprimer!'
+        }).then((result) => {
+            if (result.value) {
+
 
 axios.post(API_URL + 'admin/mail', { id:planning.id , type:0 } ,{ headers : headers}
         
@@ -368,6 +466,8 @@ axios.post(API_URL + 'admin/mail', { id:planning.id , type:0 } ,{ headers : head
       
     });
 
+   }
+        })
     
      
 

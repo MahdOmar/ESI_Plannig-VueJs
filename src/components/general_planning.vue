@@ -234,7 +234,8 @@ import {mapGetters} from 'vuex'
 export default {
     computed: mapGetters({
           user:'auth/user',
-          token:'auth/token'
+          token:'auth/token',
+          planning:'auth/planning'
         }),
  
 
@@ -250,7 +251,7 @@ export default {
       day5:'',
       content: null,
       content2: null,
-    planning:[],
+      planning:[],
     };
   },
   methods: {
@@ -284,7 +285,7 @@ export default {
     ).then(({data})=>{
         this.planning = data
         
-      this.planning = data;
+     
       
         
 
@@ -303,7 +304,13 @@ export default {
 
     async addCour() {
         try {
+
+          if(this.user.role == 1) 
+          {
             await this.example();
+          }
+           
+           
 
                for (let k = 0; k < 7; k++) {
       
@@ -329,13 +336,14 @@ export default {
           ' <div class="bg-secondary"  style="height:' +
             hightemp +
             'px; "></div>' +
-            '<div class="d-flex flex-column justify-content-between " style=" box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;height:' +
+            '<div class="d-flex flex-column justify-content-between border border-primary " style=" height:' +
             hight +
             'px "><div class="size m-2">' +
             this.planning.days[k][i].name +
             '</div><div class="size2">' +
             this.planning.days[k][i].prof + 
-            '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning.days[k][i].requirement+'</div></div>';
+            '</div><div  class="d-flex m-2 justify-content-between size2"><div>'+this.planning.days[k][i].target+'</div><div>'+this.planning.days[k][i].requirement+'</div></div></div>';
+            
         } else {
           var dif1 =
            Math.abs( (this.planning.days[k][i].startH +
@@ -358,13 +366,13 @@ export default {
           ' <div class="bg-secondary"  style="height:' +
             hight +
             'px; "></div>' +
-            '<div class="d-flex flex-column justify-content-between " style=" box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;height:' +
+            '<div class="d-flex flex-column justify-content-between border border-primary " style="height:' +
             hight2 +
              'px "><div class="size m-2">' +
             this.planning.days[k][i].name +
             '</div><div class="size2">' +
              this.planning.days[k][i].prof +
-            '</div><div  class="d-flex m-2 justify-content-end size2">'+this.planning.days[k][i].requirement+'</div></div>';
+            '</div><div  class="d-flex m-2 justify-content-between size2"><div>'+this.planning.days[k][i].target+'</div><div>'+this.planning.days[k][i].requirement+'</div></div></div>';
             
         }
         

@@ -8,9 +8,11 @@
            <p>{{ user.firstname }} {{ user.lastname }} , Bienvenue à ESI PLANNING votre générateur automatique d'Emploi du temps</p>
 
            <div class="bg-white">
-               <h3 class="m-2">Etapes de génération</h3>
               
-                   <div class=" col align-self-center etapes d-flex">  
+              
+                   <div class="etapes p-4">  
+                       <h3 class="" >Etapes de génération</h3>
+                       <div class=" col align-self-center etapes d-flex">
 
                    <div>
                        <p>Semestrielle</p>
@@ -40,7 +42,7 @@
 
 
                    </div>
-                  
+                  </div>
                
            </div>
     

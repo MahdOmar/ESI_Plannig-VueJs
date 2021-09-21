@@ -29,7 +29,10 @@
                     <td> {{ user.type }} </td>
                     <td>
                         <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" @click="getUser(user)"><i class="fa fa-fw fa-edit"></i></button>
+                          <button type="button" title="Voir planning général" class="btn btn-info btn-sm " @click="example(user)" ><i class="fas fa-eye"></i></button>
                         <button type="button" title="Delete account" class="btn btn-danger btn-sm " @click="deleteUser(user)" ><i class="fa fa-fw fa-trash"></i></button>
+                      
+                  
                     </td>
                 </tr>
                
@@ -501,47 +504,6 @@ computed: mapGetters({
 
 
 
-
-
-
-
-
-     /*     if(confirm("Voullez vous vraiment supprimer?")){
-
-          
-
-          axios.post(API_URL + 'admin/deleteprof', { id:user.id
-
-             } ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-          this.error = ''
-          this.success = "Enseignant Supprimé";
-          
-        this.getUsers();
-        
-        
-
-    }).catch((err)=>{
-        this.success =""
-        this.error = err.response.data.error
-        $("#delete").modal('show')
-      
-        setTimeout(function(){
-      $("#delete").modal('hide')
-      
-      
-   }, 1 * 4000);
-     // console.log(err.response.data)
-        
-     
-      
-    });
-          }*/
-
-
-
   },
 
 
@@ -592,6 +554,40 @@ axios.post(API_URL + 'admin/getprofs', { } ,{ headers : headers}
      
        
    },
+
+   async example(user){
+          try {
+              const API_URL = 'http://127.0.0.1:4000/';
+             const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+
+            var res = await axios.post(API_URL + 'admin/generalplanning', { id:user.id } ,{ headers : headers});
+    this.$store.dispatch("auth/savePlanning", {
+        planning: res.data
+      });
+     this.$router.push("/dashboard/g_planning");
+
+
+              
+          } catch (error) {
+              console.log(error);
+          }
+      },
+
+
+
+
+
+
+
+
+
+
+
+
  /*   splice(arr, val) {
          for (var i = arr.length; i--;) {
          if (arr[i] === val) {
