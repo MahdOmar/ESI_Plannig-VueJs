@@ -35,6 +35,8 @@
       <div id="view" class="col-md-8 shadow p-1 m-4">
           <div class="container-fluid text-center overflow-auto " style="height: 600px  ">
                   <p v-if="!child" style="margin-top:150px">Selectionner une année pour voir ses emplois du temps</p>
+          <button v-if="user.role == 0 && child" type="button" style="float:left" title="Envoyer email " class="btn btn-secondary btn-sm m-1 " @click="sendMail()"><i class="far fa-envelope"></i></button>
+
 
               <table v-if="child"  class="table bg-white">
             <thead class="">
@@ -54,9 +56,9 @@
             
              <tr v-for="exam in exams" :key="exam.id">
                <td>  {{exam.name }}</td>
-               <button type="button" title="Edit account" class="btn btn-primary btn-sm m-1" @click="viewExam(exam)"><i class="fas fa-eye"></i></button>
-                <button v-if="user.role == 0" type="button" title="Envoyer email au groupe" class="btn btn-secondary btn-sm m-1" @click="sendMail(exam)"><i class="far fa-envelope"></i></button>
-               <button v-if="user.role == 0" type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm m-1" @click="deleteExam(exam)" ><i class="fa fa-fw fa-trash"></i></button>
+               <button type="button" title="Consulter " class="btn btn-primary btn-sm m-1" @click="viewExam(exam)"><i class="fas fa-eye"></i></button>
+                
+               <button v-if="user.role == 0" type="button" title="Supprimer " class="btn btn-danger btn-sm m-1" @click="deleteExam(exam)" ><i class="fa fa-fw fa-trash"></i></button>
                      
 
 
@@ -82,22 +84,33 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-       
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+      
 
       <!-- Modal body -->
       <div class="modal-body text-center text-danger">
         {{ error }}
       </div>
 
-      <!-- Modal footer -->
-      <div class="modal-footer">
+     
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
       
+      <div class="modal-body text-center " style="height:80px; margin-top:20px">
+         <div v-if="!result" class="spinner-border m-1 text-primary spinner-border-lg"></div>
+
+        <p v-if="success" class="text-success">{{ success }}</p>
+          <p v-if="error" class="text-danger">{{ error }}</p> 
       </div>
 
+     
+     
     </div>
   </div>
 </div>
@@ -144,6 +157,8 @@ export default{
          
             exams:[],
             error:'',
+            success:'',
+            result:false
            
             
           
@@ -405,7 +420,7 @@ axios.post(API_URL + 'prof/getexamplanning', { id:exam.id } ,{ headers : headers
 
 
         },
-          sendMail(planning){
+          sendMail(){
            const API_URL = 'http://127.0.0.1:4000/';
       
         
@@ -421,19 +436,46 @@ axios.post(API_URL + 'prof/getexamplanning', { id:exam.id } ,{ headers : headers
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             cancelButtonText: 'Annuler',
-            confirmButtonText: 'Oui, supprimer!'
+            confirmButtonText: 'Oui, Envoyer!'
         }).then((result) => {
             if (result.value) {
+               $("#myModal").modal('show')
 
-axios.post(API_URL + 'admin/mail', { id:planning.id , type:1 } ,{ headers : headers}
+axios.post(API_URL + 'admin/mailexams', { year:this.yearId } ,{ headers : headers}
         
       
     ).then((res)=>{
+
+        this.result = true
+      this.success = 'Email envoyé avec succès'
+
+      
+      var that = this
+        setTimeout(function(){
+      $("#myModal").modal('hide')
+      that.success='';
+      that.error='';
+      that.result = false
+     
+      
+   }, 1 * 2000);
+     
      
             
 
     }).catch((err)=>{
-        console.log(err.message);
+       this.error = 'Echec'
+       this.result = true
+     //  $("#myModal").modal('show')
+      var that = this
+        setTimeout(function(){
+      $("#myModal").modal('hide')
+      that.success='';
+      that.error=''
+      that.result = false
+     
+      
+   }, 1 * 2000);
      
       
     });

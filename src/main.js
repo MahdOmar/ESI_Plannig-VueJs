@@ -26,6 +26,11 @@ import notFound from './components/404.vue'
 import exam from './components/generate_pl_exam.vue'
 import all_exams from './components/all_exams.vue'
 import exam_view from './components/exam_view.vue'
+import studentPlanning from './components/student_planning.vue'
+import studentPlanningview from './components/student_planning_view.vue'
+import studentExams from './components/student_exams.vue'
+import studentExamview from './components/student_exam_view.vue'
+
 
 
 
@@ -67,6 +72,10 @@ Vue.component('notfound',notFound)
 Vue.component('exam_planning_generation',exam)
 Vue.component('exam_view',exam_view)
 Vue.component('all_exams',all_exams)
+Vue.component('student_plannings',studentPlanning)
+Vue.component('student_planning_view',studentPlanningview)
+Vue.component('student_exams',studentExams)
+Vue.component('student_exam_view',studentExamview)
 
 Vue.component('admin_dashboard',Admin_Dashboard);
 Vue.config.productionTip = false;

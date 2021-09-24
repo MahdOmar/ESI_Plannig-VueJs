@@ -25,9 +25,9 @@
                     <td v-else>{{ cour.hour }}h{{ cour.min }}min</td>
                    
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#edit_cour"  @click="getCour(cour)"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm"   @click="deletecour(cour)" ><i class="fa fa-fw fa-trash"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-info  btn-sm" @click="saveCour(cour)" >Gérer</button>
+                        <button type="button" title="Editer" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#edit_cour"  @click="getCour(cour)"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Supprimer" class="btn btn-danger btn-sm"   @click="deletecour(cour)" ><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button"  class="btn btn-info  btn-sm" @click="saveCour(cour)" >Gérer</button>
                     </td>
                 </tr>
 
@@ -38,9 +38,9 @@
                     <td v-else>{{ td.hour }}h{{ td.min }}min</td>
                    
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_cour"  @click="getCour(td)"  ><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deletetdps(td)"  ><i class="fa fa-fw fa-trash"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-info  btn-sm" @click="saveCour(td)" >Gérer</button>
+                        <button type="button" title="Editer" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_cour"  @click="getCour(td)"  ><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Supprimer" class="btn btn-danger btn-sm" @click="deletetdps(td)"  ><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button"  class="btn btn-info  btn-sm" @click="saveCour(td)" >Gérer</button>
                     </td>
                 </tr>
 
@@ -101,14 +101,14 @@
                       <div class="form-group row">
                           <div class="col-md-6">
                             <label for="group_name">Heure</label>
-                      <input v-model="cour.hour" name="ExamenH" type="number" class="form-control" id="ExamenH" max="4" required>
+                      <input v-model="cour.hour" name="ExamenH" type="number" class="form-control" id="ExamenH" min="1" max="4" required>
                   
 
 
                           </div>
                           <div class="col-md-6">
                               <label for="group_name"> Minute</label>
-                      <input  v-model="cour.min" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
+                      <input  v-model="cour.min" name="ExamenMin" type="number" class="form-control" id="ExamenMin" min="0" max="59" required>
               
 
                           </div>
@@ -185,11 +185,11 @@
                       <div class="form-group row">
                           <div class="col-md-6">
                                <label for="group_name">Heure</label>
-                      <input v-model="courE.hour" name="ExamenH" type="number" class="form-control" id="ExamenH" max="4" required>
+                      <input v-model="courE.hour" name="ExamenH" type="number" class="form-control" id="ExamenH" min="1" max="4" required>
                </div>
                           <div class="col-md-6">
                               <label for="group_name"> Minute</label>
-                      <input  v-model="courE.min" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
+                      <input  v-model="courE.min" name="ExamenMin" type="number" class="form-control" id="ExamenMin" min="0" max="59" required>
                
                           </div>
                           

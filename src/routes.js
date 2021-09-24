@@ -23,6 +23,10 @@ import notFound from './components/404.vue'
 import exam from './components/generate_pl_exam.vue'
 import exam_view from './components/exam_view.vue'
 import all_exams from './components/all_exams.vue'
+import studentPlanning from './components/student_planning.vue'
+import studentPlanningview from './components/student_planning_view.vue'
+import studentExams from './components/student_exams.vue'
+import studentExamview from './components/student_exam_view.vue'
 
 
 
@@ -67,6 +71,10 @@ const router = new VueRouter({
     routes :[
 
         {path:'/'  , component:Login,meta : { middleware:[guest]}  },
+        {path:'/student_plannings'  , component:studentPlanning,meta : { middleware:[guest]}  },
+        {path:'/student_planning_view'  , component:studentPlanningview,meta : { middleware:[guest]}  },
+        {path:'/student_exams'  , component:studentExams,meta : { middleware:[guest]}  },
+        {path:'/student_exam_view'  , component:studentExamview,meta : { middleware:[guest]}  },
        
         {path:'/dashboard'  , component:Admin_Dashboard ,children:[
             {path:'welcome'  , component:Welcome , meta :{ middleware : [auth , checkAuth]} },

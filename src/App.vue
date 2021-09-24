@@ -24,6 +24,9 @@ import G_Planning from './components/general_planning.vue'
 import Profile from './components/profile.vue'
 import All_Plannings from './components/all_plannings.vue'
 import WishForm from './components/wish_form.vue'
+import studentPlanning from './components/student_planning.vue'
+import studentPlanningview from './components/student_planning_view.vue'
+
 
 
 
@@ -32,7 +35,7 @@ import WishForm from './components/wish_form.vue'
 import axios from './axios'
 export default{
   components: { Login, Signup,Admin_Dashboard,Welcome,Users,Entities,Manual,Plannings,G_Planning
-  ,Profile,All_Plannings,WishForm },
+  ,Profile,All_Plannings,WishForm,studentPlanning,studentPlanningview },
  /* data(){
     return{
         user : null

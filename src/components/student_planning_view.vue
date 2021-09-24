@@ -1,20 +1,27 @@
 <template>
+
+
   <div class="planning m-4">
+      <nav class="navbar shadow  rounded justify-content-between flex-nowrap flex-row fixed-top">
+      <div class="container">
+        <a class="navbar-brand  float-left text-white" href="/" >
+           ESI PLANNING
+        </a>
+       <ul class="nav navbar-nav flex-row float-right">
+        <img class="rounded-circle" src="../assets/img/logo.png" style="height=40px; align-self: center;">
+          <li class="nav-item">
+          
+          </li>
+        </ul>
+      </div>
+    </nav>
     <div >
       <div
         class="col-xs-auto col-sm-auto col-md-auto col-lg-auto"
-        style="padding: 0px"
+        style="padding: 0px ;margin-top:90px"
       >
-      <div class="d-flex justify-content-between">
-        <button type="button"   class="btn btn-primary btn-sm m-2 " @click="getGp(sem1)"  >Semester 1 </button>
-     
-     
-      <h2 v-if="planning" class="m-2 text-center">{{planning.name}}</h2>
+      <h2 v-if='planning' class="m-2 text-center">{{planning.name}}</h2>
 
-
-       <button type="button"   class="btn btn-primary btn-sm m-2 " @click="getGp(sem2)"  >Semester 2 </button>
-
-      </div>
         <div class="table-responsive">
           <table class="table text-center">
             <thead
@@ -237,16 +244,11 @@
 </template>
 
 <script>
-import axios from 'axios'
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 export default {
-    computed: mapGetters({
-          user:'auth/user',
-          token:'auth/token',
-          planningId:'auth/planning',
-          userId:'auth/userId'
-        }),
- 
+  computed: mapGetters({
+    planning: "auth/planning",
+  }),
 
   data() {
     return {
@@ -260,46 +262,12 @@ export default {
       day5:'',
       content: null,
       content2: null,
-      planning:[],
-      sem1:1,
-      sem2:2
+      courses: this.planning,
     };
   },
   methods: {
-      async example(){
-          try {
-              const API_URL = 'http://127.0.0.1:4000/';
-             const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-              var res = await axios.post(API_URL + 'prof/generalplanning', { id:this.user.id, semester:1 } ,{ headers : headers});
-              this.planning = res.data;
-              console.log("this is async " + this.planning);
-          } catch (error) {
-              console.log(error);
-          }
-      },
-
-
-
-
-
-    async addCour() {
-        try {
-
-          if(this.user.role == 1) 
-          {
-            await this.example();
-          }
-          else {
-            this.planning=this.planningId
-          }
-           
-           console.log(this.planning)
-           
-
-               for (let k = 0; k < 7; k++) {
+    addCour() {
+      for (let k = 0; k < 7; k++) {
       
       for (let i = 0; i < this.planning.days[k].length; i++) {
         
@@ -312,8 +280,10 @@ export default {
             Math.abs(
               this.planning.days[k][i].startMin - this.planning.days[k][i].endMin
             ) /60;
-         var dif3 =  this.planning.days[k][i].startH + (this.planning.days[k][i].startMin / 60) - 8;
-          //  console.log(dif3)
+              var dif3 =
+            this.planning.days[k][i].startH +
+            (this.planning.days[k][i].startMin / 60) - 8;
+            console.log(dif3)
 
           var hightemp = dif3 * 80
           console.log(hightemp)
@@ -323,14 +293,13 @@ export default {
           ' <div class="bg-secondary"  style="height:' +
             hightemp +
             'px; "></div>' +
-            '<div class="d-flex flex-column justify-content-between border border-primary " style=" height:' +
-            hight +
+            '<div class="d-flex flex-column justify-content-between border border-primary " style="  '
+            +'height:' +hight +
             'px "><div class="size m-2">' +
             this.planning.days[k][i].name +
             '</div><div class="size2">' +
             this.planning.days[k][i].prof + 
-            '</div><div  class="d-flex m-2 justify-content-between size2"><div>'+this.planning.days[k][i].target+'</div><div>'+this.planning.days[k][i].requirement+'</div></div></div>';
-            
+            '</div><div class="d-flex m-2 justify-content-end size2">'+this.planning.days[k][i].requirement+'</div></div>';
         } else {
           var dif1 =
            Math.abs( (this.planning.days[k][i].startH +
@@ -353,158 +322,33 @@ export default {
           ' <div class="bg-secondary"  style="height:' +
             hight +
             'px; "></div>' +
-            '<div class="d-flex flex-column justify-content-between border border-primary " style="height:' +
+            '<div class="d-flex flex-column justify-content-between border border-primary" style=" '
+            +'height:' +
             hight2 +
              'px "><div class="size m-2">' +
             this.planning.days[k][i].name +
             '</div><div class="size2">' +
              this.planning.days[k][i].prof +
-            '</div><div  class="d-flex m-2 justify-content-between size2"><div>'+this.planning.days[k][i].target+'</div><div>'+this.planning.days[k][i].requirement+'</div></div></div>';
+            '</div><div  class="d-flex m-2 justify-content-end size2">'+this.planning.days[k][i].requirement+'</div></div>';
             
         }
         
       }
-      
-      this.day1 = this.days[1]
-      this.day2 = this.days[2]
-      this.day3 = this.days[3]
-      this.day4 = this.days[4]
-      this.day5 = this.days[5]
-      
       }
-            
-
-
-
-        } catch (error) {
-            console.log(error);
-        }
-
-        
-   
     },
-
-   async getGp(sem){
-          try {
-              const API_URL = 'http://127.0.0.1:4000/';
-             const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-
-          if(this.user.role == 1)
-          {
-             var res = await axios.post(API_URL + 'prof/generalplanning', { id:this.user.id ,semester:sem } ,{ headers : headers});
-             
-            
-          }
-          else {
-             var res = await axios.post(API_URL + 'admin/generalplanning', { id:this.userId ,semester:sem } ,{ headers : headers});
-             
-          }
-             this.planning = res.data;
-             console.log(this.planning)
-             
-
-
-              this.days =[];
-      
-
-              // adddddddddddddddddddddddddd coooooooooooooooooours
-                 for (let k = 0; k < 7; k++) {
-      
-      for (let i = 0; i < this.planning.days[k].length; i++) {
-         console.log(sem)
-        
-   //       console.log(" day "+k +" session "+this.planning[k][i].name+" module "+this.planning[k][i].module.name)
-        if (i == 0) {   
-          // console.log('day0 de '+i)
-          var dif =
-            this.planning.days[k][i].endH -
-            this.planning.days[k][i].startH +
-            Math.abs(
-              this.planning.days[k][i].startMin - this.planning.days[k][i].endMin
-            ) /60;
-         var dif3 =  this.planning.days[k][i].startH + (this.planning.days[k][i].startMin / 60) - 8;
-          //  console.log(dif3)
-
-          var hightemp = dif3 * 80
-          console.log(hightemp)
-
-          var hight = dif * 80;
-          this.days[k] =
-          ' <div class="bg-secondary"  style="height:' +
-            hightemp +
-            'px; "></div>' +
-            '<div class="d-flex flex-column justify-content-between border border-primary " style=" height:' +
-            hight +
-            'px "><div class="size m-2">' +
-            this.planning.days[k][i].name +
-            '</div><div class="size2">' +
-            this.planning.days[k][i].prof + 
-            '</div><div  class="d-flex m-2 justify-content-between size2"><div>'+this.planning.days[k][i].target+'</div><div>'+this.planning.days[k][i].requirement+'</div></div></div>';
-            
-        } else {
-          var dif1 =
-           Math.abs( (this.planning.days[k][i].startH +
-            this.planning.days[k][i].startMin / 60 )-
-          
-            (this.planning.days[k][i - 1].endH +
-              this.planning.days[k][i - 1].endMin / 60));
-
-          var dif2 =
-            this.planning.days[k][i].endH -
-            this.planning.days[k][i].startH +
-            Math.abs(
-              this.planning.days[k][i].startMin - this.planning.days[k][i].endMin
-            ) /
-              60;
-
-          var hight = dif1 * 80;
-          var hight2 = dif2 * 80;
-            this.days[k]  = this.days[k] +
-          ' <div class="bg-secondary"  style="height:' +
-            hight +
-            'px; "></div>' +
-            '<div class="d-flex flex-column justify-content-between border border-primary " style="height:' +
-            hight2 +
-             'px "><div class="size m-2">' +
-            this.planning.days[k][i].name +
-            '</div><div class="size2">' +
-             this.planning.days[k][i].prof +
-            '</div><div  class="d-flex m-2 justify-content-between size2"><div>'+this.planning.days[k][i].target+'</div><div>'+this.planning.days[k][i].requirement+'</div></div></div>';
-            
-        }
-        
-      }
-      
-      this.day1 = this.days[1]
-      this.day2 = this.days[2]
-      this.day3 = this.days[3]
-      this.day4 = this.days[4]
-      this.day5 = this.days[5]
-      
-      
-      }
-              
-
-
-
-             
-          } catch (error) {
-              console.log(error);
-          }
-      },
   },
 
   mounted() {
-      
-
-      this.addCour();
-     
+    console.log(this.planning);
 
 
-     
+     this.addCour();
+      this.day1 = this.days[1]
+      this.day2 = this.days[2]
+      this.day3 = this.days[3]
+      this.day4 = this.days[4]
+      this.day5 = this.days[5]
+      console.log(this.days)
     
   },
 };

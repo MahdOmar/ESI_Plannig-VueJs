@@ -80,14 +80,17 @@
 
               </div>
               <div v-if ="user.role === 1">
+                 <li   class="custom" ><router-link to="/dashboard/welcome" ><i class="fas fa-home"></i> Accueil</router-link></li>
+
+                <li class="item font-weight-bold" style="color:#0066ff"> Emploi du temps</li>
                 <li ><router-link to="/dashboard/all_planning"><i class="fas fa-table"></i> Tous les Emplois Semestrielle </router-link></li>
                  <li ><router-link to="/dashboard/all_exams"><i class="fas fa-table"></i> Tous les Emplois d'Examens </router-link></li>
               
                
               <li  ><router-link to="/dashboard/plannings"> <i class="fas fa-table"></i>Mes Emplois</router-link></li>
-              <li ><router-link to="/dashboard/g_planning"><i class="fas fa-table"></i>Emploi du temps Générale </router-link></li>
+              <li ><router-link to="/dashboard/g_planning"><i class="fas fa-table"></i>Mon Emploi du temps Générale </router-link></li>
               
-          
+           <li class="item font-weight-bold" style="color:#0066ff"> Compte</li>
               <li ><router-link to="/dashboard/profile"><i class="fas fa-user"></i>Profile</router-link></li>
               
 

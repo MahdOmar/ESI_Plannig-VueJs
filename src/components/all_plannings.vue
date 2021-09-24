@@ -35,15 +35,17 @@
       <div id="view" class="col-md-8 shadow p-1 m-4">
           <div class="container-fluid text-center overflow-auto " style="height: 600px  ">
                   <p v-if="!child" style="margin-top:150px">Selectionner une année pour voir ses emplois du temps</p>
+                  <div class="d-flex justify-content-between">
+<button v-if="user.role == 0 && child" type="button" title="Envoyer email " class="btn btn-secondary btn-sm  m-2" @click="sendMail()"><i class="far fa-envelope"></i></button>
+                       
+  <button v-if="child" type="button"   class="btn btn-primary btn-sm m-2 " @click="refresh()"  ><i class="fas fa-sync-alt"></i>Actualiser </button>
 
-  <button v-if="child" type="button"  style="float: right" class="btn btn-primary btn-sm m-2 " @click="refresh()"  ><i class="fas fa-sync-alt"></i>Actualiser </button>
-
-
+</div>
               <table v-if="child"  class="table bg-white">
             <thead class="">
             <tr>
                 <th scope="col" class="text-primary">Nom</th>
-                <th scope="col" class="text-primary">Statut</th>
+                <th v-if="user.role ==0" scope="col" class="text-primary">Statut</th>
                
                
                 <th scope="col" class="text-primary">Actions</th>
@@ -58,24 +60,23 @@
                     
                     <td>  {{planning.name }}</td>
 
-                    <td v-if="planning.statut == 0" class="font-weight-bold" > En cours ... </td>
-                     <td v-if="planning.statut == 1" class="text-success font-weight-bold" > En service </td>
-                      <td v-if="planning.statut == -1" class="text-danger font-weight-bold" > Echec </td>
+                    <td v-if="planning.statut == 0 && user.role ==0 " class="font-weight-bold" > En cours    <div class="spinner-border m-1 text-primary spinner-border-sm"></div> </td>
+                     <td v-if="planning.statut == 1 && user.role ==0" class="text-success font-weight-bold" > En service </td>
+                      <td v-if="planning.statut == -1 && user.role ==0 " class="text-danger font-weight-bold" > Echec </td>
                   
-                    <td v-if="planning.statut == 0">
-                       
-                    </td>
+                    
                      <td v-if="planning.statut == 1">
-                     <button type="button" title="Edit account" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fas fa-eye"></i></button>
-                       <button v-if="user.role == 0" type="button" title="Envoyer email au groupe" class="btn btn-secondary btn-sm" @click="sendMail(planning)"><i class="far fa-envelope"></i></button>
-                        <button v-if="user.role == 0" type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm" @click="deletePlanning(planning)"><i class="fa fa-fw fa-trash"></i></button>
+                     <button type="button" title="Consulter" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fas fa-eye"></i></button>
+                       <button v-if="user.role == 0 && user.role ==0" type="button" title="Envoyer email " class="btn btn-secondary btn-sm" @click="sendMail(planning)"><i class="far fa-envelope"></i></button>
+                       
+                        <button v-if="user.role == 0 && user.role ==0" type="button" title="Supprimer " class="btn btn-danger btn-sm" @click="deletePlanning(planning)"><i class="fa fa-fw fa-trash"></i></button>
                      
                        
                     </td>
 
-                    <td v-if="planning.statut == -1">
-                        <button type="button" title="" class="btn btn-warning btn-sm" ><i class="fas fa-sync-alt"></i></button>
-                        <button type="button" title="Spprimer emlpoi du temps" class="btn btn-danger btn-sm" @click="deletePlanning(planning)"><i class="fa fa-fw fa-trash"></i></button>
+                    <td v-if="planning.statut == -1 && user.role ==0">
+                        <button type="button" title="Réessayez" class="btn btn-warning btn-sm" ><i class="fas fa-sync-alt"></i></button>
+                        <button type="button" title="Supprimer " class="btn btn-danger btn-sm" @click="deletePlanning(planning)"><i class="fa fa-fw fa-trash"></i></button>
                       
                        
                     </td>
@@ -124,6 +125,24 @@
   </div>
 </div>
 
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      
+      <div class="modal-body text-center " style="height:80px; margin-top:20px">
+         <div v-if="!result" class="spinner-border m-1 text-primary spinner-border-lg"></div>
+
+        <p v-if="success" class="text-success">{{ success }}</p>
+          <p v-if="error" class="text-danger">{{ error }}</p> 
+      </div>
+
+     
+     
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -140,7 +159,9 @@ import axios from 'axios'
 import {mapGetters} from 'vuex'
 import Swal from 'sweetalert2'
 import $ from 'jquery'
-
+import RingLoader from 'vue-spinner/src/RingLoader.vue'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 
 
 export default{
@@ -163,6 +184,8 @@ export default{
             active:undefined,
             child:false,
             plannings:[],
+            success:'',
+            result:false,
        
             error:'',
            
@@ -171,6 +194,11 @@ export default{
         
            
         };
+    },
+    components: {
+    RingLoader,
+    PulseLoader,
+    BounceLoader
     },
 
     methods: {
@@ -195,12 +223,15 @@ export default{
         }).then((result) => {
             if (result.value) {
 
+              
+
                   axios.post(API_URL + 'admin/deleteplanning', { id:planning.id
 
              } ,{ headers : headers}
         
       
     ).then((res)=>{
+         
           this.error = ''
           this.success = "Enseignant Supprimé";
           
@@ -428,7 +459,7 @@ axios.post(API_URL + 'prof/getplanning', { planningId:planning.id } ,{ headers :
         
         },
 
-        sendMail(planning){
+        sendMail(){
 
 
 
@@ -448,20 +479,45 @@ axios.post(API_URL + 'prof/getplanning', { planningId:planning.id } ,{ headers :
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             cancelButtonText: 'Annuler',
-            confirmButtonText: 'Oui, supprimer!'
+            confirmButtonText: 'Oui, Envoyer!'
         }).then((result) => {
             if (result.value) {
 
+ $("#myModal").modal('show')
 
-axios.post(API_URL + 'admin/mail', { id:planning.id , type:0 } ,{ headers : headers}
+axios.post(API_URL + 'admin/mailyear', { year:this.yearId } ,{ headers : headers}
         
       
     ).then((res)=>{
+       this.result = true
+      this.success = 'Email envoyé avec succès'
+
+      
+      var that = this
+        setTimeout(function(){
+      $("#myModal").modal('hide')
+      that.success='';
+      that.error='';
+       that.result = false
+     
+      
+   }, 1 * 2000);
      
             
 
     }).catch((err)=>{
-        console.log(err.message);
+      this.result = true
+      this.error = 'Echec'
+      // $("#myModal").modal('show')
+      var that = this
+        setTimeout(function(){
+      $("#myModal").modal('hide')
+      that.success='';
+      that.error='';
+      that.result = false
+     
+      
+   }, 1 * 2000);
      
       
     });

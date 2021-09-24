@@ -2,7 +2,7 @@
 
 <div class="m-5">
 
-      <button type="button" title="Edit account" data-toggle="modal" data-target="#add_subrequirement" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter </button>
+      <button type="button" data-toggle="modal" data-target="#add_subrequirement" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter </button>
 
           <table class="table bg-white">
             <thead class="">
@@ -23,8 +23,8 @@
                    
                    
                     <td class="text-center">
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_subrequirement"  @click="getSub(subrequirement)"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deleteSub(subrequirement)"  ><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Editer" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_subrequirement"  @click="getSub(subrequirement)"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Supprimer" class="btn btn-danger btn-sm" @click="deleteSub(subrequirement)"  ><i class="fa fa-fw fa-trash"></i></button>
                        
                     </td>
                 </tr>  

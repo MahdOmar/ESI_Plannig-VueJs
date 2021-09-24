@@ -25,7 +25,7 @@
                     
                    
                    <td>
-                     <button type="button" title="Edit account" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fa fa-fw fa-edit"></i></button>
+                     <button type="button" title="Edit account" class="btn btn-primary btn-sm" @click="viewPlanning(planning)"><i class="fas fa-eye"></i></button>
                       
                        
                     </td>

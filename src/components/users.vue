@@ -1,7 +1,14 @@
 <template>
     <div class="m-5">
-        <button type="button" title="Edit account" data-toggle="modal" data-target="#add" style="float: right" class="btn btn-primary btn-sm  m-2"><i class="fa fa-fw fa-plus"></i>Ajouter Enseignant </button>
+      <div  class="d-flex justify-content-between" >
+        <button  type="button" title="Envoyer email au enseignants" class="btn btn-secondary btn-sm  m-2" @click="sendMail()"><i class="far fa-envelope"></i></button>
+  
+        <button type="button"  data-toggle="modal" data-target="#add" style="float: right" class="btn btn-primary btn-sm  m-2"><i class="fa fa-fw fa-plus"></i>Ajouter Enseignant </button>
 
+
+
+      </div>
+        
           <table class="table bg-white">
             <thead class="">
             <tr>
@@ -28,9 +35,9 @@
                     <td> {{ user.email }} </td>
                     <td> {{ user.type }} </td>
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" @click="getUser(user)"><i class="fa fa-fw fa-edit"></i></button>
-                          <button type="button" title="Voir planning général" class="btn btn-info btn-sm " @click="example(user)" ><i class="fas fa-eye"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm " @click="deleteUser(user)" ><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Editer enseignant" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" @click="getUser(user)"><i class="fa fa-fw fa-edit"></i></button>
+                          <button type="button" title="Consulter planning général" class="btn btn-info btn-sm " @click="example(user)" ><i class="fas fa-eye"></i></button>
+                        <button type="button" title="Supprimer enseignant" class="btn btn-danger btn-sm " @click="deleteUser(user)" ><i class="fa fa-fw fa-trash"></i></button>
                       
                   
                     </td>
@@ -303,6 +310,24 @@
   </div>
 </div>
 
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      
+      <div class="modal-body text-center" style="height:80px; margin-top:20px">
+          <div v-if="!result" class="spinner-border m-1 text-primary spinner-border-lg"></div>
+
+        <p v-if="success" class="text-success">{{ success }}</p>
+          <p v-if="error" class="text-danger">{{ error }}</p> 
+      </div>
+
+     
+     
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -325,6 +350,7 @@ import Swal from 'sweetalert2'
 import {mapGetters} from 'vuex'
 
 
+
 export default {
 
 computed: mapGetters({
@@ -343,6 +369,7 @@ computed: mapGetters({
       checked:'',
       passSuccess:false,
       passcheck:'',
+      result:'',
 
       success:''
 
@@ -564,10 +591,17 @@ axios.post(API_URL + 'admin/getprofs', { } ,{ headers : headers}
           }
 
 
-            var res = await axios.post(API_URL + 'admin/generalplanning', { id:user.id } ,{ headers : headers});
+            var res = await axios.post(API_URL + 'admin/generalplanning', { id:user.id, semester:1 } ,{ headers : headers});
     this.$store.dispatch("auth/savePlanning", {
         planning: res.data
       });
+
+      this.$store.dispatch("auth/saveUserid", {
+        userId: user.id
+      });
+
+
+
      this.$router.push("/dashboard/g_planning");
 
 
@@ -576,6 +610,75 @@ axios.post(API_URL + 'admin/getprofs', { } ,{ headers : headers}
               console.log(error);
           }
       },
+
+      sendMail()
+      {
+         const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+           Swal.fire({
+            title: 'Vous etes sur?',
+            text: "Nous allons envoyer un email  !",
+            type: 'Alerte',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Annuler',
+            confirmButtonText: 'Oui, Envoyer!'
+        }).then((result) => {
+            if (result.value) {
+                $("#myModal").modal('show')
+
+
+axios.post(API_URL + 'admin/mailprofs', { } ,{ headers : headers}
+        
+      
+    ).then((res)=>{
+      this.result = true
+      this.success = 'Email envoyé avec succès'
+
+     
+      var that = this
+        setTimeout(function(){
+      $("#myModal").modal('hide')
+      that.success='';
+      that.error='';
+      that.result = false
+     
+      
+   }, 1 * 2000);
+     
+            
+
+    }).catch((err)=>{
+      this.result = true
+      
+      this.error = 'Echec'
+       //$("#myModal").modal('show')
+      var that = this
+        setTimeout(function(){
+      $("#myModal").modal('hide')
+      that.success='';
+      that.error='';
+      that.result = false
+     
+      
+   }, 1 * 2000);
+     
+      
+    });
+
+   }
+        })
+
+
+
+      }
 
 
 

@@ -1,7 +1,7 @@
 <template>
     
     <div>
-         <button type="button" title="Edit account" data-toggle="modal" data-target="#add_module" style="float: right" class="btn btn-primary btn-sm m-2 "><i class="fa fa-fw fa-plus"></i>Ajouter Module </button>
+         <button type="button"  data-toggle="modal" data-target="#add_module" style="float: right" class="btn btn-primary btn-sm m-2 "><i class="fa fa-fw fa-plus"></i>Ajouter Module </button>
 
           <table class="table bg-white">
             <thead class="">
@@ -27,9 +27,9 @@
                     <td v-else>{{ module.examenH }}h{{ module.examenMin }}min</td>
                      
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_module" @click="getModule(module)"  ><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deletemodule(module)"><i class="fa fa-fw fa-trash"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-info  btn-sm" @click="saveModuleId(module)">Gérer</button>
+                        <button type="button" title="Editer " class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_module" @click="getModule(module)"  ><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Supprimer " class="btn btn-danger btn-sm" @click="deletemodule(module)"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button"  class="btn btn-info  btn-sm" @click="saveModuleId(module)">Gérer</button>
                     </td>
                 </tr>
                
@@ -74,17 +74,17 @@
                   </div>
                   <div class="form-group">
                       <label for="coef">Coeffition</label>
-                      <input v-model="module.coefficient" name="coef" type="number" class="form-control" id="coef" required>
+                      <input v-model="module.coefficient" name="coef" type="number" class="form-control" id="coef" min="1" max="5" required>
                   </div>
                   <div class="form-group row">
                       <div class="col-md-6">
                            <label for="group_name">Examen Heure</label>
-                      <input v-model="module.examenH" name="ExamenH" type="number" class="form-control" id="ExamenH" max="4" required>
+                      <input v-model="module.examenH" name="ExamenH" type="number" class="form-control" id="ExamenH" min="1" max="4" required>
                 
                       </div>
                       <div class="col-md-6">
                          <label for="group_name">Examen Minute</label>
-                    <input  v-model="module.examenMin" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
+                    <input  v-model="module.examenMin" name="ExamenMin" type="number" class="form-control" id="ExamenMin" min="0" max="59" required>
                 
 
                       </div>
@@ -150,17 +150,17 @@
                   </div>
                   <div class="form-group">
                       <label for="coef">Coefficient</label>
-                      <input v-model="moduleE.coefficient" name="coef" type="number" class="form-control" id="coef" required>
+                      <input v-model="moduleE.coefficient" name="coef" type="number" class="form-control" id="coef" min="1" max="5" required>
                   </div>
                   <div class="form-group row">
                       <div class="col-md-6">
                            <label for="group_name">Examen Heure</label>
-                      <input v-model="moduleE.examenH" name="ExamenH" type="number" class="form-control" id="ExamenH" max="4" required>
+                      <input v-model="moduleE.examenH" name="ExamenH" type="number" class="form-control" id="ExamenH" min="1" max="4" required>
                   
                       </div>
                       <div class="col-md-6">
                           <label for="group_name">Examen Minute</label>
-                      <input  v-model="moduleE.examenMin" name="ExamenMin" type="number" class="form-control" id="ExamenMin" max="59" required>
+                      <input  v-model="moduleE.examenMin" name="ExamenMin" type="number" class="form-control" id="ExamenMin" min="0" max="59" required>
                 
                       </div>
                      
@@ -283,9 +283,7 @@ export default{
           }
           this.module.semester = this.semesterid
           console.log(this.module.semester +"heere")
-         
-       
-   
+
       axios.post(API_URL + 'admin/addmodule', {
 
  module: this.module  } ,{ headers : headers}

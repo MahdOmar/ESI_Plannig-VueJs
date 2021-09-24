@@ -3,7 +3,7 @@
     <div>
 
         
-             <button type="button" title="Edit account" data-toggle="modal" data-target="#add_section" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter Section </button>
+             <button type="button"  data-toggle="modal" data-target="#add_section" style="float: right" class="btn btn-primary btn-sm m-2"><i class="fa fa-fw fa-plus"></i>Ajouter Section </button>
 
       
         
@@ -30,9 +30,9 @@
                     <td>  {{section.name }}</td>
                   
                     <td>
-                        <button type="button" title="Edit account" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_section"  @click="getSection(section)"><i class="fa fa-fw fa-edit"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-danger btn-sm" @click="deletesection(section)"><i class="fa fa-fw fa-trash"></i></button>
-                        <button type="button" title="Delete account" class="btn btn-info  btn-sm" @click="saveSection(section)">Gérer</button>
+                        <button type="button" title="Editer" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_section"  @click="getSection(section)"><i class="fa fa-fw fa-edit"></i></button>
+                        <button type="button" title="Supprimer" class="btn btn-danger btn-sm" @click="deletesection(section)"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button"  class="btn btn-info  btn-sm" @click="saveSection(section)">Gérer</button>
                     </td>
                 </tr> 
                

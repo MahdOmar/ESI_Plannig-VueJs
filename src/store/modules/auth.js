@@ -18,7 +18,8 @@ const state = {
     section:null,
     planning:null,
     modules:'',
-    sections:''
+    sections:'',
+    userId:'',
 }
 
 //gettters 
@@ -34,7 +35,8 @@ const getters ={
     planning: state => state.planning,
     modules : state => state.modules,
     sections: state => state.sections,
-    planning: state => state.planning
+    planning: state => state.planning,
+    userId:   state => state.userId
 
     
 }
@@ -109,6 +111,10 @@ const mutations = {
 
     [types.SAVE_SECTIONS](state ,{sections}){
         state.sections = sections
+    },
+
+    [types.USERID](state ,{userId}){
+        state.userId = userId
     },
     
 
@@ -197,6 +203,11 @@ const actions ={
     saveSections({commit}, payload){
 
         commit(types.SAVE_SECTIONS , payload)
+    },
+
+    saveUserid({commit}, payload){
+
+        commit(types.USERID , payload)
     },
 
     
