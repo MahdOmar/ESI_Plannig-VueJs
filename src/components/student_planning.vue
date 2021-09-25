@@ -289,13 +289,17 @@ axios.post(API_URL + 'getgroups', { section:this.selectSec}
 
         
 
-            axios.post(API_URL + 'getoneplannings', { semester:this.selectSem , group:this.selectGrp} 
+            axios.post(API_URL + 'getplanning', { semester:this.selectSem , group:this.selectGrp} 
         
       
     ).then((res)=>{
       this.planning = res.data
-      console.log(res)
-      this.getPlanningDetails();
+        this.$store.dispatch("auth/savePlanning", {
+        planning: this.planning
+      });
+     this.$router.push("/student_planning_view");
+
+    
         
 
    
@@ -316,30 +320,7 @@ axios.post(API_URL + 'getgroups', { section:this.selectSec}
 
     },
 
-    getPlanningDetails(){
-      const API_URL = 'http://127.0.0.1:4000/';
-
-      console.log("Id planning"+this.planning.id)
-
-       axios.post(API_URL + 'getplanning', { planningId: this.planning.id} 
-      ).then((res)=>{
-
-          this.$store.dispatch("auth/savePlanning", {
-        planning: res.data
-      });
-     this.$router.push("/student_planning_view");
-
-
-
-      }).catch((err)=>{
-       
-     
-      
-    });
-
-
-
-    }
+   
 
     },
 

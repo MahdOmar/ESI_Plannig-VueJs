@@ -23,7 +23,7 @@
   <div class="text-center text-danger">
     <p>{{error}}</p>
   </div>
-  <form @submit.prevent="generate">
+  <form @submit.prevent="getExam">
   
     <div class="form-group">
         <label for="groups_select">Selectionner Année</label>
@@ -153,7 +153,7 @@ axios.post(API_URL + 'admin/makeexams', {semester:this.selectSem, emd:this.selec
             'Authorization': 'Bearer '+this.token
           }
 
-axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
+axios.post(API_URL + 'getyears', { } ,
         
       
     ).then((res)=>{
@@ -183,7 +183,7 @@ axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
             'Authorization': 'Bearer '+this.token
           }
 
-axios.post(API_URL + 'admin/getsemesters', { yearid:this.selected} ,{ headers : headers}
+axios.post(API_URL + 'getsemesters', { yearid:this.selected} 
         
       
     ).then((res)=>{
@@ -198,6 +198,46 @@ axios.post(API_URL + 'admin/getsemesters', { yearid:this.selected} ,{ headers : 
       
     });
      
+
+
+
+
+        },
+
+        getExam(){
+
+           const API_URL = 'http://127.0.0.1:4000/';
+      
+        
+         const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+this.token
+          }
+
+        
+
+            axios.post(API_URL + 'getexamplanning', { semester:this.selectSem , emd:this.selectEmd} 
+        
+      
+    ).then((res)=>{
+      this.planning = res.data
+        this.$store.dispatch("auth/savePlanning", {
+        planning: this.planning
+      });
+     this.$router.push("/student_exam_view");
+
+    
+        
+
+   
+        
+
+    }).catch((err)=>{
+        console.log(err.message);
+        this.error = 'Pas de planning pour cet année'
+     
+      
+    });
 
 
 

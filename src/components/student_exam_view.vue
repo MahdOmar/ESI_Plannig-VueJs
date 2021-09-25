@@ -165,14 +165,14 @@ export default {
    
 
 
-   //  this.addCour();
-     /* this.day1 = this.days[1]
+    this.addCour();
+      this.day1 = this.days[1]
       this.day2 = this.days[2]
       this.day3 = this.days[3]
       this.day4 = this.days[4]
       this.day5 = this.days[5]
       console.log(this.days)
-    */
+    
   },
 };
 
