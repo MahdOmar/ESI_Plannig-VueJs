@@ -2,12 +2,8 @@
   <div class="container-fluid" style="padding-left: 60px">
     <div class="p-2">
       <h2>Gestion des Modules</h2>
-     
     </div>
     <div class="row">
-      
-
-
       <div class="col-md-3 p-2 shadow text-center">
         <table class="table table-bordered table-hover">
           <thead>
@@ -17,15 +13,17 @@
           </thead>
           <tbody id="groups">
             <tr v-for="year in years" :key="year.id">
-              <td class="year" :class="{active:year.id == active}"
+              <td
+                class="year"
+                :class="{ active: year.id == active }"
                 @click="
                   getYearId(year);
                   getsemesters();
                 "
-              data-target="#semesters" data-toggle="modal">
-                <a class="custom" >
-                  {{ year.name }}</a
-                >
+                data-target="#semesters"
+                data-toggle="modal"
+              >
+                <a class="custom"> {{ year.name }}</a>
               </td>
             </tr>
           </tbody>
@@ -36,8 +34,9 @@
           class="container-fluid text-center overflow-auto"
           style="height: 600px"
         >
-
-         <p v-if="!child" style="margin-top:150px">Selectionner une année pour voir ses Modules</p>
+          <p v-if="!child" style="margin-top: 150px">
+            Selectionner une année pour voir ses Modules
+          </p>
 
           <router-view />
         </div>
@@ -61,11 +60,9 @@
           <div class="modal-body">
             <div id="model_body"></div>
 
-           
             <div>
               <form @submit.prevent="saveId">
                 <div class="form-group">
-                
                   <select
                     v-model="selected"
                     class="custom-select"
@@ -83,7 +80,7 @@
                 </div>
                 <button
                   class="btn btn-primary btn-sm text-center text-white m-2"
-                  type="submit"  
+                  type="submit"
                 >
                   Confirmer
                 </button>
@@ -107,10 +104,9 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
-import $ from 'jquery'
+import $ from "jquery";
 
-
-import modules from './modules.vue';
+import modules from "./modules.vue";
 export default {
   components: { modules },
   computed: mapGetters({
@@ -124,10 +120,9 @@ export default {
       semesters: [],
       yearId: null,
       selected: "",
-      active:"",
-      child:false,
-      modules:[]
-
+      active: "",
+      child: false,
+      modules: [],
     };
   },
   methods: {
@@ -171,83 +166,54 @@ export default {
           console.log(err.message);
         });
     },
-    
-         getmodules(){
 
-            const API_URL = 'http://127.0.0.1:4000/';
-      
-        
-         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-         
+    getmodules() {
+      const API_URL = "http://127.0.0.1:4000/";
 
-axios.post(API_URL + 'admin/getmodules', { semester:this.selected} ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-      this.modules = res.data;
-      console.log(this.modules)
-      this.$store.dispatch("auth/saveModules", {
-        modules: this.modules
-      });
-     
-      
-        
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token,
+      };
 
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-     
-
-
-
-
-        },
-
-
-
-
-
-
-
+      axios
+        .post(
+          API_URL + "admin/getmodules",
+          { semester: this.selected },
+          { headers: headers }
+        )
+        .then((res) => {
+          this.modules = res.data;
+          console.log(this.modules);
+          this.$store.dispatch("auth/saveModules", {
+            modules: this.modules,
+          });
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    },
 
     saveId() {
       const selectedId = this.selected;
 
       this.$store.dispatch("auth/saveId", {
-        semesterId: selectedId
+        semesterId: selectedId,
       });
 
-      
-      $("#semesters").modal('hide')
-   
-
-
-     
+      $("#semesters").modal("hide");
 
       this.getmodules();
- 
-      
 
-      
-const path = "/dashboard/entities/modules"
-if (this.$route.path !== path) this.$router.push(path)
+      const path = "/dashboard/entities/modules";
+      if (this.$route.path !== path) this.$router.push(path);
 
-
-      
-
-   //  this.$router.push("/dashboard/entities/modules");
-     
+      //  this.$router.push("/dashboard/entities/modules");
     },
 
     getYearId(year) {
       this.yearId = year.id;
-      this.active = year.id
-      this.child = true
+      this.active = year.id;
+      this.child = true;
     },
   },
 

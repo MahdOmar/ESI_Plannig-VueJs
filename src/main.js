@@ -30,6 +30,7 @@ import studentPlanning from './components/student_planning.vue'
 import studentPlanningview from './components/student_planning_view.vue'
 import studentExams from './components/student_exams.vue'
 import studentExamview from './components/student_exam_view.vue'
+import Occupation from './components/occupation.vue'
 
 
 
@@ -76,6 +77,7 @@ Vue.component('student_plannings',studentPlanning)
 Vue.component('student_planning_view',studentPlanningview)
 Vue.component('student_exams',studentExams)
 Vue.component('student_exam_view',studentExamview)
+Vue.component('occupation',Occupation)
 
 Vue.component('admin_dashboard',Admin_Dashboard);
 Vue.config.productionTip = false;

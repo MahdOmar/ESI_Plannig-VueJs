@@ -27,6 +27,7 @@ import studentPlanning from './components/student_planning.vue'
 import studentPlanningview from './components/student_planning_view.vue'
 import studentExams from './components/student_exams.vue'
 import studentExamview from './components/student_exam_view.vue'
+import Occupation from './components/occupation.vue'
 
 
 
@@ -85,6 +86,7 @@ const router = new VueRouter({
                          {path:'responsables',component:Responsables , meta :{ middleware : [auth , checkAuth]}}]
           
           },
+          {path:'occupation'  , component:Occupation ,meta :{ middleware : [auth , checkAuth]}},
           {path:'requirements'  , component:Requirements ,name:'requirements' ,meta :{ middleware : [auth , checkAuth]}},
           {path:'subrequirements'  , component:Subrequirements ,name:'subrequirements' ,meta :{ middleware : [auth , checkAuth]}},
           

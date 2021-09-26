@@ -1,42 +1,54 @@
 <template>
-  <div>
+  <div class="m-5">
     <div class="d-flex justify-content-between">
-      <h4 class="m-2">{{ cour.name }}</h4>
+      <h4 class="m-2">{{ user.firstname }} {{ user.lastname }}</h4>
       <button
         type="button"
         data-toggle="modal"
         data-target="#add_resp"
-        style="float: right"
         class="btn btn-primary btn-sm m-2"
       >
-        <i class="fa fa-fw fa-plus"></i>Ajouter Responsable
+        <i class="fa fa-fw fa-plus"></i>Ajouter Occupation
       </button>
     </div>
 
     <table id="table" class="table text-center">
       <thead>
         <tr>
-          <th scope="col" class="text-primary">Responsable</th>
+          <th scope="col" class="text-primary">Jour</th>
 
-          <th scope="col" class="text-primary">Type</th>
+          <th scope="col" class="text-primary">Debut</th>
 
-          <th scope="col" class="text-primary">Options</th>
+          <th scope="col" class="text-primary">Fin</th>
+          <th scope="col" class="text-primary">Actions</th>
         </tr>
       </thead>
       <tbody id="sub_entities_table">
-        <tr v-for="(responsable, i) in responsables" :key="i">
-          <td>
-            {{ responsable.user.firstname }} {{ responsable.user.lastname }}
-          </td>
+        <!--    <tr v-for="(responsable,i) in responsables" :key="i">
+                    
+                    <td>  {{responsable.user.firstname }} {{ responsable.user.lastname }}</td>
+                   
+                    <td> {{ responsable.user.type}} </td>
+                   
+                    <td>
+                       
+                        <button type="button" title="Supprimer responsable" class="btn btn-danger btn-sm" @click=" deleteoccup(occup)"><i class="fa fa-fw fa-trash"></i></button>
+                    
+                    </td>
+                </tr> -->
 
-          <td>{{ responsable.user.type }}</td>
+        <tr>
+          <td>Dimanche</td>
+
+          <td>10h</td>
+          <td>12h</td>
 
           <td>
             <button
               type="button"
-              title="Supprimer responsable"
+              title="Supprimer occupation"
               class="btn btn-danger btn-sm"
-              @click="deleteresp(responsable)"
+              @click="deleteoccup(occup)"
             >
               <i class="fa fa-fw fa-trash"></i>
             </button>
@@ -50,7 +62,7 @@
         <div class="modal-content">
           <!-- Modal Header -->
           <div class="modal-header">
-            <h5 class="modal-title">Ajouter Responsable</h5>
+            <h5 class="modal-title">Ajouter Occupation</h5>
 
             <button type="button" class="close" data-dismiss="modal">
               &times;
@@ -65,23 +77,78 @@
               </div>
             </div>
 
-            <form @submit.prevent="addresponsable" class="text-left">
+            <form @submit.prevent="addOccupation" class="text-left">
               <div class="form-group">
-                <label for="select">Selectioner Nom </label>
+                <label for="select">Selectioner Jour </label>
                 <select
-                  v-model="profId"
+                  v-model="occup.jour"
                   class="custom-select"
-                  name="requirement"
+                  name="occupation"
                   id="select"
                 >
-                  <option
-                    v-for="enseignant in Enseignants"
-                    :key="enseignant.id"
-                    :value="enseignant.id"
-                  >
-                    {{ enseignant.firstname }} {{ enseignant.lastname }}
-                  </option>
+                  <option value="1">Dimanche</option>
+                  <option value="2">Lundi</option>
+                  <option value="3">Mardi</option>
+                  <option value="4">Mercredi</option>
+                  <option value="5">Jeudi</option>
                 </select>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="group_name">Debut Heure</label>
+                  <input
+                    v-model="occup.StartH"
+                    name="ExamenH"
+                    type="number"
+                    class="form-control"
+                    id="ExamenH"
+                    min="8"
+                    max="17"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="group_name">Debut Minute</label>
+                  <input
+                    v-model="occup.StartMin"
+                    name="ExamenMin"
+                    type="number"
+                    class="form-control"
+                    id="ExamenMin"
+                    min="0"
+                    max="59"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="group_name">Fin Heure</label>
+                  <input
+                    v-model="occup.EndH"
+                    name="ExamenH"
+                    type="number"
+                    class="form-control"
+                    id="ExamenH"
+                    min="8"
+                    max="17"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="group_name">Fin Minute</label>
+                  <input
+                    v-model="occup.EndMin"
+                    name="ExamenMin"
+                    type="number"
+                    class="form-control"
+                    id="ExamenMin"
+                    min="0"
+                    max="59"
+                    required
+                  />
+                </div>
               </div>
 
               <div class="modal-footer">
@@ -107,7 +174,7 @@
         <div class="modal-content">
           <!-- Modal Header -->
           <div class="modal-header">
-            <h5 class="modal-title">Editer Responsable</h5>
+            <h5 class="modal-title">Editer Occupation</h5>
 
             <button type="button" class="close" data-dismiss="modal">
               &times;
@@ -122,24 +189,78 @@
               </div>
             </div>
 
-            <form @submit.prevent="editresponsable" class="text-left">
+            <form @submit.prevent="editOccupation" class="text-left">
               <div class="form-group">
-                <label for="select">Selectioner Nom </label>
+                <label for="select">Selectioner Jour </label>
                 <select
-                  v-model="profE"
+                  v-model="occupE.jour"
                   class="custom-select"
-                  name="requirement"
+                  name="occupation"
                   id="select"
                 >
-                  <option disabled>{{ profE }}</option>
-                  <option
-                    v-for="enseignant in Enseignants"
-                    :key="enseignant.id"
-                    :value="enseignant.id"
-                  >
-                    {{ enseignant.firstname }} {{ enseignant.lastname }}
-                  </option>
+                  <option value="1">Dimanche</option>
+                  <option value="2">Lundi</option>
+                  <option value="3">Mardi</option>
+                  <option value="4">Mercredi</option>
+                  <option value="5">Jeudi</option>
                 </select>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="group_name">Debut Heure</label>
+                  <input
+                    v-model="occupE.StartH"
+                    name="ExamenH"
+                    type="number"
+                    class="form-control"
+                    id="ExamenH"
+                    min="8"
+                    max="17"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="group_name">Debut Minute</label>
+                  <input
+                    v-model="occupE.StartMin"
+                    name="ExamenMin"
+                    type="number"
+                    class="form-control"
+                    id="ExamenMin"
+                    min="0"
+                    max="59"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="group_name">Fin Heure</label>
+                  <input
+                    v-model="occupE.EndH"
+                    name="ExamenH"
+                    type="number"
+                    class="form-control"
+                    id="ExamenH"
+                    min="8"
+                    max="17"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="group_name">Fin Minute</label>
+                  <input
+                    v-model="occupE.EndMin"
+                    name="ExamenMin"
+                    type="number"
+                    class="form-control"
+                    id="ExamenMin"
+                    min="0"
+                    max="59"
+                    required
+                  />
+                </div>
               </div>
 
               <div class="modal-footer">
@@ -162,11 +283,19 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <!-- Modal Header -->
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
 
           <!-- Modal body -->
           <div class="modal-body text-center text-danger">
             {{ error }}
           </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer"></div>
         </div>
       </div>
     </div>
@@ -178,11 +307,13 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import $ from "jquery";
 import Swal from "sweetalert2";
+import Occupation from "../models/occupation";
 
 export default {
   computed: mapGetters({
     cour: "auth/cour",
     token: "auth/token",
+    user: "auth/userEns",
   }),
 
   data() {
@@ -193,11 +324,13 @@ export default {
       profE: "",
       success: "",
       error: "",
+      occup: new Occupation("", "", "", "", "", ""),
+      occupE: "",
     };
   },
 
   methods: {
-    addresponsable() {
+    addOccupation() {
       const API_URL = "http://127.0.0.1:4000/";
 
       const headers = {
@@ -226,7 +359,7 @@ export default {
         .catch((err) => {});
     },
 
-    editresponsable() {
+    editOccupation() {
       const API_URL = "http://127.0.0.1:4000/";
 
       const headers = {
@@ -255,30 +388,7 @@ export default {
         .catch((err) => {});
     },
 
-    getresponsables() {
-      const API_URL = "http://127.0.0.1:4000/";
-
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.token,
-      };
-
-      axios
-        .post(
-          API_URL + "admin/getresponsables",
-          { type: this.cour.type, targetId: this.cour.id },
-          { headers: headers }
-        )
-        .then((res) => {
-          console.log("Responsables : " + res.data);
-          this.responsables = res.data;
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    },
-
-    getEnseignants() {
+    getOccupations() {
       const API_URL = "http://127.0.0.1:4000/";
 
       const headers = {
@@ -302,20 +412,7 @@ export default {
         });
     },
 
-    getProf(responsable) {
-      this.profE = responsable.firstname + " " + responsable.lastname;
-      console.log(this.profE);
-    },
-
-    splice(arr, val) {
-      for (var i = arr.length; i--; ) {
-        if (arr[i] === val) {
-          arr.splice(i, 1);
-        }
-      }
-    },
-
-    deleteresp(resp) {
+    deleteoccup(occup) {
       const API_URL = "http://127.0.0.1:4000/";
 
       const headers = {
@@ -338,7 +435,7 @@ export default {
           axios
             .post(
               API_URL + "admin/deleteresponsable",
-              { id: resp.id, type: this.cour.type },
+              { id: occup.id, type: this.cour.type },
               { headers: headers }
             )
             .then((res) => {
@@ -362,11 +459,12 @@ export default {
         }
       });
     },
+
+    getOccupation(occup) {
+      this.occupE = Object.assign({}, occup);
+    },
   },
 
-  created() {
-    this.getEnseignants();
-    this.getresponsables();
-  },
+  created() {},
 };
 </script>

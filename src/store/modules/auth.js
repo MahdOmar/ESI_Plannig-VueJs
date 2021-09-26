@@ -20,6 +20,7 @@ const state = {
     modules:'',
     sections:'',
     userId:'',
+    userEns:''
 }
 
 //gettters 
@@ -36,7 +37,8 @@ const getters ={
     modules : state => state.modules,
     sections: state => state.sections,
     planning: state => state.planning,
-    userId:   state => state.userId
+    userId:   state => state.userId,
+    userEns : state => state.userEns
 
     
 }
@@ -116,6 +118,11 @@ const mutations = {
     [types.USERID](state ,{userId}){
         state.userId = userId
     },
+
+    [types.USER_ENS](state ,{userEns}){
+        state.userEns = userEns
+    },
+
     
 
 
@@ -208,6 +215,11 @@ const actions ={
     saveUserid({commit}, payload){
 
         commit(types.USERID , payload)
+    },
+
+    saveUserEns({commit}, payload){
+
+        commit(types.USER_ENS , payload)
     },
 
     

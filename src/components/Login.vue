@@ -1,138 +1,111 @@
 <template>
-
-    <div class="vue-tempalte">
-        <div class="vue-tempalte2">
-             <!-- Navigation -->
-    <nav class="navbar shadow  rounded justify-content-between flex-nowrap flex-row fixed-top">
-      <div class="container">
-        <a class="navbar-brand  float-left text-white" href="/" >
-           ESI PLANNING
-        </a>
-       <ul class="nav navbar-nav flex-row float-right">
-        <img class="rounded-circle" src="../assets/img/logo.png" style="height=40px; align-self: center;">
-          <li class="nav-item">
-          
-          </li>
-        </ul>
-      </div>
-    </nav>
-     <div class="vertical-center " style="min-height:100vh">
+  <div class="vue-tempalte">
+    <div class="vue-tempalte2">
+      <!-- Navigation -->
+      <nav
+        class="
+          navbar
+          shadow
+          rounded
+          justify-content-between
+          flex-nowrap flex-row
+          fixed-top
+        "
+      >
+        <div class="container">
+          <a class="navbar-brand float-left text-white" href="/">
+            ESI PLANNING
+          </a>
+          <ul class="nav navbar-nav flex-row float-right">
+            <img
+              class="rounded-circle"
+              src="../assets/img/logo.png"
+              style="height=40px; align-self: center;"
+            />
+            <li class="nav-item"></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="vertical-center" style="min-height: 100vh">
         <div class="inner-block">
-        <form @submit.prevent="handleLogin">
+          <form @submit.prevent="handleLogin">
             <h3>Se connecter</h3>
 
             <div class="form-group">
-                <label>Nom d'utilisateur </label>
-                <input type="text" v-model="form.username" name="username"  class="form-control form-control-lg" />
-              
-        </div>
-            
+              <label>Nom d'utilisateur </label>
+              <input
+                type="text"
+                v-model="form.username"
+                name="username"
+                class="form-control form-control-lg"
+              />
+            </div>
 
             <div class="form-group">
-                <label>Mot de passe</label>
-                <input type="password" v-model="form.password" name="password"   class="form-control form-control-lg
-                " />
-             
-               
+              <label>Mot de passe</label>
+              <input
+                type="password"
+                v-model="form.password"
+                name="password"
+                class="form-control form-control-lg"
+              />
             </div>
 
             <div v-if="error" class="text-danger m-2">
-
-              <p> {{ error }}</p>
-
-
+              <p>{{ error }}</p>
             </div>
-           
 
-            <button type="submit" class="btn btn-primary btn-lg btn-block" >
-                
-            <span>Se connecter</span></button>
-
-           
-            
-           
-
-         
-
-        </form>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+              <span>Se connecter</span>
+            </button>
+          </form>
         </div>
-     </div> 
-     </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
+import { Form } from "vform";
+import axios from "axios";
+import VueRouter from "vue-router";
 
-import {Form} from 'vform'
-import axios from 'axios';
-import VueRouter from 'vue-router'
+export default {
+  data() {
+    return {
+      form: new Form({
+        username: "",
+        password: "",
+      }),
 
-export default { 
+      error: "",
+    };
+  },
 
-  
+  methods: {
+    async handleLogin() {
+      /*  const {data} = await this.form.post('http://localhost:4000/login');*/
+      //  console.log(data)
 
+      await this.form
+        .post("http://localhost:4000/login")
+        .then(({ data }) => {
+          this.$store.dispatch("auth/saveToken", {
+            token: data.accessToken,
+            reftoken: data.refreshToken,
+          });
+          this.$store.dispatch("auth/fetchUser");
 
+          // console.log(data)
 
+          this.$router.push("dashboard/welcome");
 
-      data() {
-               return{
-                 form: new Form({
-                   username:'',
-                   password:''
-                 }),
+          //this.$router.push( 'dashboard' )
+        })
+        .catch((err) => {
+          this.error = err.response.data.error;
+        });
 
-                 error:''
-
-
-               }
-
-
-
-      },
-
-      methods: {
-
-       async handleLogin(){
-   
-       /*  const {data} = await this.form.post('http://localhost:4000/login');*/
-       //  console.log(data)
-
-         await this.form.post('http://localhost:4000/login').then(({data})=>{
-              this.$store.dispatch('auth/saveToken',{
-           token:data.accessToken,
-           reftoken:data.refreshToken
-         });
-         this.$store.dispatch('auth/fetchUser');
-
-        // console.log(data)
-
-         
-           
-           this.$router.push( 'dashboard/welcome' ) 
-
-        
-         
-            //this.$router.push( 'dashboard' ) 
-
-        
-
-     
-
-        
-      
-        
-        
-
-    }).catch((err)=>{
-       this.error = err.response.data.error
-     
-      
-    });
-
-
-
-      
-         
       /*   this.$store.dispatch('auth/saveToken',{
            token:data.accessToken,
            reftoken:data.refreshToken
@@ -144,29 +117,9 @@ export default {
 
          this.$router.push( 'dashboard/users' ) 
         */
-
-
-         
-       
-      
-
-       }
-
-      }
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
+    },
+  },
+};
 
 /*
 import User from '../models/user';
@@ -217,40 +170,13 @@ export default {
 };
 */
 
+// import axios from 'axios'
 
+// import reactive from 'vue'
 
+// export default {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   // import axios from 'axios'
-   
-  // import reactive from 'vue'
-
-   // export default {
-     
-       
-     /*   data() {
+/*   data() {
             return {
                 username :'',
                 password:''
@@ -276,6 +202,5 @@ export default {
 
             }
         }*/
-  //  }
-
+//  }
 </script>

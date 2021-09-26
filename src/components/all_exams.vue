@@ -1,520 +1,362 @@
 <template>
-    
- <div class="container-fluid " style="padding-left: 60px; ">
-  <div class=" p-2 ">
-    <h2>Gestion des Emplois du temps d'Examens</h2>
-   
-   
-
-    	
-    
-  </div>
-  <div class="row">
-    <div class="col-md-3 p-2 shadow text-center">
-    
-     <table class="table table-bordered table-hover text-center">
-         <thead>
-         <tr><th class="bg-primary text-white font-weight-bold">Années</th></tr>
-         </thead>
-         <tbody id="groups">
-      
-             <tr v-for="year in years" :key="year.id"> 
-                 <td class="year" :class="{active:year.id == active}"  @click="getYearId(year)"> <a  class=" custom text-center"> {{ year.name }}</a>   </td> </tr>
-                 
-                 
-                
-            
-         
-
-
-         </tbody>
-     </table>
-     
-
+  <div class="container-fluid" style="padding-left: 60px">
+    <div class="p-2">
+      <h2>Gestion des Emplois du temps d'Examens</h2>
     </div>
-      <div id="view" class="col-md-8 shadow p-1 m-4">
-          <div class="container-fluid text-center overflow-auto " style="height: 600px  ">
-                  <p v-if="!child" style="margin-top:150px">Selectionner une année pour voir ses emplois du temps</p>
-          <button v-if="user.role == 0 && child" type="button" style="float:left" title="Envoyer email " class="btn btn-secondary btn-sm m-1 " @click="sendMail()"><i class="far fa-envelope"></i></button>
-
-
-              <table v-if="child"  class="table bg-white">
-            <thead class="">
+    <div class="row">
+      <div class="col-md-3 p-2 shadow text-center">
+        <table class="table table-bordered table-hover text-center">
+          <thead>
             <tr>
-                <th scope="col" class="text-primary">Nom</th>
-               
-               
-               
-                <th scope="col" class="text-primary">Actions</th>
+              <th class="bg-primary text-white font-weight-bold">Années</th>
             </tr>
+          </thead>
+          <tbody id="groups">
+            <tr v-for="year in years" :key="year.id">
+              <td
+                class="year"
+                :class="{ active: year.id == active }"
+                @click="getYearId(year)"
+              >
+                <a class="custom text-center"> {{ year.name }}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="view" class="col-md-8 shadow p-1 m-4">
+        <div
+          class="container-fluid text-center overflow-auto"
+          style="height: 600px"
+        >
+          <p v-if="!child" style="margin-top: 150px">
+            Selectionner une année pour voir ses emplois du temps
+          </p>
+          <button
+            v-if="user.role == 0 && child"
+            type="button"
+            style="float: left"
+            title="Envoyer email "
+            class="btn btn-secondary btn-sm m-1"
+            @click="sendMail()"
+          >
+            <i class="far fa-envelope"></i>
+          </button>
+
+          <table v-if="child" class="table bg-white">
+            <thead class="">
+              <tr>
+                <th scope="col" class="text-primary">Nom</th>
+
+                <th scope="col" class="text-primary">Actions</th>
+              </tr>
             </thead>
 
             <tbody>
-              
-          
+              <tr v-for="exam in exams" :key="exam.id">
+                <td>{{ exam.name }}</td>
+                <button
+                  type="button"
+                  title="Consulter "
+                  class="btn btn-primary btn-sm m-1"
+                  @click="viewExam(exam)"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
 
-            
-             <tr v-for="exam in exams" :key="exam.id">
-               <td>  {{exam.name }}</td>
-               <button type="button" title="Consulter " class="btn btn-primary btn-sm m-1" @click="viewExam(exam)"><i class="fas fa-eye"></i></button>
-                
-               <button v-if="user.role == 0" type="button" title="Supprimer " class="btn btn-danger btn-sm m-1" @click="deleteExam(exam)" ><i class="fa fa-fw fa-trash"></i></button>
-                     
-
-
-             </tr>
-
-
-        
-
-
+                <button
+                  v-if="user.role == 0"
+                  type="button"
+                  title="Supprimer "
+                  class="btn btn-danger btn-sm m-1"
+                  @click="deleteExam(exam)"
+                >
+                  <i class="fa fa-fw fa-trash"></i>
+                </button>
+              </tr>
             </tbody>
-        </table>
+          </table>
+        </div>
+      </div>
+    </div>
 
-
-             
-            
+    <div class="modal" id="delete">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <!-- Modal body -->
+          <div class="modal-body text-center text-danger">
+            {{ error }}
           </div>
+        </div>
       </div>
-  </div>
-
-
-
- <div class="modal" id="delete">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-
-      
-
-      <!-- Modal body -->
-      <div class="modal-body text-center text-danger">
-        {{ error }}
-      </div>
-
-     
-
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="myModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-
-      
-      <div class="modal-body text-center " style="height:80px; margin-top:20px">
-         <div v-if="!result" class="spinner-border m-1 text-primary spinner-border-lg"></div>
-
-        <p v-if="success" class="text-success">{{ success }}</p>
-          <p v-if="error" class="text-danger">{{ error }}</p> 
-      </div>
-
-     
-     
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
     </div>
 
+    <div class="modal" id="myModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div
+            class="modal-body text-center"
+            style="height: 80px; margin-top: 20px"
+          >
+            <div
+              v-if="!result"
+              class="spinner-border m-1 text-primary spinner-border-lg"
+            ></div>
 
+            <p v-if="success" class="text-success">{{ success }}</p>
+            <p v-if="error" class="text-danger">{{ error }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
-import {mapGetters} from 'vuex'
-import Swal from 'sweetalert2'
-import $ from 'jquery'
+import axios from "axios";
+import { mapGetters } from "vuex";
+import Swal from "sweetalert2";
+import $ from "jquery";
 
+export default {
+  computed: mapGetters({
+    token: "auth/token",
+    user: "auth/user",
+  }),
 
+  data() {
+    return {
+      yearId: "",
+      years: [],
+      active: undefined,
+      child: false,
 
+      exams: [],
+      error: "",
+      success: "",
+      result: false,
+    };
+  },
 
-export default{
+  methods: {
+    deleteExam(exam) {
+      const API_URL = "http://127.0.0.1:4000/";
 
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token,
+      };
+      Swal.fire({
+        title: "Vous etes sur?",
+        text: "Vous ne pourrez pas revenir en arrière !",
+        type: "Alerte",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Annuler",
+        confirmButtonText: "Oui, supprimer!",
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .post(
+              API_URL + "admin/deleteplanningexam",
+              { id: exam.id },
+              { headers: headers }
+            )
+            .then((res) => {
+              this.error = "";
+              this.success = "Enseignant Supprimé";
 
+              this.getExams();
+            })
+            .catch((err) => {
+              this.success = "";
+              this.error = err.response.data.error;
+              $("#delete").modal("show");
 
- computed: mapGetters({
-    
-         token: 'auth/token',
-         user:'auth/user'
-     
-
-        }),
-
-        data(){
-
-        return{
-            yearId:'',
-            years:[],
-            active:undefined,
-            child:false,
-         
-            exams:[],
-            error:'',
-            success:'',
-            result:false
-           
-            
-          
-        
-           
-        };
-    },
-
-    methods: {
-
-      deleteExam(exam){
-           const API_URL = 'http://127.0.0.1:4000/';
-      
-        
-         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-          Swal.fire({
-            title: 'Vous etes sur?',
-            text: "Vous ne pourrez pas revenir en arrière !",
-            type: 'Alerte',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'Annuler',
-            confirmButtonText: 'Oui, supprimer!'
-        }).then((result) => {
-            if (result.value) {
-
-                  axios.post(API_URL + 'admin/deleteplanningexam', { id:exam.id
-
-             } ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-          this.error = ''
-          this.success = "Enseignant Supprimé";
-          
-        this.getExams();
-      
-        
-        
-
-    }).catch((err)=>{
-        this.success =""
-        this.error = err.response.data.error
-        $("#delete").modal('show')
-      
-        setTimeout(function(){
-      $("#delete").modal('hide')
-      
-      
-   }, 1 * 4000);
-     // console.log(err.response.data)
-        
-     
-      
-    });
-
-               
-
-            }
-        })
-        
-
-      },
-
-
-        getExams(){
-
-             const API_URL = 'http://127.0.0.1:4000/';
-      
-        
-         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-
-          if( this.user.role == 0)
-          {
-
-            axios.post(API_URL + 'admin/getexamsplannings', { year:this.yearId } ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-        console.log(res.data)
-      this.exams = res.data;
-      
-        
-
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-
-          }
-
-     else{
-
-     
-
-axios.post(API_URL + 'prof/getexamsplannings', { year:this.yearId } ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-        console.log(res.data)
-      this.exams = res.data;
-      
-        
-
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-
-}
-
-        },
-
-
-
-
-
-         getyears(){
-
-            const API_URL = 'http://127.0.0.1:4000/';
-      
-        
-         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-
-          if(this.user.role == 0 )
-          {
-
-            axios.post(API_URL + 'admin/getyears', { } ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-      this.years = res.data;
-      
-        
-
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-     
-
-
-          }
-
-          else{
-
-
-          
-
-axios.post(API_URL + 'prof/getyears', { } ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-      this.years = res.data;
-      
-        
-
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-
-    }
-     
-
-        },
-
-
-        getYearId(year){
-            this.yearId = year.id
-             this.active = year.id
-            this.child = true
-         
-            this.getExams();
-
-
-        },
-
-     
-        viewExam(exam){
-            const API_URL = 'http://127.0.0.1:4000/';
-      
-        
-         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-
-          if(this.user.role == 0 ){
-
-            axios.post(API_URL + 'admin/getexamplanning', { id:exam.id } ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-     
-             this.$store.dispatch("auth/savePlanning", {
-        planning: res.data
+              setTimeout(function () {
+                $("#delete").modal("hide");
+              }, 1 * 4000);
+              // console.log(err.response.data)
+            });
+        }
       });
-     this.$router.push("/dashboard/exam_view");
+    },
 
+    getExams() {
+      const API_URL = "http://127.0.0.1:4000/";
 
-      
-        
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token,
+      };
 
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-     
+      if (this.user.role == 0) {
+        axios
+          .post(
+            API_URL + "admin/getexamsplannings",
+            { year: this.yearId },
+            { headers: headers }
+          )
+          .then((res) => {
+            console.log(res.data);
+            this.exams = res.data;
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      } else {
+        axios
+          .post(
+            API_URL + "prof/getexamsplannings",
+            { year: this.yearId },
+            { headers: headers }
+          )
+          .then((res) => {
+            console.log(res.data);
+            this.exams = res.data;
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
+    },
 
+    getyears() {
+      const API_URL = "http://127.0.0.1:4000/";
 
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token,
+      };
 
-          }
+      if (this.user.role == 0) {
+        axios
+          .post(API_URL + "admin/getyears", {}, { headers: headers })
+          .then((res) => {
+            this.years = res.data;
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      } else {
+        axios
+          .post(API_URL + "prof/getyears", {}, { headers: headers })
+          .then((res) => {
+            this.years = res.data;
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
+    },
 
-          else {
+    getYearId(year) {
+      this.yearId = year.id;
+      this.active = year.id;
+      this.child = true;
 
+      this.getExams();
+    },
 
-          
+    viewExam(exam) {
+      const API_URL = "http://127.0.0.1:4000/";
 
-axios.post(API_URL + 'prof/getexamplanning', { id:exam.id } ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-     
-             this.$store.dispatch("auth/savePlanning", {
-        planning: res.data
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token,
+      };
+
+      if (this.user.role == 0) {
+        axios
+          .post(
+            API_URL + "admin/getexamplanning",
+            { id: exam.id },
+            { headers: headers }
+          )
+          .then((res) => {
+            this.$store.dispatch("auth/savePlanning", {
+              planning: res.data,
+            });
+            this.$router.push("/dashboard/exam_view");
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      } else {
+        axios
+          .post(
+            API_URL + "prof/getexamplanning",
+            { id: exam.id },
+            { headers: headers }
+          )
+          .then((res) => {
+            this.$store.dispatch("auth/savePlanning", {
+              planning: res.data,
+            });
+            this.$router.push("/dashboard/exam_view");
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
+    },
+    sendMail() {
+      const API_URL = "http://127.0.0.1:4000/";
+
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token,
+      };
+      Swal.fire({
+        title: "Vous etes sur?",
+        text: "Nous allons envoyer un email  !",
+        type: "Alerte",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Annuler",
+        confirmButtonText: "Oui, Envoyer!",
+      }).then((result) => {
+        if (result.value) {
+          $("#myModal").modal("show");
+
+          axios
+            .post(
+              API_URL + "admin/mailexams",
+              { year: this.yearId },
+              { headers: headers }
+            )
+            .then((res) => {
+              this.result = true;
+              this.success = "Email envoyé avec succès";
+
+              var that = this;
+              setTimeout(function () {
+                $("#myModal").modal("hide");
+                that.success = "";
+                that.error = "";
+                that.result = false;
+              }, 1 * 2000);
+            })
+            .catch((err) => {
+              this.error = "Echec";
+              this.result = true;
+              //  $("#myModal").modal('show')
+              var that = this;
+              setTimeout(function () {
+                $("#myModal").modal("hide");
+                that.success = "";
+                that.error = "";
+                that.result = false;
+              }, 1 * 2000);
+            });
+        }
       });
-     this.$router.push("/dashboard/exam_view");
-
-
-      
-        
-
-    }).catch((err)=>{
-        console.log(err.message);
-     
-      
-    });
-     
-     }
-
-
-
-
-
-        },
-          sendMail(){
-           const API_URL = 'http://127.0.0.1:4000/';
-      
-        
-         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+this.token
-          }
-            Swal.fire({
-            title: 'Vous etes sur?',
-            text: "Nous allons envoyer un email  !",
-            type: 'Alerte',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'Annuler',
-            confirmButtonText: 'Oui, Envoyer!'
-        }).then((result) => {
-            if (result.value) {
-               $("#myModal").modal('show')
-
-axios.post(API_URL + 'admin/mailexams', { year:this.yearId } ,{ headers : headers}
-        
-      
-    ).then((res)=>{
-
-        this.result = true
-      this.success = 'Email envoyé avec succès'
-
-      
-      var that = this
-        setTimeout(function(){
-      $("#myModal").modal('hide')
-      that.success='';
-      that.error='';
-      that.result = false
-     
-      
-   }, 1 * 2000);
-     
-     
-            
-
-    }).catch((err)=>{
-       this.error = 'Echec'
-       this.result = true
-     //  $("#myModal").modal('show')
-      var that = this
-        setTimeout(function(){
-      $("#myModal").modal('hide')
-      that.success='';
-      that.error=''
-      that.result = false
-     
-      
-   }, 1 * 2000);
-     
-      
-    });
-
-    }
-        })
-
-    
-     
-
-
-
-
-
-        },
-
-
-
-
-         
-
-        
-
-
-
-
-
-
     },
-     created() {
-      this.getyears();
-      
-    },
-
-
-
-
-}
-
-
-
+  },
+  created() {
+    this.getyears();
+  },
+};
 </script>
