@@ -24,36 +24,35 @@
         </tr>
       </thead>
       <tbody id="sub_entities_table">
-        <!--    <tr v-for="(responsable,i) in responsables" :key="i">
+           <tr v-for="(occupation,i) in occupations" :key="i">
                     
-                    <td>  {{responsable.user.firstname }} {{ responsable.user.lastname }}</td>
+                    <td v-if="occupation.day == 1"> Dimanche </td>
+                    <td v-else-if="occupation.day == 2"> Lundi </td>
+                    <td v-else-if="occupation.day == 3"> Mardi </td>
+                    <td v-else-if="occupation.day == 4"> Mercredi </td>
+                    <td v-else-if="occupation.day == 5"> Jeudi </td>
+
+                     <td v-if="occupation.type == 0"> Cours </td>
+                    <td v-else-if="occupation.type == 1"> TD </td>
+                    <td v-else-if="occupation.type == 2"> TP </td>
+                    <td v-else-if="occupation.type == -1"> Autre </td>
                    
-                    <td> {{ responsable.user.type}} </td>
+
+
+                    <td v-if="occupation.startMin == 0"> {{ occupation.startH }}h </td> 
+                    <td v-else>{{ occupation.startH }}h{{ occupation.startMin }}min</td>
+                    <td v-if="occupation.endMin == 0"> {{ occupation.endH }}h </td> 
+                    <td v-else>{{ occupation.endH }}h{{ occupation.endMin }}min</td>
                    
+                    
                     <td>
                        
-                        <button type="button" title="Supprimer responsable" class="btn btn-danger btn-sm" @click=" deleteoccup(occup)"><i class="fa fa-fw fa-trash"></i></button>
+                        <button type="button" title="Supprimer responsable" class="btn btn-danger btn-sm" @click=" deleteoccup(occupation)"><i class="fa fa-fw fa-trash"></i></button>
                     
                     </td>
-                </tr> -->
+                </tr> 
 
-        <tr>
-          <td>Dimanche</td>
-
-          <td>10h</td>
-          <td>12h</td>
-
-          <td>
-            <button
-              type="button"
-              title="Supprimer occupation"
-              class="btn btn-danger btn-sm"
-              @click="deleteoccup(occup)"
-            >
-              <i class="fa fa-fw fa-trash"></i>
-            </button>
-          </td>
-        </tr>
+       
       </tbody>
     </table>
 
@@ -93,6 +92,24 @@
                   <option value="5">Jeudi</option>
                 </select>
               </div>
+
+               <div class="form-group">
+                <label for="select">Selectioner type </label>
+                <select
+                  v-model="occup.type"
+                  class="custom-select"
+                  name="name"
+                  id="select"
+                >
+                  <option value="0">Cours</option>
+                  <option value="1">TD</option>
+                  <option value="2">TP</option>
+                   <option value="-1">Autre</option>
+                </select>
+              </div>
+
+
+
               <div class="form-group row">
                 <div class="col-md-6">
                   <label for="group_name">Debut Heure</label>
@@ -205,6 +222,22 @@
                   <option value="5">Jeudi</option>
                 </select>
               </div>
+
+               <div class="form-group">
+                <label for="select">Selectioner Nom </label>
+                <select
+                  v-model="occupE.type"
+                  class="custom-select"
+                  name="name"
+                  id="select"
+                >
+                  <option value="Cours">Cours</option>
+                  <option value="TD">TD</option>
+                  <option value="TP">TP</option>
+                </select>
+              </div>
+
+
               <div class="form-group row">
                 <div class="col-md-6">
                   <label for="group_name">Debut Heure</label>
@@ -320,6 +353,7 @@ export default {
     return {
       Enseignants: [],
       responsables: [],
+      occupations:[],
       profId: "",
       profE: "",
       success: "",
@@ -340,20 +374,30 @@ export default {
 
       axios
         .post(
-          API_URL + "admin/addresponsable",
+          API_URL + "admin/addocc",
           {
-            type: this.cour.type,
-            userId: this.profId,
-            targetId: this.cour.id,
+            id: this.user.id,
+            day: this.occup.jour,
+            type:this.occup.type,
+            startH: this.occup.StartH,
+            startMin:this.occup.StartMin,
+            endH: this.occup.EndH,
+            endMin:this.occup.EndMin
           },
           { headers: headers }
         )
         .then((res) => {
-          this.success = "Responsable Ajouté";
-          this.getresponsables();
+          this.success = "Occupation Ajouté";
+          this.getOccupations();
+
+          var that = this
 
           setTimeout(function () {
+            that.success =""
             $("#add_resp").modal("hide");
+            for (var key in that.occup ) {
+  that.occup[key] = null;
+       }
           }, 1 * 1000);
         })
         .catch((err) => {});
@@ -399,13 +443,13 @@ export default {
 
       axios
         .post(
-          API_URL + "admin/getproflist",
-          { type: this.cour.type, targetId: this.cour.id },
+          API_URL + "admin/getocc",
+          { id: this.user.id },
           { headers: headers }
         )
         .then((res) => {
           console.log("ProfList: " + res.data);
-          this.Enseignants = res.data;
+          this.occupations = res.data;
         })
         .catch((err) => {
           console.log(err.message);
@@ -430,20 +474,20 @@ export default {
         confirmButtonText: "Oui, supprimer!",
       }).then((result) => {
         if (result.value) {
-          console.log(resp);
+         
 
           axios
             .post(
-              API_URL + "admin/deleteresponsable",
-              { id: occup.id, type: this.cour.type },
+              API_URL + "admin/deleteocc",
+              { id: occup.id },
               { headers: headers }
             )
             .then((res) => {
               this.error = "";
-              this.success = "Enseignant Supprimé";
+           
 
-              this.getresponsables();
-              console.log("im heeeeeeeeeeere");
+              this.getOccupations();
+             
             })
             .catch((err) => {
               this.success = "";
@@ -451,7 +495,10 @@ export default {
               this.error = err.response.data.error;
               $("#delete").modal("show");
 
+             
+
               setTimeout(function () {
+               
                 $("#delete").modal("hide");
               }, 1 * 4000);
               // console.log(err.response.data)
@@ -465,6 +512,8 @@ export default {
     },
   },
 
-  created() {},
+  created() {
+    this.getOccupations()
+  },
 };
 </script>

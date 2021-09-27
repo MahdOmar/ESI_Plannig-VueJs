@@ -384,7 +384,7 @@ export default{
       
     ).then((res)=>{
           this.error = ''
-          this.success = "Enseignant Supprimé";
+        
           
         this.getmodules();
         

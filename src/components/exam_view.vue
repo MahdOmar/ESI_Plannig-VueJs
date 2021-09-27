@@ -51,8 +51,8 @@ export default {
         ) {
           this.content =
             this.content +
-            '<tr > <td  rowspan="2">' +
-            this.planning.positionsexams[i].date +
+            '<tr > <td  rowspan="2">' + this.planning.positionsexams[i].day +' '+
+            this.planning.positionsexams[i].date + 
             "</td>" +
             "<td >" +
             this.planning.positionsexams[i].module.name +
@@ -126,7 +126,7 @@ export default {
           if (this.planning.positionsexams[i].endMin > 0) {
             this.content =
               this.content +
-              " <tr><td>" +
+              " <tr><td>" +this.planning.positionsexams[i].day +' '+
               this.planning.positionsexams[i].date +
               "</td>" +
               "<td >" +
@@ -146,8 +146,8 @@ export default {
           } else {
             this.content =
               this.content +
-              " <tr><td>" +
-              this.planning.positionsexams[i].date +
+              " <tr><td>" +this.planning.positionsexams[i].day +' '+
+              this.planning.positionsexams[i].date + 
               "</td>" +
               "<td >" +
               this.planning.positionsexams[i].module.name +
@@ -172,13 +172,7 @@ export default {
     console.log(this.planning.positionsexams);
 
     this.addCour();
-    /* this.day1 = this.days[1]
-      this.day2 = this.days[2]
-      this.day3 = this.days[3]
-      this.day4 = this.days[4]
-      this.day5 = this.days[5]
-      console.log(this.days)
-    */
+  
   },
 };
 </script>
