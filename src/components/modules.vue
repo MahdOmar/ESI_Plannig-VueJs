@@ -373,7 +373,7 @@ export default{
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             cancelButtonText: 'Annuler',
-            confirmButtonText: 'Oui, supprimer!'
+            confirmButtonText: 'Oui, Supprimer!'
         }).then((result) => {
             if (result.value) {
 

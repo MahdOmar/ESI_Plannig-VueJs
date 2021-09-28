@@ -1,10 +1,10 @@
 export default function guest({next, store}){
 
 
-    console.log('runniiiiiiiiiiiiiiing')
-    if (store.getters['auth/token']) return next('dashboard/users')
+    
+    if (store.getters['auth/token']) return next('dashboard/welcome')
     else {
-        console.log('elseeeeeeeee')
+       
         return next();
     }
 }

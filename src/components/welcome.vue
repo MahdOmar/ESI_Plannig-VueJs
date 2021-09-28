@@ -4,7 +4,7 @@
     <h1 class="m-4">Accueil</h1>
     <div
       v-if="user.role == 0"
-      class="p-3 m-4 bg-white"
+      class="p-3 m-4 bg-white "
       style="background: rgb(255, 255, 255)"
     >
       <p>
@@ -13,10 +13,10 @@
       </p>
 
       <div class="bg-white">
-        <div class="etapes p-4">
+        <div class=" p-4">
           <h3 class="">Etapes de génération</h3>
-          <div class="col align-self-center etapes d-flex">
-            <div>
+          <div class="col align-self-center d-flex">
+            <div class="etapes m-4 p-2">
               <p>Semestrielle</p>
               <ul>
                 <li>
@@ -39,7 +39,7 @@
               </ul>
             </div>
 
-            <div>
+            <div  class="etapes m-4 p-2">
               <p>Examens</p>
               <ul>
                 <li>

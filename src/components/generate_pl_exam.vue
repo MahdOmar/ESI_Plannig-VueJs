@@ -62,7 +62,7 @@
 
         <div class="form-group row">
           <div class="col-md-6">
-            <label for="date"> date debut</label>
+            <label for="date"> Date debut</label>
             <input
               name="date"
               type="date"
@@ -74,7 +74,7 @@
           </div>
 
           <div class="col-md-6">
-            <label for="date">date fin</label>
+            <label for="date">Date fin</label>
             <input
               name="date"
               type="date"

@@ -49,13 +49,13 @@
 
                 <li>
                   <router-link to="/dashboard/all_planning"
-                    ><i class="fas fa-table"></i> Tous les Emplois Semestrielle
+                    ><i class="fas fa-table"></i>  les Emplois Semestrielle
                   </router-link>
                 </li>
 
                 <li>
                   <router-link to="/dashboard/all_exams"
-                    ><i class="fas fa-table"></i> Tous les Emplois d'Examens
+                    ><i class="fas fa-table"></i>  les Emplois d'Examens
                   </router-link>
                 </li>
 

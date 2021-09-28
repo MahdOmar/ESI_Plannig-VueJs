@@ -99,15 +99,7 @@
                   >
                     <i class="fas fa-eye"></i>
                   </button>
-                  <button
-                    v-if="user.role == 0 && user.role == 0"
-                    type="button"
-                    title="Envoyer email "
-                    class="btn btn-secondary btn-sm"
-                    @click="sendMail(planning)"
-                  >
-                    <i class="far fa-envelope"></i>
-                  </button>
+                 
 
                   <button
                     v-if="user.role == 0 && user.role == 0"
@@ -172,9 +164,11 @@
             class="modal-body text-center"
             style="height: 80px; margin-top: 20px"
           >
+          <p v-if="envoi"  style="display:inline-block">{{ envoi }}</p>
             <div
               v-if="!result"
-              class="spinner-border m-1 text-primary spinner-border-lg"
+              class="spinner-border text-primary spinner-border-lg "
+              style="display:inline-block"
             ></div>
 
             <p v-if="success" class="text-success">{{ success }}</p>
@@ -210,6 +204,7 @@ export default {
       plannings: [],
       success: "",
       result: false,
+      envoi:"",
 
       error: "",
     };
@@ -229,14 +224,14 @@ export default {
         Authorization: "Bearer " + this.token,
       };
       Swal.fire({
-        title: "Vous etes sur?",
+        title: "Vous êtes sûr?",
         text: "Vous ne pourrez pas revenir en arrière !",
         type: "Alerte",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         cancelButtonText: "Annuler",
-        confirmButtonText: "Oui, supprimer!",
+        confirmButtonText: "Oui, Supprimer!",
       }).then((result) => {
         if (result.value) {
           axios
@@ -247,7 +242,7 @@ export default {
             )
             .then((res) => {
               this.error = "";
-              this.success = "Enseignant Supprimé";
+            
 
               this.getPlannings();
             })
@@ -391,8 +386,8 @@ export default {
       };
 
       Swal.fire({
-        title: "Vous etes sur?",
-        text: "Nous allons envoyer un email  !",
+        title: "Vous êtes sûr?",
+        text: "Nous allons envoyer un e-mail aux étudiants !",
         type: "Alerte",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -401,6 +396,7 @@ export default {
         confirmButtonText: "Oui, Envoyer!",
       }).then((result) => {
         if (result.value) {
+          this.envoi ="Envoi en cours"
           $("#myModal").modal("show");
 
           axios
@@ -411,6 +407,7 @@ export default {
             )
             .then((res) => {
               this.result = true;
+              this.envoi =""
               this.success = "Email envoyé avec succès";
 
               var that = this;
@@ -423,6 +420,7 @@ export default {
             })
             .catch((err) => {
               this.result = true;
+               this.envoi =""
               this.error = "Echec";
               // $("#myModal").modal('show')
               var that = this;

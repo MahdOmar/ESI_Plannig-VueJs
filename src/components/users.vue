@@ -367,13 +367,16 @@
             class="modal-body text-center"
             style="height: 80px; margin-top: 20px"
           >
+           <p v-if="envoi" style="display:inline-block">{{ envoi }}</p>
             <div
               v-if="!result"
-              class="spinner-border m-1 text-primary spinner-border-lg"
+              class="spinner-border text-primary spinner-border-lg"
+              style="display:inline-block"
             ></div>
 
             <p v-if="success" class="text-success">{{ success }}</p>
             <p v-if="error" class="text-danger">{{ error }}</p>
+           
           </div>
         </div>
       </div>
@@ -406,6 +409,7 @@ export default {
       passSuccess: false,
       passcheck: "",
       result: "",
+      envoi:'',
 
       success: "",
     };
@@ -507,7 +511,7 @@ export default {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         cancelButtonText: "Annuler",
-        confirmButtonText: "Oui, supprimer!",
+        confirmButtonText: "Oui, Supprimer!",
       }).then((result) => {
         if (result.value) {
           axios
@@ -604,8 +608,8 @@ export default {
       };
 
       Swal.fire({
-        title: "Vous etes sur?",
-        text: "Nous allons envoyer un email  !",
+        title: "Vous êtes sûr?",
+        text: "Nous allons envoyer un e-mail aux enseignants !",
         type: "Alerte",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -614,12 +618,16 @@ export default {
         confirmButtonText: "Oui, Envoyer!",
       }).then((result) => {
         if (result.value) {
+
+          this.envoi = "Envoi en cours"
           $("#myModal").modal("show");
+          
 
           axios
             .post(API_URL + "admin/mailprofs", {}, { headers: headers })
             .then((res) => {
               this.result = true;
+              this.envoi =""
               this.success = "Email envoyé avec succès";
 
               var that = this;
@@ -632,6 +640,7 @@ export default {
             })
             .catch((err) => {
               this.result = true;
+              this.envoi =""
 
               this.error = "Echec";
               //$("#myModal").modal('show')

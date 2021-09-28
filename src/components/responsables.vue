@@ -323,14 +323,14 @@ export default {
         Authorization: "Bearer " + this.token,
       };
       Swal.fire({
-        title: "Vous etes sur?",
+        title: "Vous êtes sûr?",
         text: "Vous ne pourrez pas revenir en arrière !",
         type: "Alerte",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         cancelButtonText: "Annuler",
-        confirmButtonText: "Oui, supprimer!",
+        confirmButtonText: "Oui, Supprimer!",
       }).then((result) => {
         if (result.value) {
           console.log(resp);
@@ -343,7 +343,7 @@ export default {
             )
             .then((res) => {
               this.error = "";
-              this.success = "Enseignant Supprimé";
+             
 
               this.getresponsables();
               console.log("im heeeeeeeeeeere");
