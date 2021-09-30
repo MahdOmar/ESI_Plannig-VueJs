@@ -1,7 +1,8 @@
 <template>
   <div class="container-fluid" style="padding-left: 60px">
     <div class="p-2">
-      <h2>Gestion des Emplois du temps Semestrielle</h2>
+      <h2 v-if="user.role == 0">Gestion des Emplois du temps Semestrielle</h2>
+      <h2 v-else>Les Emplois du temps Semestrielle </h2>
     </div>
     <div class="row">
       <div class="col-md-3 p-2 shadow text-center">
